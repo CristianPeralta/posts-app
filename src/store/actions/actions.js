@@ -8,7 +8,6 @@ export const FAILURE = {
   type: ACTION_TYPES.FAILURE
 }
 
-
 export const success = () => {
   return {
     type: ACTION_TYPES.SUCCESS
@@ -28,7 +27,6 @@ export const userInput = (text) => {
   }
 }
 
-
 export const loginSuccess = () => {
   return {
     type: ACTION_TYPES.LOGIN_SUCCESS
@@ -40,7 +38,6 @@ export const loginFailure = () => {
     type: ACTION_TYPES.LOGIN_FAILURE
   }
 }
-
 
 export const addProfile = (profile) => {
   return {
