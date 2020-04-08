@@ -4,7 +4,14 @@ import { TextField } from '@material-ui/core';
 
 class AddPost extends Component {
     handleSubmit(event) {
-        console.log("handle submit");
+        event.prevenDefault();
+        const data = {
+            title: event.target.title.value,
+            body: event.target.body.value,
+            username: this.props.profile[0].name,
+            uid: this.props.profile[0].uid,
+        };
+        console.log("handle submit", data);
     }
     render() {
         return (
