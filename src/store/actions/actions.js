@@ -1,4 +1,4 @@
-import * as ACTION_TYPES from './action-types';
+import * as ACTION_TYPES from './action_types';
 
 export const SUCCESS = {
   type: ACTION_TYPES.SUCCESS
