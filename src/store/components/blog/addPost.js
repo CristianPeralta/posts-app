@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField } from '@material-ui/core';
 import axios from 'axios';
+import history from '../../../utils/history';
 
 class AddPost extends Component {
     handleSubmit(event) {
@@ -15,7 +16,8 @@ class AddPost extends Component {
         console.log("handle submit", data);
         axios.post('/post', data)
             .then(response => console.log(response))
-            .catch(error => console.log(error));
+            .catch(error => console.log(error))
+            .then(setTimeout(() => history.replace('/'), 700));
     }
     render() {
         return (
@@ -37,6 +39,8 @@ class AddPost extends Component {
                     <br />
                     <button type='submit' >Submit</button>
                 </form>
+                    <br />
+                    <button onClick={() => history.replace('/posts')} >Cancel</button>
             </div>
         );
     }
