@@ -15,7 +15,7 @@ class AddPost extends Component {
         console.log("handle submit", data);
         axios.post('/post', data)
             .then(response => console.log(response))
-            .catch(error => console.log(error))
+            .catch(error => console.log(error));
     }
     render() {
         return (
