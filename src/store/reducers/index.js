@@ -6,9 +6,9 @@ import { combineReducers } from 'redux';
 
 
 const rootReducer = combineReducers({
-  authReducer: AuthReducer,
-  userReducer: UserReducer,
-  postReducer: PostReducer,
+  auth: AuthReducer,
+  user: UserReducer,
+  post: PostReducer,
 });
 
 export default rootReducer;

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { TextField } from '@material-ui/core';
 
 class AddPost extends Component {
-    handleSubmit() {
+    handleSubmit(event) {
         console.log("handle submit");
     }
     render() {
@@ -29,5 +29,11 @@ class AddPost extends Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        profile: state.auth.profile,
+    };
+};
 
 export default AddPost;
