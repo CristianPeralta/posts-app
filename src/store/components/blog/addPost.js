@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { TextField } from '@material-ui/core';
 
 class AddPost extends Component {
@@ -36,4 +37,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default AddPost;
+export default connect(mapStateToProps)(AddPost);
