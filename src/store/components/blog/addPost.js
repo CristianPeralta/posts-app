@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField } from '@material-ui/core';
+import axios from 'axios';
 
 class AddPost extends Component {
     handleSubmit(event) {
@@ -12,6 +13,9 @@ class AddPost extends Component {
             uid: this.props.profile[0].uid,
         };
         console.log("handle submit", data);
+        axios.post('/post', data)
+            .then(response => console.log(response))
+            .catch(error => console.log(error))
     }
     render() {
         return (
