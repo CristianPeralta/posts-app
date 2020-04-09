@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 
 const RenderComments = (comment, userId) => (
     <div>
@@ -16,6 +16,9 @@ const RenderComments = (comment, userId) => (
 );
 
 class ShowPost extends Component {
+    handleSubmit() {
+        console.log('handle submit');
+    }
     render() {
         return (
             <div>
@@ -35,6 +38,17 @@ class ShowPost extends Component {
                             userId={this.props.profile.uid} />
                         )) : null
                     }
+                </div>
+                <div>
+                    <form onClick={this.handleSubmit} >
+                        <TextField
+                            id='comment'
+                            label='Comment'
+                            margin='normal'
+                        />
+                        <br />
+                        <Button type='submit'>Submit</Button>
+                    </form>
                 </div>
             </div>
         );
