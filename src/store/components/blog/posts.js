@@ -40,7 +40,9 @@ class Posts extends Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            BODY
+                            {this.props.posts.map(
+                                post => <RenderPosts key={post.pid} post={post} />
+                            )}
                         </TableBody>
                     </Table>
                 </Paper>
