@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as ACTIONS from '../../actions/actions';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import {
     Button,
     TextField,
@@ -33,6 +34,12 @@ class ShowPost extends Component {
             comment: '',
             cid: ''
         }
+    }
+
+    componentDidMount() {
+        axios.get('/posts/comments', { params: { pid: this.props.post.pid }})
+            .then(resp => this.setComments(resp.data))
+            .catch(err => console.log(err))
     }
 
     handleSubmit() {
