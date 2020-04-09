@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import * as ACTIONS from '../../actions/actions';
-import history from '../../../utils/history';
+import * as ACTIONS from '../../store/actions/actions';
+import history from '../../utils/history';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import {

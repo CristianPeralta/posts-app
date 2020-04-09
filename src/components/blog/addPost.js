@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField } from '@material-ui/core';
 import axios from 'axios';
-import history from '../../../utils/history';
+import history from '../../utils/history';
 
 class AddPost extends Component {
     handleSubmit(event) {
