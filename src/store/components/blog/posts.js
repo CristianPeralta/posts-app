@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
     Table,
     TableBody,
@@ -8,6 +9,21 @@ import {
     TableRow,
     Paper
 } from '@material-ui/core';
+
+const RenderPosts = post => (
+    <TableRow>
+        <TableCell>
+            <Link to={{
+                pathname: '/post/' + post.post.pid,
+                state: {post}
+            }} >
+                <h4>
+                    {post.post.title}
+                </h4>
+            </Link>
+        </TableCell>
+    </TableRow>
+);
 
 class Posts extends Component {
     render() {
