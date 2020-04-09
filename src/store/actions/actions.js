@@ -51,3 +51,16 @@ export const removeProfile = () => {
     type: ACTION_TYPES.REMOVE_PROFILE
   }
 }
+
+export const fetchPosts = posts => {
+  return {
+    type: ACTION_TYPES.FETCH_DB_POSTS,
+    payload: posts
+  }
+}
+
+export const removePosts = () => {
+  return {
+    type: ACTION_TYPES.REMOVE_DB_POSTS
+  }
+}

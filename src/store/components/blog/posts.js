@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import * as ACTIONS from '../../actions/actions';
 import {
     Table,
@@ -27,6 +28,11 @@ const RenderPosts = post => (
 );
 
 class Posts extends Component {
+    componentDidMount() {
+        axios.get('/posts')
+            .then(res => this.props.fetchPosts(res.data))
+            .catch(error => console.log(error));
+    }
     render() {
         return (
             <div>
@@ -60,7 +66,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setPosts: posts => dispatch(ACTIONS.someFunction),
+        setPosts: posts => dispatch(ACTIONS.fetchPosts(posts)),
     };
 }
 
