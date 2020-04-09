@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as ACTIONS from '../../actions/actions';
+import history from '../../../utils/history';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import {
@@ -42,6 +43,16 @@ class ShowPost extends Component {
             .catch(err => console.log(err))
     }
 
+    handleClickOpen(cid, comment) {
+        this.setState({ open: true, comment: comment, cid: cid });
+    }
+    handleClose() {
+        this.setState({ open: false, comment: '', cid: '' });
+    }
+    handleCommentChange(event) {
+        this.setState({ comment: event.target.value });
+    }
+
     handleSubmit(event) {
         event.preventDefault();
         const data = {
@@ -53,13 +64,8 @@ class ShowPost extends Component {
 
         axios.post('posts/comment', data)
             .then(res => console.log(res))
-            .catch(err => console.log(err));
-    }
-    handleClickOpen(cid, comment) {
-        this.setState({ open: true, comment: comment, cid: cid });
-    }
-    handleClose() {
-        this.setState({ open: false, comment: '', cid: '' });
+            .catch(err => console.log(err))
+            .then(setTimeout(() => history.replace('/posts'), 700));
     }
     handleUpdate(event) {
         event.preventDefault();
@@ -73,16 +79,15 @@ class ShowPost extends Component {
 
         axios.put('posts/comment', data)
             .then(res => console.log(res))
-            .catch(err => console.log(err));
-    }
-    handleCommentChange(event) {
-        this.setState({ comment: event.target.value });
+            .catch(err => console.log(err))
+            .then(setTimeout(() => history.replace('/posts'), 700));
     }
     handleDeleteComment() {
         const cid = this.state.cid;
         axios.delete('/posts/comments', { data: { cid: cid }})
             .then(res => console.log(res))
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
+            .then(setTimeout(() => history.replace('/posts'), 700));
     }
     render() {
         return (
