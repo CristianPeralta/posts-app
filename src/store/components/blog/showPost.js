@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { Button, TextField } from '@material-ui/core';
+import {
+    Button,
+    TextField,
+    Dialog,
+    DialogContent,
+    DialogContentText,
+    DialogTitle
+} from '@material-ui/core';
 
 const RenderComments = (comment, userId) => (
     <div>
@@ -27,6 +34,9 @@ class ShowPost extends Component {
 
     handleSubmit() {
         console.log('handle submit');
+    }
+    handleClose() {
+        console.log('handle close');
     }
     render() {
         return (
@@ -58,6 +68,26 @@ class ShowPost extends Component {
                         <br />
                         <Button type='submit'>Submit</Button>
                     </form>
+                </div>
+                <div>
+                    <Dialog
+                        open={this.state.open}
+                        onClose={this.handleClose}
+                        aria-labelledby='alert-dialog-title'
+                        aria-describedby='alert-dialog-description'
+                    />
+                    <DialogTitle id='alert-dialog-title'>Edit Comment</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id='alert-dialog-description'>
+                            <input type='text' value={this.state.comment} onChange={this.handleCommentChange} />
+                        </DialogContentText>
+                        <Button onClick={() => {
+                            this.handleUpdate();
+                            this.setState({ open: false });
+                        }} >
+                            Agree
+                        </Button>
+                    </DialogContent>
                 </div>
             </div>
         );
