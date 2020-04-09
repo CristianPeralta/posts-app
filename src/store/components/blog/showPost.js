@@ -19,7 +19,7 @@ const RenderComments = (comment, userId) => (
         <p>By: {comment.author} </p>
         {
             comment.user_id === userId
-            ?   <Button onClick={() => console.log('EDIT')} >
+            ?   <Button onClick={() => this.handleClickOpen(comment.cid, comment.comment)} >
                 Edit
             </Button> : null
         }
@@ -44,6 +44,9 @@ class ShowPost extends Component {
 
     handleSubmit() {
         console.log('handle submit');
+    }
+    handleClickOpen(cid, comment) {
+        this.setState({ open: true, comment: comment, cid: cid });
     }
     handleClose() {
         console.log('handle close');
