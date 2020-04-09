@@ -16,6 +16,15 @@ const RenderComments = (comment, userId) => (
 );
 
 class ShowPost extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: false,
+            comment: '',
+            cid: ''
+        }
+    }
+
     handleSubmit() {
         console.log('handle submit');
     }
