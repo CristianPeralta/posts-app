@@ -62,13 +62,27 @@ class ShowPost extends Component {
         this.setState({ open: false, comment: '', cid: '' });
     }
     handleUpdate(event) {
-        
+        event.preventDefault();
+        const data = {
+            comment: event.target.comment.value,
+            cid: this.state.cid,
+            postId: this.props.post.pid,
+            userId: this.props.profile.uid,
+            username: this.props.profile.username,
+        };
+
+        axios.put('posts/comment', data)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
     }
     handleCommentChange(event) {
         this.setState({ comment: event.target.value });
     }
     handleDeleteComment() {
-        console.log('handle delete comment');
+        const cid = this.state.cid;
+        axios.delete('/posts/comments', { data: { cid: cid }})
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
     }
     render() {
         return (
