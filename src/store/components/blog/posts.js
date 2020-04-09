@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import * as ACTIONS from '../../actions/actions';
 import {
     Table,
     TableBody,
@@ -51,4 +52,16 @@ class Posts extends Component {
     }
 }
 
-export default connect()(Posts);
+const mapStateToProps = state => {
+    return {
+        posts: state.posts.posts,
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setPosts: posts => dispatch(ACTIONS.someFunction),
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Posts);
