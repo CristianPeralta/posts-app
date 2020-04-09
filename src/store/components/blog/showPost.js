@@ -27,7 +27,14 @@ class ShowPost extends Component {
                 </div>
                 <div>
                     <h2>Comments</h2>
-                    {this.props.comments}
+                    {this.props.comments
+                    ? this.props.comments.map(comment => (
+                        <RenderComments
+                            key={comment.cid}
+                            comment={comment}
+                            userId={this.props.profile.uid} />
+                        )) : null
+                    }
                 </div>
             </div>
         );
