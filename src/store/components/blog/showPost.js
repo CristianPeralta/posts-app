@@ -42,20 +42,30 @@ class ShowPost extends Component {
             .catch(err => console.log(err))
     }
 
-    handleSubmit() {
-        console.log('handle submit');
+    handleSubmit(event) {
+        event.preventDefault();
+        const data = {
+            comment: event.target.comment.value,
+            postId: this.props.post.pid,
+            userId: this.props.profile.uid,
+            username: this.props.profile.username,
+        };
+
+        axios.post('posts/comment', data)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
     }
     handleClickOpen(cid, comment) {
         this.setState({ open: true, comment: comment, cid: cid });
     }
     handleClose() {
-        console.log('handle close');
+        this.setState({ open: false, comment: '', cid: '' });
     }
-    handleUpdate() {
-        console.log('handle update');
+    handleUpdate(event) {
+        
     }
-    handleCommentChange() {
-        console.log('handle comment change');
+    handleCommentChange(event) {
+        this.setState({ comment: event.target.value });
     }
     handleDeleteComment() {
         console.log('handle delete comment');
