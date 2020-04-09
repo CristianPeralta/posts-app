@@ -3,6 +3,7 @@ import {
     Button,
     TextField,
     Dialog,
+    DialogActions,
     DialogContent,
     DialogContentText,
     DialogTitle
@@ -37,6 +38,15 @@ class ShowPost extends Component {
     }
     handleClose() {
         console.log('handle close');
+    }
+    handleUpdate() {
+        console.log('handle update');
+    }
+    handleCommentChange() {
+        console.log('handle comment change');
+    }
+    handleDeleteComment() {
+        console.log('handle delete comment');
     }
     render() {
         return (
@@ -81,12 +91,20 @@ class ShowPost extends Component {
                         <DialogContentText id='alert-dialog-description'>
                             <input type='text' value={this.state.comment} onChange={this.handleCommentChange} />
                         </DialogContentText>
-                        <Button onClick={() => {
-                            this.handleUpdate();
-                            this.setState({ open: false });
-                        }} >
-                            Agree
-                        </Button>
+                        <DialogActions>
+                            <Button onClick={() => {
+                                this.handleUpdate();
+                                this.setState({ open: false });
+                            }} >
+                                Agree
+                            </Button>
+                            <Button onClick={() => this.handleClose() } >
+                                Cancel
+                            </Button>
+                            <Button onClick={() => this.handleDeleteComment()} >
+                                Delete
+                            </Button>
+                        </DialogActions>
                     </DialogContent>
                 </div>
             </div>
