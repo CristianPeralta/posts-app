@@ -9,7 +9,8 @@ import {
     TableCell,
     TableHead,
     TableRow,
-    Paper
+    Paper,
+    Button
 } from '@material-ui/core';
 
 const RenderPosts = post => (
@@ -36,6 +37,12 @@ class Posts extends Component {
     render() {
         return (
             <div>
+                <br />
+                <Link to='/newpost' >
+                    <Button color='primary'>
+                        Add Post
+                    </Button>
+                </Link>
                 <h1>Posts</h1>
                 <Paper>
                     <Table>
