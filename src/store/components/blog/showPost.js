@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import * as ACTIONS from '../../actions/actions';
+import { connect } from 'react-redux';
 import {
     Button,
     TextField,
@@ -112,4 +114,17 @@ class ShowPost extends Component {
     }
 }
 
-export default ShowPost;
+const mapStateToProps = state => {
+    return {
+        comments: state.posts.comments,
+        profile: state.auth.profile
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setComments: comments => dispatch(ACTIONS.fetchPostComments(comments))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShowPost);
