@@ -2,7 +2,8 @@ import * as ACTION_TYPES from '../actions/action_types';
 
 const initialState = {
   posts: [],
-  comments: []
+  comments: [],
+  userPosts: [],
 }
 
 const PostReducer = (state = initialState, action) => {
@@ -26,6 +27,16 @@ const PostReducer = (state = initialState, action) => {
         return {
           ...state,
           comments: []
+        }
+      case ACTION_TYPES.FETCH_USER_POSTS:
+        return {
+          ...state,
+          posts: action.posts
+        }
+      case ACTION_TYPES.REMOVE_USER_POSTS:
+        return {
+          ...state,
+          posts: []
         }
       default:
         return state
