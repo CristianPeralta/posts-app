@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import {
+  Card,
+  CardHeader
+} from '@material-ui/core';
 
 class Profile extends Component {
   RenderProfile = (props) => (
@@ -18,6 +23,24 @@ class Profile extends Component {
     </div>
   )
 
+  RenderPost = post => (
+    <Card style={{width:'500px', height: '200px', marginBottom: '10px', paddingBottom: '80px'}}>
+        <CardHeader
+          title={<Link to={{ pathname: '/post/' + post.pid, state: {post} }} >
+                  {post.title}
+                 </Link>}
+          subheader={
+            <div className='FlexColumn'>
+              <div className='FlexRow'>
+                {post.date_created}
+              </div>
+            </div>
+          }
+        >
+        </CardHeader>
+    </Card>
+  )
+
   render() {
     return(
       <div>
@@ -28,7 +51,7 @@ class Profile extends Component {
           {
             this.props.userPosts ?
               this.props.userPosts.map(post => (
-                <this.RenderProfile post={post} key={post.pid} /> )) : null
+                <this.RenderPost post={post} key={post.pid} /> )) : null
           }
         </div>
       </div>
