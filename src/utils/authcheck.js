@@ -8,7 +8,7 @@ class AuthCheck extends Component {
   componentDidMount() {
     if(this.props.auth.isAuthenticated()) {
       this.props.loginSuccess()
-      this.props.addProfile(this.props.auth.userProfile)
+      this.props.addProfile(this.props.auth.userProfile.profile)
       history.replace('/')
     }
     else {

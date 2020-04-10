@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import * as ACTIONS from '../store/actions/actions';
+import history from '../utils/history';
 import '../App.css';
 import {
   Button,
@@ -17,24 +18,31 @@ import {
 } from '@material-ui/core';
 
 class Profile extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      postId: ''
+    }
+  }
   componentDidMount() {
-    const userId = this.props.profile[0].uid;
+    const userId = this.props.profile.uid;
     axios.get('/posts', { params: { userId: userId }})
       .then(res => this.props.setUserPosts(res.data))
       .catch(err => console.log(err));
   }
   RenderProfile = (props) => (
     <div>
-      <h1>{props.profile.profile.nickname}</h1>
+      <h1>{props.profile.nickname}</h1>
       <br />
-      <img src={props.profile.profile.picture} alt="" />
+      <img src={props.profile.picture} alt="" />
       <br />
-      <h4> {props.profile.profile.email}</h4>
+      <h4> {props.profile.email}</h4>
       <br />
-      <h5> {props.profile.profile.name} </h5>
+      <h5> {props.profile.name} </h5>
       <br />
       <h6> Email Verified: </h6>
-      {props.profile.profile.emailVerified ? <p>Yes</p> : <p>No</p> }
+      {props.profile.emailVerified ? <p>Yes</p> : <p>No</p> }
       <br />
     </div>
   )
@@ -51,12 +59,12 @@ class Profile extends Component {
                 {post.date_created}
               </div>
               <div className='FlexRow'>
-                <Link to={{ pathname: 'editpost' + post.pid, state: {post}}}>
+                <Link to={{ pathname: '/editpost' + post.pid, state: {post}}}>
                   <button>
                     Edit
                   </button>
                 </Link>
-                <button onClick={() => this.setState({open: true, postId: post.pid})} >
+                <button onClick={() => this.handleClickOpen(post.pid)} >
                   Delete
                 </button>
               </div>
@@ -77,9 +85,17 @@ class Profile extends Component {
       .then(() => axios.delete('/post', { data: { postId: postId }}
         .then(res => console.log(res))))
       .catch(err => console.log(err))
-      .then(() => this.handleClose())
+      .then(() => this.handleClickClose())
+      .then(() => setTimeout(() => history.replace('/'), 700));
   }
 
+  handleClickOpen = pid => {
+    this.setState({ open: true, postId: pid });
+  }
+
+  handleClickClose = () => {
+    this.setState({ open: false, postId: null });
+  }
   render() {
     return(
       <div>
@@ -95,7 +111,7 @@ class Profile extends Component {
         </div>
         <Dialog
           open={this.state.open}
-          onClose={this.handleClose}
+          onClose={this.handleClickClose}
           aria-labelledby='alert-dialog-title'
           aria-describedby='alert-dialog-description'
         >
@@ -106,10 +122,10 @@ class Profile extends Component {
             Deleting Post
           </DialogContentText>
           <DialogActions>
-            <Button onClick={() => {this.handleUpdate(); this.setState({open: false})}} >
+            <Button onClick={() => this.DeletePost()}>
               Agree
             </Button>
-            <Button onClick={() => this.handleClose}>
+            <Button onClick={() => this.handleClickClose()}>
               Cancel
             </Button>
           </DialogActions>
@@ -128,7 +144,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setUserPosts: posts => dispatch(ACTIONS.setUserPosts(posts))
+    setUserPosts: posts => dispatch(ACTIONS.fetchUserPosts(posts))
   };
 };
 
