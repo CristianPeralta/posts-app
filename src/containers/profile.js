@@ -34,6 +34,16 @@ class Profile extends Component {
               <div className='FlexRow'>
                 {post.date_created}
               </div>
+              <div className='FlexRow'>
+                <Link to={{ pathname: 'editpost' + post.pid, state: {post}}}>
+                  <button>
+                    Edit
+                  </button>
+                </Link>
+                <button onClick={() => this.setState({open: true, postId: post.pid})} >
+                  Delete
+                </button>
+              </div>
             </div>
           }
         >
