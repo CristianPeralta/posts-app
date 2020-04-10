@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import * as ACTIONS from '../store/actions/actions';
 import {
   Card,
-  CardHeader
+  CardHeader,
+  CardContent
 } from '@material-ui/core';
 
 class Profile extends Component {
+  componentDidMount() {
+    const userId = this.props.profile[0].uid;
+    axios.get('/posts', { params: { userId: userId }})
+      .then(res => this.props.setUserPosts(res.data))
+      .catch(err => console.log(err));
+  }
   RenderProfile = (props) => (
     <div>
       <h1>{props.profile.profile.nickname}</h1>
@@ -47,6 +56,10 @@ class Profile extends Component {
             </div>
           }
         >
+        <br />
+        <CardContent>
+          <span style={{overflow: 'hidden'}}>{post.body}</span>
+        </CardContent>
         </CardHeader>
     </Card>
   )
@@ -76,4 +89,10 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Profile);
+const mapDispatchToProps = dispatch => {
+  return {
+    setUserPosts: posts => dispatch(ACTIONS.setUserPosts(posts))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
