@@ -21,7 +21,16 @@ class Profile extends Component {
   render() {
     return(
       <div>
-        <this.RenderProfile profile={this.props.profile} />
+        <div>
+          <this.RenderProfile profile={this.props.profile} />
+        </div>
+        <div>
+          {
+            this.props.userPosts ?
+              this.props.userPosts.map(post => (
+                <this.RenderProfile post={post} key={post.pid} /> )) : null
+          }
+        </div>
       </div>
     );
   }
@@ -29,7 +38,8 @@ class Profile extends Component {
 
 function mapStateToProps(state) {
   return {
-    profile: state.auth.profile
+    profile: state.auth.profile,
+    userPosts: state.post.userPosts
   }
 }
 
