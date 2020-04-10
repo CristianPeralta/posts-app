@@ -23,8 +23,8 @@ class Profile extends Component {
       <div>
         <this.RenderProfile profile={this.props.profile} />
       </div>
-
-    )}
+    );
+  }
 }
 
 function mapStateToProps(state) {
