@@ -12,6 +12,21 @@ class EditPost extends Component {
             body: ''
         };
     }
+    componentDidMount() {
+        this.setState({
+            title: this.props.post.title,
+            body: this.props.post.body
+        });
+    }
+
+    handleTitleChange = event => {
+        this.setState({ title: event.target.value });
+    }
+
+    handleBodyChange = event => {
+        this.setState({ body: event.target.value });
+    }
+
     render() {
         return (
             <div>
@@ -20,6 +35,8 @@ class EditPost extends Component {
                         id='title'
                         label='Title'
                         margin='normal'
+                        value={this.state.title}
+                        onChange={this.handleTitleChange}
                     />
                     <TextField
                         id='body'
@@ -27,6 +44,8 @@ class EditPost extends Component {
                         multiline
                         rows='4'
                         margin='normal'
+                        value={this.state.body}
+                        onChange={this.handleBodyChange}
                     />
                 </form>
             </div>
