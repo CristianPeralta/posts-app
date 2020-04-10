@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import history from '../../utils/history';
 import {
     TextField
 } from '@material-ui/core';
@@ -33,8 +34,8 @@ class EditPost extends Component {
         event.preventDefault();
 
         const data = {
-            title: event.target.title,
-            body: event.target.body,
+            title: event.target.title.value,
+            body: event.target.body.value,
             pid: this.props.post.pid,
             uid: this.props.profile.uid,
             username: this.props.profile.username,
@@ -42,7 +43,8 @@ class EditPost extends Component {
 
         axios.put('/posts', data)
             .then(res => console.log(res.data))
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
+            .then(setTimeout(() => history.replace('/profile'), 700));
     }
     render() {
         return (
