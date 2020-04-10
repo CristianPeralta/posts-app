@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {
     TextField
 } from '@material-ui/core';
+import axios from 'axios';
 
 class EditPost extends Component {
     constructor(props) {
@@ -28,6 +29,21 @@ class EditPost extends Component {
         this.setState({ body: event.target.value });
     }
 
+    handleSubmit = event => {
+        event.preventDefault();
+
+        const data = {
+            title: event.target.title,
+            body: event.target.body,
+            pid: this.props.post.pid,
+            uid: this.props.profile.uid,
+            username: this.props.profile.username,
+        };
+
+        axios.put('/posts', data)
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err));
+    }
     render() {
         return (
             <div>
