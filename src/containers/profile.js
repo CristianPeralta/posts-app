@@ -3,10 +3,17 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import * as ACTIONS from '../store/actions/actions';
+import '../App.css';
 import {
+  Button,
   Card,
   CardHeader,
-  CardContent
+  CardContent,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions
 } from '@material-ui/core';
 
 class Profile extends Component {
@@ -77,6 +84,27 @@ class Profile extends Component {
                 <this.RenderPost post={post} key={post.pid} /> )) : null
           }
         </div>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
+        >
+        </Dialog>
+        <DialogTitle id='alert-dialog-title'>Edit Comment</DialogTitle>
+        <DialogContent>
+          <DialogContentText id='alert-dialog-description'>
+            Deleting Post
+          </DialogContentText>
+          <DialogActions>
+            <Button onClick={() => {this.handleUpdate(); this.setState({open: false})}} >
+              Agree
+            </Button>
+            <Button onClick={() => this.handleClose}>
+              Cancel
+            </Button>
+          </DialogActions>
+        </DialogContent>
       </div>
     );
   }
