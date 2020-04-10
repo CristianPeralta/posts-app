@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
     TextField
 } from '@material-ui/core';
@@ -30,7 +31,7 @@ class EditPost extends Component {
     render() {
         return (
             <div>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <TextField
                         id='title'
                         label='Title'
@@ -53,4 +54,10 @@ class EditPost extends Component {
     }
 }
 
-export default EditPost;
+const mapStateToProps = state => {
+    return {
+        profile: state.auth.profile
+    };
+};
+
+export default connect(mapStateToProps)(EditPost);
