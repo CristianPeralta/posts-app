@@ -17,3 +17,13 @@ FlexProfileDrawer {
   padding-left: 15px;
   padding-right: 15px;
 }
+
+.FlexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.FlexRow {
+  display: flex;
+  flex-direction: row;
+}
