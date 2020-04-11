@@ -38,7 +38,7 @@ class Posts extends Component {
         return (
             <div>
                 <br />
-                <Link to='/newpost' >
+                <Link to='/addpost' >
                     <Button color='primary'>
                         Add Post
                     </Button>
