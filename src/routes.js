@@ -7,6 +7,11 @@ import Profile from './containers/profile';
 import Form1 from './containers/form1';
 import RenderList from './containers/renderlist';
 
+import AddPost from './components/blog/addPost';
+import Posts from './components/blog/posts';
+import ShowPost from './components/blog/showPost';
+import EditPost from './components/blog/editPost';
+
 import Component1 from './functional/component1';
 import Callback from './functional/callback';
 import PrivateComponent from './functional/privatecomponent';
@@ -63,6 +68,11 @@ class Routes extends Component {
             <Route path='/authcheck' render={() => <AuthCheck auth={auth} /> } />
             <Route path='/redirect' component={UnauthRedirect} />
             <Route path='/renderlist' component={RenderList} />
+
+            <Route path='/posts' component={Posts} />
+            <Route path='/post/:pid' component={ShowPost} />
+            <Route path='/editpost/:pid' component={EditPost} />
+            <Route path='/addpost' component={AddPost} />
 
             <Route path='/callback' render={(props) => { handleAuthentication(props); return <Callback />}} />
             <Route path="/component1" render={(props) => <Component1 {...props} /> } />
