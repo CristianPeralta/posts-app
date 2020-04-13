@@ -11,7 +11,7 @@ const PostReducer = (state = initialState, action) => {
       case ACTION_TYPES.FETCH_DB_POSTS:
         return {
           ...state,
-          posts: action.posts
+          posts: action.payload
         }
       case ACTION_TYPES.REMOVE_DB_POSTS:
         return {

@@ -6,15 +6,15 @@ import history from '../../utils/history';
 
 class AddPost extends Component {
     handleSubmit(event) {
-        event.prevenDefault();
+        event.preventDefault();
         const data = {
             title: event.target.title.value,
             body: event.target.body.value,
-            username: this.props.profile[0].name,
-            uid: this.props.profile[0].uid,
+            username: this.props.profile.username,
+            uid: this.props.profile.uid,
         };
         console.log("handle submit", data);
-        axios.post('/post', data)
+        axios.post('/posts', data)
             .then(response => console.log(response))
             .catch(error => console.log(error))
             .then(setTimeout(() => history.replace('/'), 700));
@@ -22,7 +22,7 @@ class AddPost extends Component {
     render() {
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={e => this.handleSubmit(e)}>
                     <TextField 
                         id='title'
                         label='Title'
@@ -48,7 +48,7 @@ class AddPost extends Component {
 
 const mapStateToProps = state => {
     return {
-        profile: state.auth.profile,
+        profile: state.auth.dbProfile,
     };
 };
 

@@ -13,25 +13,28 @@ import {
     Button
 } from '@material-ui/core';
 
-const RenderPosts = post => (
-    <TableRow>
-        <TableCell>
-            <Link to={{
-                pathname: '/post/' + post.pid,
-                state: {post}
-            }} >
-                <h4>
-                    {post.title}
-                </h4>
-            </Link>
-        </TableCell>
-    </TableRow>
-);
+const RenderPosts = props => {
+    return (
+        <TableRow>
+            <TableCell>
+                <Link to={{
+                    pathname: '/post/' + props.post.pid,
+                    state: {post: props.post}
+                }} >
+                    <h4>
+                        {props.post.title}
+                    </h4>
+                </Link>
+            </TableCell>
+        </TableRow>
+    );
+}
 
 class Posts extends Component {
     componentDidMount() {
+        console.log('this.props', this.props);
         axios.get('/posts')
-            .then(res => this.props.fetchPosts(res.data))
+            .then(res => this.props.setPosts(res.data))
             .catch(error => console.log(error));
     }
     render() {
