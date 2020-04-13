@@ -17,11 +17,11 @@ const RenderPosts = post => (
     <TableRow>
         <TableCell>
             <Link to={{
-                pathname: '/post/' + post.post.pid,
+                pathname: '/post/' + post.pid,
                 state: {post}
             }} >
                 <h4>
-                    {post.post.title}
+                    {post.title}
                 </h4>
             </Link>
         </TableCell>
@@ -67,7 +67,7 @@ class Posts extends Component {
 
 const mapStateToProps = state => {
     return {
-        posts: state.posts.posts,
+        posts: state.post.posts,
     };
 }
 

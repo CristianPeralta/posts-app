@@ -27,7 +27,7 @@ import history from './utils/history';
 
 import { Router, Route, Switch, Redirect } from 'react-router';
 
-export const auth = new Auth()
+export const auth = new Auth();
 
 const handleAuthentication = (props) => {
   if(props.location.hash) {

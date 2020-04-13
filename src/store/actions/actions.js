@@ -52,6 +52,19 @@ export const removeProfile = () => {
   }
 }
 
+export const saveProfile = (profile) => {
+  return {
+    type: ACTION_TYPES.SET_DB_PROFILE,
+    payload: profile
+  }
+}
+
+export const removeDbProfile = () => {
+  return {
+    type: ACTION_TYPES.REMOVE_DB_PROFILE
+  }
+}
+
 export const fetchPosts = posts => {
   return {
     type: ACTION_TYPES.FETCH_DB_POSTS,
