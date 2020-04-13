@@ -38,8 +38,9 @@ class ShowPost extends Component {
     }
 
     componentDidMount() {
+        console.log('this.props.location.state.post', this.props.location.state.post)
         axios.get('/posts/comments', { params: { pid: this.props.location.state.post.pid }})
-            .then(resp => this.setComments(resp.data))
+            .then(resp => this.props.setComments(resp.data))
             .catch(err => console.log(err))
     }
 
@@ -62,8 +63,8 @@ class ShowPost extends Component {
             username: this.props.profile.username,
         };
 
-        axios.post('/posts/comment', data)
-            .then(res => console.log(res))
+        axios.post('/posts/comments', data)
+            .then(res => this.props.setComments(res.data))
             .catch(err => console.log(err))
             .then(setTimeout(() => history.replace('/posts'), 700));
     }
@@ -110,7 +111,7 @@ class ShowPost extends Component {
                     }
                 </div>
                 <div>
-                    <form onClick={this.handleSubmit} >
+                    <form onSubmit={e => this.handleSubmit(e)} >
                         <TextField
                             id='comment'
                             label='Comment'
@@ -156,7 +157,7 @@ class ShowPost extends Component {
 const mapStateToProps = state => {
     return {
         comments: state.post.comments,
-        profile: state.auth.profile
+        profile: state.auth.dbProfile
     }
 }
 
