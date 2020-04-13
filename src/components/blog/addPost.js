@@ -17,7 +17,7 @@ class AddPost extends Component {
         axios.post('/posts', data)
             .then(response => console.log(response))
             .catch(error => console.log(error))
-            .then(setTimeout(() => history.replace('/'), 700));
+            .then(setTimeout(() => history.replace('/posts'), 700));
     }
     render() {
         return (

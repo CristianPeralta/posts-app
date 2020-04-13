@@ -7,13 +7,13 @@ import {
     Button,
     TextField,
     Dialog,
+    DialogTitle,
     DialogActions,
     DialogContent,
-    DialogContentText,
-    DialogTitle
+    DialogContentText
 } from '@material-ui/core';
 
-const RenderComments = (comment, userId) => (
+const RenderComments = ({comment, userId}) => (
     <div>
         <h3>{comment.comment}</h3>
         <small>{comment.date_created}</small>
@@ -38,7 +38,7 @@ class ShowPost extends Component {
     }
 
     componentDidMount() {
-        axios.get('/posts/comments', { params: { pid: this.props.post.pid }})
+        axios.get('/posts/comments', { params: { pid: this.props.location.state.post.pid }})
             .then(resp => this.setComments(resp.data))
             .catch(err => console.log(err))
     }
@@ -57,12 +57,12 @@ class ShowPost extends Component {
         event.preventDefault();
         const data = {
             comment: event.target.comment.value,
-            postId: this.props.post.pid,
+            postId: this.props.location.state.post.pid,
             userId: this.props.profile.uid,
             username: this.props.profile.username,
         };
 
-        axios.post('posts/comment', data)
+        axios.post('/posts/comment', data)
             .then(res => console.log(res))
             .catch(err => console.log(err))
             .then(setTimeout(() => history.replace('/posts'), 700));
@@ -72,7 +72,7 @@ class ShowPost extends Component {
         const data = {
             comment: event.target.comment.value,
             cid: this.state.cid,
-            postId: this.props.post.pid,
+            postId: this.props.location.state.post.pid,
             userId: this.props.profile.uid,
             username: this.props.profile.username,
         };
@@ -94,9 +94,9 @@ class ShowPost extends Component {
             <div>
                 <div>
                     <h2>Post</h2>
-                    <h4>{this.props.post.title}</h4>
-                    <p>{this.props.post.body}</p>
-                    <p>{this.props.post.author}</p>
+                    <h4>{this.props.location.state.post.title}</h4>
+                    <p>{this.props.location.state.post.body}</p>
+                    <p>{this.props.location.state.post.author}</p>
                 </div>
                 <div>
                     <h2>Comments</h2>
@@ -155,7 +155,7 @@ class ShowPost extends Component {
 
 const mapStateToProps = state => {
     return {
-        comments: state.posts.comments,
+        comments: state.post.comments,
         profile: state.auth.profile
     }
 }
