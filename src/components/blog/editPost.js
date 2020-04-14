@@ -17,8 +17,8 @@ class EditPost extends Component {
     }
     componentDidMount() {
         this.setState({
-            title: this.props.post.title,
-            body: this.props.post.body
+            title: this.props.location.state.post.title,
+            body: this.props.location.state.post.body
         });
     }
 
@@ -36,7 +36,7 @@ class EditPost extends Component {
         const data = {
             title: event.target.title.value,
             body: event.target.body.value,
-            pid: this.props.post.pid,
+            pid: this.props.location.state.post.pid,
             uid: this.props.profile.uid,
             username: this.props.profile.username,
         };
@@ -66,7 +66,11 @@ class EditPost extends Component {
                         value={this.state.body}
                         onChange={this.handleBodyChange}
                     />
+                    <br />
+                    <button type="submit"> Submit </button>
                 </form>
+                <br />
+                <button onClick={() => history.goBack()}> Cancel </button>
             </div>
         );
     }
@@ -74,7 +78,7 @@ class EditPost extends Component {
 
 const mapStateToProps = state => {
     return {
-        profile: state.auth.profile
+        profile: state.auth.dbProfile
     };
 };
 
