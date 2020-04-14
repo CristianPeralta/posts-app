@@ -74,16 +74,16 @@ class ShowPost extends Component {
             .catch(err => console.log(err))
             .then(setTimeout(() => history.replace('/posts'), 700));
     }
-    handleUpdate(event) {
+    handleUpdate() {
         const data = {
-            comment: event.target.comment.value,
+            comment: this.state.comment,
             cid: this.state.cid,
             postId: this.props.location.state.post.pid,
             userId: this.props.profile.uid,
             username: this.props.profile.username,
         };
 
-        axios.put('posts/comment', data)
+        axios.put('/posts/comments', data)
             .then(res => console.log(res))
             .catch(err => console.log(err))
             .then(setTimeout(() => history.replace('/posts'), 700));
