@@ -13,14 +13,14 @@ import {
     DialogContentText
 } from '@material-ui/core';
 
-const RenderComments = ({comment, userId}) => (
+const RenderComments = ({comment, userId, edit}) => (
     <div>
         <h3>{comment.comment}</h3>
         <small>{comment.date_created}</small>
         <p>By: {comment.author} </p>
         {
             comment.user_id === userId
-            ?   <Button onClick={() => this.handleClickOpen(comment.cid, comment.comment)} >
+            ?   <Button onClick={() => edit(comment.cid, comment.comment)} >
                 Edit
             </Button> : null
         }
@@ -35,6 +35,7 @@ class ShowPost extends Component {
             comment: '',
             cid: ''
         }
+        this.handleClickOpen = this.handleClickOpen.bind(this);
     }
 
     componentDidMount() {
@@ -106,6 +107,7 @@ class ShowPost extends Component {
                         <RenderComments
                             key={comment.cid}
                             comment={comment}
+                            edit={this.handleClickOpen}
                             userId={this.props.profile.uid} />
                         )) : null
                     }
@@ -127,27 +129,28 @@ class ShowPost extends Component {
                         onClose={this.handleClose}
                         aria-labelledby='alert-dialog-title'
                         aria-describedby='alert-dialog-description'
-                    />
-                    <DialogTitle id='alert-dialog-title'>Edit Comment</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id='alert-dialog-description'>
-                            <input type='text' value={this.state.comment} onChange={this.handleCommentChange} />
-                        </DialogContentText>
-                        <DialogActions>
-                            <Button onClick={() => {
-                                this.handleUpdate();
-                                this.setState({ open: false });
-                            }} >
-                                Agree
-                            </Button>
-                            <Button onClick={() => this.handleClose() } >
-                                Cancel
-                            </Button>
-                            <Button onClick={() => this.handleDeleteComment()} >
-                                Delete
-                            </Button>
-                        </DialogActions>
-                    </DialogContent>
+                    >
+                        <DialogTitle id='alert-dialog-title'>Edit Comment</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id='alert-dialog-description'>
+                                <input type='text' value={this.state.comment} onChange={this.handleCommentChange} />
+                            </DialogContentText>
+                            <DialogActions>
+                                <Button onClick={() => {
+                                    this.handleUpdate();
+                                    this.setState({ open: false });
+                                }} >
+                                    Agree
+                                </Button>
+                                <Button onClick={() => this.handleClose() } >
+                                    Cancel
+                                </Button>
+                                <Button onClick={() => this.handleDeleteComment()} >
+                                    Delete
+                                </Button>
+                            </DialogActions>
+                        </DialogContent>
+                    </Dialog>
                 </div>
             </div>
         );
