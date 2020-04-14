@@ -26,8 +26,8 @@ class Profile extends Component {
     }
   }
   componentDidMount() {
-    const userId = this.props.profile.uid;
-    axios.get('/posts', { params: { userId: userId }})
+    const userId = this.props.dbProfile.uid;
+    axios.get('/posts/user', { params: { userId: userId }})
       .then(res => this.props.setUserPosts(res.data))
       .catch(err => console.log(err));
   }
@@ -115,21 +115,21 @@ class Profile extends Component {
           aria-labelledby='alert-dialog-title'
           aria-describedby='alert-dialog-description'
         >
+          <DialogTitle id='alert-dialog-title'>Edit Comment</DialogTitle>
+          <DialogContent>
+            <DialogContentText id='alert-dialog-description'>
+              Deleting Post
+            </DialogContentText>
+            <DialogActions>
+              <Button onClick={() => this.DeletePost()}>
+                Agree
+              </Button>
+              <Button onClick={() => this.handleClickClose()}>
+                Cancel
+              </Button>
+            </DialogActions>
+          </DialogContent>
         </Dialog>
-        <DialogTitle id='alert-dialog-title'>Edit Comment</DialogTitle>
-        <DialogContent>
-          <DialogContentText id='alert-dialog-description'>
-            Deleting Post
-          </DialogContentText>
-          <DialogActions>
-            <Button onClick={() => this.DeletePost()}>
-              Agree
-            </Button>
-            <Button onClick={() => this.handleClickClose()}>
-              Cancel
-            </Button>
-          </DialogActions>
-        </DialogContent>
       </div>
     );
   }
@@ -138,6 +138,7 @@ class Profile extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.auth.profile,
+    dbProfile: state.auth.dbProfile,
     userPosts: state.post.userPosts
   }
 }
