@@ -36,6 +36,11 @@ class ShowPost extends Component {
             cid: ''
         }
         this.handleClickOpen = this.handleClickOpen.bind(this);
+        this.handleCommentChange = this.handleCommentChange.bind(this);
+        this.handleDeleteComment = this.handleDeleteComment.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
     }
 
     componentDidMount() {
@@ -70,7 +75,6 @@ class ShowPost extends Component {
             .then(setTimeout(() => history.replace('/posts'), 700));
     }
     handleUpdate(event) {
-        event.preventDefault();
         const data = {
             comment: event.target.comment.value,
             cid: this.state.cid,
