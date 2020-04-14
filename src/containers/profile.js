@@ -81,8 +81,8 @@ class Profile extends Component {
   DeletePost = () => {
     const postId = this.state.postId;
     axios.delete('/posts/comments', { data: { postId: postId }})
-      .then(() => axios.delete('/post', { data: { postId: postId }}
-        .then(res => console.log(res))))
+      .then(() => axios.delete('/posts', { data: { postId: postId }})
+        .then(res => console.log(res)))
       .catch(err => console.log(err))
       .then(() => this.handleClickClose())
       .then(() => setTimeout(() => history.replace('/'), 700));
