@@ -47,7 +47,7 @@ class Profile extends Component {
     </div>
   )
 
-  RenderPost = post => (
+  RenderPost = ({post}) => (
     <Card style={{width:'500px', height: '200px', marginBottom: '10px', paddingBottom: '80px'}}>
         <CardHeader
           title={<Link to={{ pathname: '/post/' + post.pid, state: {post} }} >
@@ -70,12 +70,11 @@ class Profile extends Component {
               </div>
             </div>
           }
-        >
+        />
         <br />
         <CardContent>
           <span style={{overflow: 'hidden'}}>{post.body}</span>
         </CardContent>
-        </CardHeader>
     </Card>
   )
 

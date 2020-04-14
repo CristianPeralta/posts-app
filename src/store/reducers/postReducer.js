@@ -31,12 +31,12 @@ const PostReducer = (state = initialState, action) => {
       case ACTION_TYPES.FETCH_USER_POSTS:
         return {
           ...state,
-          posts: action.posts
+          userPosts: action.payload
         }
       case ACTION_TYPES.REMOVE_USER_POSTS:
         return {
           ...state,
-          posts: []
+          userPosts: []
         }
       default:
         return state
