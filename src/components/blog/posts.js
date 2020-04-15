@@ -81,6 +81,12 @@ class Posts extends Component {
             , 400)
         );
     }
+
+    handlePageChange(pageNumber) {
+        this.setState({activePage: pageNumber});
+        setTimeout(() => this.slicePosts(), 50);
+        setTimeout(() => this.animatePosts(), 100);
+    }
     render() {
         return (
             <div>
