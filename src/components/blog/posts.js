@@ -73,6 +73,14 @@ class Posts extends Component {
             postsSlice: this.state.posts.slice(indexOfFirstPost, indexOfLastPost)
         });
     }
+
+    animatePosts() {
+        this.setState({postsMotion: []});
+        this.state.postsSlice.map(post => setTimeout(
+            () => this.setState({ postsMotion: [...this.state.postsMotion, post]})
+            , 400)
+        );
+    }
     render() {
         return (
             <div>
