@@ -41,7 +41,13 @@ class Posts extends Component {
         super(props);
         this.state = {
             posts: [],
-            opacity: 0
+            postsMotion: [],
+            opacity: 0,
+            numPosts: [],
+            pageRange: [],
+            activeRange: 1,
+            PostsPerPage: 5,
+            postsSlice: [],
         }
     }
 
