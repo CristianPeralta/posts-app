@@ -45,7 +45,7 @@ class Posts extends Component {
             opacity: 0,
             numPosts: [],
             pageRange: [],
-            activeRange: 1,
+            activePage: 1,
             PostsPerPage: 5,
             postsSlice: [],
         }
@@ -63,6 +63,15 @@ class Posts extends Component {
     }
     addPostsToState(posts) {
         this.setState({posts: [...posts]});
+        this.setState({numPosts: this.state.posts.length, pageRange: this.state.numPosts/5});
+    }
+    slicePosts() {
+        const indexOfLastPost = this.state.activePage * this.state.PostsPerPage;
+        const indexOfFirstPost = indexOfLastPost * this.state.PostsPerPage;
+
+        this.setState({
+            postsSlice: this.state.posts.slice(indexOfFirstPost, indexOfLastPost)
+        });
     }
     render() {
         return (
