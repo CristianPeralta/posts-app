@@ -11,9 +11,9 @@ import {
     Button
 } from '@material-ui/core';
 
-const RenderPosts = ({post, opacity}) => {
+const RenderPosts = ({post}) => {
     return (
-        <div style={{opacity: opacity, transition: 'opacity 2s ease'}}>
+        <div className="CardStyles">
             <Card style={{width:'500px', height: '200px', marginBottom: '10px', paddingBottom: '80px'}}>
                 <CardHeader
                 title={<Link to={{ pathname: '/post/' + post.pid, state: {post} }} >
