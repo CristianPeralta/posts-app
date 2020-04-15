@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import * as ACTIONS from '../../store/actions/actions';
-// import Pagination from 'react-js-pagination';
+import Pagination from 'react-js-pagination';
 import {
     Card,
     CardContent,
@@ -64,6 +64,8 @@ class Posts extends Component {
     addPostsToState(posts) {
         this.setState({posts: [...posts]});
         this.setState({numPosts: this.state.posts.length, pageRange: this.state.numPosts/5});
+        this.slicePosts();
+        this.animatePosts();
     }
     slicePosts() {
         const indexOfLastPost = this.state.activePage * this.state.PostsPerPage;
@@ -76,9 +78,12 @@ class Posts extends Component {
 
     animatePosts() {
         this.setState({postsMotion: []});
+        let i = 1;
         this.state.postsSlice.map(post => setTimeout(
-            () => this.setState({ postsMotion: [...this.state.postsMotion, post]})
-            , 400)
+            () => {
+                this.setState({ postsMotion: [...this.state.postsMotion, post]}, 400*i)
+                i++;
+            })
         );
     }
 
@@ -106,6 +111,13 @@ class Posts extends Component {
                             post => <RenderPosts key={post.pid} post={post} />
                         )}
                     </div>
+                    <Pagination
+                        activePage={this.state.activePage}
+                        itemsCountPerPage={5}
+                        totalItemsCount={this.state.numPosts}
+                        pageRangeDisplayed={this.state.pageRange}
+                        onChange={this.handlePageChange}
+                    />
                 </div>
             </div>
         );
