@@ -11,9 +11,9 @@ import {
     Button
 } from '@material-ui/core';
 
-const RenderPosts = ({post}) => {
+const RenderPosts = ({post, opacity}) => {
     return (
-        <div>
+        <div style={{opacity: opacity, transition: 'opacity 2s ease'}}>
             <Card style={{width:'500px', height: '200px', marginBottom: '10px', paddingBottom: '80px'}}>
                 <CardHeader
                 title={<Link to={{ pathname: '/post/' + post.pid, state: {post} }} >
@@ -112,7 +112,7 @@ class Posts extends Component {
                     <h1>Posts</h1>
                     <div>
                         {this.state.postsMotion.map(
-                            post => <RenderPosts key={post.pid} post={post} />
+                            post => <RenderPosts opacity={this.state.opacity} key={post.pid} post={post} />
                         )}
                     </div>
                     <Pagination
