@@ -4,33 +4,45 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import * as ACTIONS from '../../store/actions/actions';
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    Paper,
+    Card,
+    CardContent,
+    CardHeader,
     Button
 } from '@material-ui/core';
 
-const RenderPosts = props => {
+const RenderPosts = ({post}) => {
     return (
-        <TableRow>
-            <TableCell>
-                <Link to={{
-                    pathname: '/post/' + props.post.pid,
-                    state: {post: props.post}
-                }} >
-                    <h4>
-                        {props.post.title}
-                    </h4>
-                </Link>
-            </TableCell>
-        </TableRow>
+        <div>
+            <Card style={{width:'500px', height: '200px', marginBottom: '10px', paddingBottom: '80px'}}>
+                <CardHeader
+                title={<Link to={{ pathname: '/post/' + post.pid, state: {post} }} >
+                        {post.title}
+                        </Link>}
+                subheader={
+                    <div className='FlexColumn'>
+                        <div className='FlexRow'>
+                            {post.date_created}
+                        </div>
+                    </div>
+                }
+                />
+                <br />
+                <CardContent>
+                <span style={{overflow: 'hidden'}}>{post.body}</span>
+                </CardContent>
+            </Card>
+        </div>
     );
 }
 
 class Posts extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            opacity: 1
+        }
+    }
+
     componentDidMount() {
         console.log('this.props', this.props);
         axios.get('/posts')
@@ -40,29 +52,23 @@ class Posts extends Component {
     render() {
         return (
             <div>
-                <br />
-                <Link to='/addpost' >
-                    <Button color='primary'>
-                        Add Post
-                    </Button>
-                </Link>
-                <h1>Posts</h1>
-                <Paper>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>
-                                    Title
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {this.props.posts.map(
-                                post => <RenderPosts key={post.pid} post={post} />
-                            )}
-                        </TableBody>
-                    </Table>
-                </Paper>
+                <button onClick={() => this.setState({opacity: this.state.opacity === 0 ? 1 : 0})} >SHOW</button>
+                <div style={{opacity: this.state.opacity, transition: 'opacity 2s ease'}}>
+                    <br />
+                    <Link to='/addpost' >
+                        <Button color='primary'>
+                            Add Post
+                        </Button>
+                    </Link>
+                </div>
+                <div style={{opacity: this.state.opacity, transition: 'opacity 2s ease'}}>
+                    <h1>Posts</h1>
+                    <div>
+                        {this.props.posts.map(
+                            post => <RenderPosts key={post.pid} post={post} />
+                        )}
+                    </div>
+                </div>
             </div>
         );
     }
