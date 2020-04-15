@@ -39,15 +39,18 @@ class Posts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            opacity: 1
+            opacity: 0
         }
     }
 
     componentDidMount() {
-        console.log('this.props', this.props);
+        this.handleTransition();
         axios.get('/posts')
             .then(res => this.props.setPosts(res.data))
             .catch(error => console.log(error));
+    }
+    handleTransition () {
+        setTimeout(() => this.setState({opacity: 1}), 400);
     }
     render() {
         return (
