@@ -43,12 +43,14 @@ class Posts extends Component {
             posts: [],
             postsMotion: [],
             opacity: 0,
-            numPosts: [],
-            pageRange: [],
+            numPosts: 0,
+            pageRange: 0,
             activePage: 1,
             PostsPerPage: 5,
             postsSlice: [],
         }
+        this.slicePosts = this.slicePosts.bind(this);
+        this.handlePageChange = this.handlePageChange.bind(this);
     }
 
     componentDidMount() {
@@ -69,8 +71,9 @@ class Posts extends Component {
     }
     slicePosts() {
         const indexOfLastPost = this.state.activePage * this.state.PostsPerPage;
-        const indexOfFirstPost = indexOfLastPost * this.state.PostsPerPage;
-
+        const indexOfFirstPost = indexOfLastPost - this.state.PostsPerPage;
+        console.log('posts', this.state.posts);
+        console.log(indexOfLastPost, indexOfFirstPost);
         this.setState({
             postsSlice: this.state.posts.slice(indexOfFirstPost, indexOfLastPost)
         });
@@ -78,13 +81,15 @@ class Posts extends Component {
 
     animatePosts() {
         this.setState({postsMotion: []});
+        console.log('postsSlice', this.state.postsSlice);
         let i = 1;
-        this.state.postsSlice.map(post => setTimeout(
-            () => {
-                this.setState({ postsMotion: [...this.state.postsMotion, post]}, 400*i)
-                i++;
-            })
-        );
+        this.state.postsSlice.forEach(post => {
+            setTimeout(
+                () => {
+                    this.setState({ postsMotion: [...this.state.postsMotion, post]});
+                }, 400*i);
+            i++;
+        });
     }
 
     handlePageChange(pageNumber) {
@@ -95,7 +100,6 @@ class Posts extends Component {
     render() {
         return (
             <div>
-                <button onClick={() => this.setState({opacity: this.state.opacity === 0 ? 1 : 0})} >SHOW</button>
                 <div style={{opacity: this.state.opacity, transition: 'opacity 2s ease'}}>
                     <br />
                     <Link to='/addpost' >
@@ -107,7 +111,7 @@ class Posts extends Component {
                 <div style={{opacity: this.state.opacity, transition: 'opacity 2s ease'}}>
                     <h1>Posts</h1>
                     <div>
-                        {this.props.posts.map(
+                        {this.state.postsMotion.map(
                             post => <RenderPosts key={post.pid} post={post} />
                         )}
                     </div>
