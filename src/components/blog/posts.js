@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import * as ACTIONS from '../../store/actions/actions';
+// import Pagination from 'react-js-pagination';
 import {
     Card,
     CardContent,
@@ -39,6 +40,7 @@ class Posts extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            posts: [],
             opacity: 0
         }
     }
@@ -47,10 +49,14 @@ class Posts extends Component {
         this.handleTransition();
         axios.get('/posts')
             .then(res => this.props.setPosts(res.data))
+            .then(() => this.addPostsToState(this.props.posts))
             .catch(error => console.log(error));
     }
     handleTransition () {
         setTimeout(() => this.setState({opacity: 1}), 400);
+    }
+    addPostsToState(posts) {
+        this.setState({posts: [...posts]});
     }
     render() {
         return (
