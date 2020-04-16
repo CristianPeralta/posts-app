@@ -101,11 +101,20 @@ class ShowPost extends Component {
             userId: this.props.profile.uid,
             username: this.props.profile.username,
         };
+        const tempCid = 154424;
+        const justNow = 'Just Now';
+        const submitedComment = {
+            cid: tempCid,
+            post_id: data.postId,
+            user_id: data.userId,
+            author: data.username,
+            date_created: justNow
+        };
 
         axios.post('/posts/comments', data)
             .then(res => this.props.setComments(res.data))
             .catch(err => console.log(err))
-            .then(setTimeout(() => history.replace('/posts'), 700));
+        this.handleCommentSubmit(submitedComment);
     }
     handleUpdate() {
         const data = {
