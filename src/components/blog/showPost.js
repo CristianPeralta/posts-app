@@ -33,7 +33,8 @@ class ShowPost extends Component {
         this.state = {
             open: false,
             comment: '',
-            cid: ''
+            cid: '',
+            opacity: 0
         }
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleCommentChange = this.handleCommentChange.bind(this);
@@ -48,6 +49,10 @@ class ShowPost extends Component {
         axios.get('/posts/comments', { params: { pid: this.props.location.state.post.pid }})
             .then(resp => this.props.setComments(resp.data))
             .catch(err => console.log(err))
+    }
+
+    handleTransition() {
+        setTimeout(() => this.setState({opacity: 1}), 400);
     }
 
     handleClickOpen(cid, comment) {
