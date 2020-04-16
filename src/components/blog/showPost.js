@@ -119,18 +119,29 @@ class ShowPost extends Component {
         this.handleCommentSubmit(submitedComment);
     }
     handleUpdate() {
+        this.setState({comment: ''});
         const data = {
-            comment: this.state.comment,
             cid: this.state.cid,
+            comment: this.state.comment,
             postId: this.props.location.state.post.pid,
             userId: this.props.profile.uid,
             username: this.props.profile.username,
         };
 
+        const edittedComment = {
+            cid: data.cid,
+            comment: data.comment,
+            post_id: data.postId,
+            user_id: data.userId,
+            author: data.username,
+            date_created: 'Just Now',
+            isEdited: true
+        };
+
         axios.put('/posts/comments', data)
             .then(res => console.log(res))
             .catch(err => console.log(err))
-            .then(setTimeout(() => history.replace('/posts'), 700));
+        this.handleCommentUpdate(edittedComment);
     }
     handleDeleteComment() {
         const cid = this.state.cid;
