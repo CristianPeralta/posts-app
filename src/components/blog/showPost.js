@@ -35,7 +35,8 @@ class ShowPost extends Component {
             comment: '',
             cid: '',
             opacity: 0,
-            commentsArr: []
+            commentsArr: [],
+            commentsMotion: []
         }
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleCommentChange = this.handleCommentChange.bind(this);
@@ -64,7 +65,7 @@ class ShowPost extends Component {
     }
 
     animateComments() {
-        let i = 0;
+        let i = 1;
         this.state.commentsArr.forEach(comment => {
             setTimeout(() => this.setState({commentsMotion: [...this.state.commentsMotion, comment] }), 400*i)
             i++;
@@ -128,7 +129,7 @@ class ShowPost extends Component {
                 <div style={{opacity: this.state.opacity, transition: 'ease-out 2s' }} >
                     <h2>Comments</h2>
                     {this.props.comments
-                    ? this.props.commentsMotion.map(comment => (
+                    ? this.state.commentsMotion.map(comment => (
                         <RenderComments
                             key={comment.cid}
                             comment={comment}
