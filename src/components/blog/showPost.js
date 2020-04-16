@@ -76,6 +76,13 @@ class ShowPost extends Component {
         setTimeout(() => this.setState({commentsMotion: [submitedComment, ...this.state.commentsMotion]}), 50);
     }
 
+    handleCommentUpdate(comment) {
+        let commentIndex = this.state.commentsMotion.findIndex(c => c.cid === comment.id);
+        let newArr = [...this.state.commentsMotion];
+        newArr[commentIndex] = comment;
+        this.setState({commentsMotion: newArr});
+    }
+
     handleClickOpen(cid, comment) {
         this.setState({ open: true, comment: comment, cid: cid });
     }
