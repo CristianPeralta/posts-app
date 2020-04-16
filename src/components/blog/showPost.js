@@ -114,6 +114,8 @@ class ShowPost extends Component {
         axios.post('/posts/comments', data)
             .then(res => this.props.setComments(res.data))
             .catch(err => console.log(err))
+
+        window.scroll({top: 0, left: 0, behavior: 'smooth'});
         this.handleCommentSubmit(submitedComment);
     }
     handleUpdate() {
