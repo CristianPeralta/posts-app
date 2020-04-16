@@ -118,6 +118,7 @@ class ShowPost extends Component {
         const justNow = 'Just Now';
         const submitedComment = {
             cid: tempCid,
+            comment: data.comment,
             post_id: data.postId,
             user_id: data.userId,
             author: data.username,
