@@ -38,6 +38,30 @@ FlexProfileDrawer {
   padding-bottom: 10px;
 }
 
+.CommentStyles {
+  opacity: 1;
+  animation-name: fadeIn;
+  animation-timing-function: ease-in;
+  animation-duration: 2s;
+}
+
+.FadeOutComment {
+  animation-name: fadeOut;
+  animation-timing-function: linear;
+  animation-duration: 2s;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
