@@ -43,7 +43,10 @@ class ShowPost extends Component {
             cid: '',
             opacity: 0,
             commentsArr: [],
-            commentsMotion: []
+            commentsMotion: [],
+            likes: this.props.location.state.post.likes,
+            like_user_id: this.props.location.state.post.like_user_id,
+            like_post: true
         }
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleCommentChange = this.handleCommentChange.bind(this);
@@ -163,6 +166,19 @@ class ShowPost extends Component {
             .then(res => console.log(res))
             .catch(err => console.log(err))
         this.handleCommentDelete(cid);   
+    }
+    handleLikes() {
+        const data = {
+            uid: this.props.dbProfile.uid,
+            postId: this.props.location.state.post.pid,
+        };
+        axios.put("/posts/likes", data)
+            .then(!this.state.like_user_id.includes(data.like_user_id) && this.state.like_post
+                ? this.setState({likes: this.state.likes + 1})
+                : null
+            )
+            .then(this.setState({like_post: false}))
+            .catch(err => console.log(err));
     }
     render() {
         return (
