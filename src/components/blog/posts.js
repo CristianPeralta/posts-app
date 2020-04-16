@@ -103,6 +103,19 @@ class Posts extends Component {
         });
     }
 
+    handleLikes() {
+        const data = {
+            uid: this.props.dbProfile.uid,
+            postId: this.props.location.state.post.pid,
+        };
+        axios.put("/posts/likes", data)
+            .then(!this.state.like_user_id.includes(data.like_user_id) && this.state.like_post
+                ? this.setState({likes: this.state.likes + 1})
+                : null
+            )
+            .then(this.setState({like_post: false}))
+            .catch(err => console.log(err));
+    }
     handlePageChange(pageNumber) {
         this.setState({activePage: pageNumber});
         setTimeout(() => this.slicePosts(), 50);
