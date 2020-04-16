@@ -34,7 +34,8 @@ class ShowPost extends Component {
             open: false,
             comment: '',
             cid: '',
-            opacity: 0
+            opacity: 0,
+            commentsArr: []
         }
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleCommentChange = this.handleCommentChange.bind(this);
@@ -53,6 +54,10 @@ class ShowPost extends Component {
 
     handleTransition() {
         setTimeout(() => this.setState({opacity: 1}), 400);
+    }
+
+    addCommentsToState(comments) {
+        this.setState({commentsArr: [...comments]});
     }
 
     handleClickOpen(cid, comment) {
