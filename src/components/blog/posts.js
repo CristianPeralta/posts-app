@@ -25,9 +25,7 @@ const RenderPosts = ({post}) => {
                             {post.date_created}
                         </div>
                         <div className="FlexRow">
-                            <i className="material_icons" >
-                                thumb_up
-                            </i>
+                            <i className="material-icons">thumb_up</i>
                             <div className="notification-num-posts">
                                 {post.likes}
                             </div>

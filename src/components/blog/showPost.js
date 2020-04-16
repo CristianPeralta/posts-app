@@ -170,7 +170,7 @@ class ShowPost extends Component {
     }
     handleLikes() {
         const data = {
-            uid: this.props.dbProfile.uid,
+            uid: this.props.profile.uid,
             postId: this.props.location.state.post.pid,
         };
         axios.put("/posts/likes", data)
@@ -189,7 +189,7 @@ class ShowPost extends Component {
                     <h4>{this.props.location.state.post.title}</h4>
                     <p>{this.props.location.state.post.body}</p>
                     <p>{this.props.location.state.post.author}</p>
-                    <a href="/#" style={{cursor: "pointer"}} onClick={this.props.isAuthenticated
+                    <a style={{cursor: "pointer"}} onClick={this.props.isAuthenticated
                         ? () => this.handleLikes()
                         : history.replace("/")
                     }>
@@ -265,7 +265,8 @@ class ShowPost extends Component {
 const mapStateToProps = state => {
     return {
         comments: state.post.comments,
-        profile: state.auth.dbProfile
+        profile: state.auth.dbProfile,
+        isAuthenticated: state.auth.isAuthenticated
     }
 }
 
