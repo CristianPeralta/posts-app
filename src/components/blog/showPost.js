@@ -60,6 +60,14 @@ class ShowPost extends Component {
         this.setState({commentsArr: [...comments]});
     }
 
+    animateComments() {
+        let i = 0;
+        this.state.commentsArr.forEach(comment => {
+            setTimeout(() => this.setState({commentsMotion: [...this.state.commentsMotion, comment] }), 400*i)
+            i++;
+        });
+    }
+
     handleClickOpen(cid, comment) {
         this.setState({ open: true, comment: comment, cid: cid });
     }
