@@ -72,6 +72,10 @@ class ShowPost extends Component {
         });
     }
 
+    handleCommentSubmit(submitedComment) {
+        setTimeout(() => this.setState({commentsMotion: [submitedComment, ...this.state.commentsMotion]}), 50);
+    }
+
     handleClickOpen(cid, comment) {
         this.setState({ open: true, comment: comment, cid: cid });
     }
