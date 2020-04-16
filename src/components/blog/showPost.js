@@ -49,7 +49,9 @@ class ShowPost extends Component {
         console.log('this.props.location.state.post', this.props.location.state.post)
         axios.get('/posts/comments', { params: { pid: this.props.location.state.post.pid }})
             .then(resp => this.props.setComments(resp.data))
+            .then(() => this.addCommentsToState(this.props.comments))
             .catch(err => console.log(err))
+        this.handleTransition();
     }
 
     handleTransition() {
@@ -58,6 +60,7 @@ class ShowPost extends Component {
 
     addCommentsToState(comments) {
         this.setState({commentsArr: [...comments]});
+        this.animateComments();
     }
 
     animateComments() {
@@ -122,10 +125,10 @@ class ShowPost extends Component {
                     <p>{this.props.location.state.post.body}</p>
                     <p>{this.props.location.state.post.author}</p>
                 </div>
-                <div>
+                <div style={{opacity: this.state.opacity, transition: 'ease-out 2s' }} >
                     <h2>Comments</h2>
                     {this.props.comments
-                    ? this.props.comments.map(comment => (
+                    ? this.props.commentsMotion.map(comment => (
                         <RenderComments
                             key={comment.cid}
                             comment={comment}
