@@ -51,6 +51,10 @@ FlexProfileDrawer {
   animation-duration: 2s;
 }
 
+.notification-num-posts {
+  padding-left: 5px;
+}
+
 @keyframes fadeOut {
   0% {
     opacity: 1;

@@ -28,7 +28,7 @@ const RenderPosts = ({post}) => {
                             <i className="material_icons" >
                                 thumb_up
                             </i>
-                            <div>
+                            <div className="notification-num-posts">
                                 {post.likes}
                             </div>
                         </div>
@@ -56,6 +56,9 @@ class Posts extends Component {
             activePage: 1,
             PostsPerPage: 5,
             postsSlice: [],
+            likes: this.props.location.state.post.likes,
+            like_user_id: this.props.location.state.post.like_user_id,
+            like_post: true
         }
         this.slicePosts = this.slicePosts.bind(this);
         this.handlePageChange = this.handlePageChange.bind(this);
