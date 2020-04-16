@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as ACTIONS from '../../store/actions/actions';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import history from '../../utils/history';
 import {
     Button,
     TextField,
@@ -188,6 +189,13 @@ class ShowPost extends Component {
                     <h4>{this.props.location.state.post.title}</h4>
                     <p>{this.props.location.state.post.body}</p>
                     <p>{this.props.location.state.post.author}</p>
+                    <a href="/#" style={{cursor: "pointer"}} onClick={this.props.isAuthenticated
+                        ? () => this.handleLikes()
+                        : history.replace("/")
+                    }>
+                        <i className="material-icons">thumb_up</i>
+                        <small className="notification-num-posts">{this.state.likes}</small>
+                    </a>
                 </div>
                 <div style={{opacity: this.state.opacity, transition: 'ease-out 2s' }} >
                     <h2>Comments</h2>
