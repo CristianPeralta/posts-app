@@ -12,10 +12,18 @@ import {
     DialogContentText
 } from '@material-ui/core';
 
-const RenderComments = ({comment, userId, edit}) => (
-    <div>
+const RenderComments = ({comment, userId, edit, commentStyle}) => (
+    <div className={commentStyle}  >
         <h3>{comment.comment}</h3>
-        <small>{comment.date_created}</small>
+        <small>{comment.date_created === "Just Now"
+            ? <div>
+                { comment.isEdited
+                    ? <span> Edited </span>
+                    : <span> Just Now </span>
+                }
+            </div>
+            : comment.date_created
+        }</small>
         <p>By: {comment.author} </p>
         {
             comment.user_id === userId
@@ -39,7 +47,7 @@ class ShowPost extends Component {
         }
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleCommentChange = this.handleCommentChange.bind(this);
-        this.handleDeleteComment = this.handleDeleteComment.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
@@ -76,7 +84,7 @@ class ShowPost extends Component {
     }
 
     handleCommentUpdate(comment) {
-        let commentIndex = this.state.commentsMotion.findIndex(c => c.cid === comment.id);
+        let commentIndex = this.state.commentsMotion.findIndex(c => c.cid === comment.cid);
         let newArr = [...this.state.commentsMotion];
         newArr[commentIndex] = comment;
         this.setState({commentsMotion: newArr});
@@ -172,7 +180,12 @@ class ShowPost extends Component {
                             key={comment.cid}
                             comment={comment}
                             edit={this.handleClickOpen}
-                            userId={this.props.profile.uid} />
+                            userId={this.props.profile.uid}
+                            commentStyle={this.state.deleteCommentId === comment.cid
+                                ? "FadeOutComment"
+                                : "CommentStyles"
+                            }
+                            />
                         )) : null
                     }
                 </div>
