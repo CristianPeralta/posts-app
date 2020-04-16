@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import * as ACTIONS from '../../store/actions/actions';
-import history from '../../utils/history';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import {
@@ -83,6 +82,12 @@ class ShowPost extends Component {
         this.setState({commentsMotion: newArr});
     }
 
+    handleCommentDelete(cid) {
+        this.setState({ deleteCommentId: cid});
+        const newArr = this.state.commentsMotion.filter(c => c.cid !== cid);
+        setTimeout(() => this.setState({commentsMotion: newArr}), 2000);
+    }
+
     handleClickOpen(cid, comment) {
         this.setState({ open: true, comment: comment, cid: cid });
     }
@@ -143,12 +148,12 @@ class ShowPost extends Component {
             .catch(err => console.log(err))
         this.handleCommentUpdate(edittedComment);
     }
-    handleDeleteComment() {
+    handleDelete() {
         const cid = this.state.cid;
         axios.delete('/posts/comments', { data: { cid: cid }})
             .then(res => console.log(res))
             .catch(err => console.log(err))
-            .then(setTimeout(() => history.replace('/posts'), 700));
+        this.handleCommentDelete(cid);   
     }
     render() {
         return (
@@ -204,7 +209,7 @@ class ShowPost extends Component {
                                 <Button onClick={() => this.handleClose() } >
                                     Cancel
                                 </Button>
-                                <Button onClick={() => this.handleDeleteComment()} >
+                                <Button onClick={() => this.handleDelete()} >
                                     Delete
                                 </Button>
                             </DialogActions>
