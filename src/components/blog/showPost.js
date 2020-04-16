@@ -159,7 +159,7 @@ class ShowPost extends Component {
     }
     handleDelete() {
         const cid = this.state.cid;
-        axios.delete('/posts/comments', { data: { cid: cid }})
+        axios.delete('/posts/comment', { data: { cid: cid }})
             .then(res => console.log(res))
             .catch(err => console.log(err))
         this.handleCommentDelete(cid);   
@@ -223,7 +223,10 @@ class ShowPost extends Component {
                                 <Button onClick={() => this.handleClose() } >
                                     Cancel
                                 </Button>
-                                <Button onClick={() => this.handleDelete()} >
+                                <Button onClick={() => {
+                                    this.handleDelete();
+                                    this.setState({ open: false });
+                                }} >
                                     Delete
                                 </Button>
                             </DialogActions>
