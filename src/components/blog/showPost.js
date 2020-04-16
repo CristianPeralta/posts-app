@@ -194,7 +194,7 @@ class ShowPost extends Component {
                         : history.replace("/")
                     }>
                         <i className="material-icons">thumb_up</i>
-                        <small className="notification-num-posts">{this.state.likes}</small>
+                        <small className="notification-num-showpost">{this.state.likes}</small>
                     </a>
                 </div>
                 <div style={{opacity: this.state.opacity, transition: 'ease-out 2s' }} >
