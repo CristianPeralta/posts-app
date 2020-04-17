@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import * as ACTIONS from '../../store/actions/actions';
 import Pagination from 'react-js-pagination';
+import moment from 'moment';
 import {
     Card,
     CardContent,
@@ -22,7 +23,7 @@ const RenderPosts = ({post}) => {
                 subheader={
                     <div className='FlexColumn'>
                         <div className='FlexRow'>
-                            {post.date_created}
+                            {moment(post.date_created).format('MMMM Do, YYYY | h:mm:ss a')}
                         </div>
                         <div className="FlexRow">
                             <i className="material-icons">thumb_up</i>
