@@ -109,11 +109,20 @@ class Posts extends Component {
             <div>
                 <div style={{opacity: this.state.opacity, transition: 'opacity 2s ease'}}>
                     <br />
+
+                {this.props.isAuthenticated ?
                     <Link to='/addpost' >
-                        <Button color='primary'>
+                        <Button variant='contained' color='primary'>
                             Add Post
                         </Button>
                     </Link>
+                    : <Link to='/signup' >
+                        <Button variant='contained' color='primary'>
+                            Signup to Add Post
+                        </Button>
+                    </Link>
+                    
+                }
                 </div>
                 <div style={{opacity: this.state.opacity, transition: 'opacity 2s ease'}}>
                     <h1>Posts</h1>
@@ -138,6 +147,7 @@ class Posts extends Component {
 const mapStateToProps = state => {
     return {
         posts: state.post.posts,
+        isAuthenticated: state.auth.isAuthenticated
     };
 }
 
