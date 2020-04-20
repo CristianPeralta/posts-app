@@ -82,6 +82,17 @@ class Posts extends Component {
     addSearchPostsToState(posts) {
         this.setState({posts: []});
         this.setState({posts: [...posts]});
+        this.animateSearchPosts();
+    }
+    animateSearchPosts() {
+        this.setState({postsSearchMotion: []});
+        let i = 1;
+        this.state.postsSearch.map(post => {
+            setTimeout(() => {
+                this.setState({postsMotion: [...this.state.postsSearchMotion, post]})
+                i++;
+            }, 400*i);
+        })
     }
     slicePosts() {
         const indexOfLastPost = this.state.activePage * this.state.PostsPerPage;
