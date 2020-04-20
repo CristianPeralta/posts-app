@@ -9,7 +9,8 @@ import {
     Card,
     CardContent,
     CardHeader,
-    Button
+    Button,
+    TextField
 } from '@material-ui/core';
 
 const RenderPosts = ({post}) => {
@@ -123,6 +124,14 @@ class Posts extends Component {
                     </Link>
                     
                 }
+                </div>
+                <div>
+                    <TextField
+                        id='search'
+                        label='Search'
+                        margin='normal'
+                        onChange={}
+                    />
                 </div>
                 <div style={{opacity: this.state.opacity, transition: 'opacity 2s ease'}}>
                     <h1>Posts</h1>
