@@ -61,6 +61,7 @@ class Posts extends Component {
         }
         this.slicePosts = this.slicePosts.bind(this);
         this.handlePageChange = this.handlePageChange.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
     }
 
     componentDidMount() {
@@ -87,8 +88,8 @@ class Posts extends Component {
             .catch(() => this.props.postsFailure())
     }
     addSearchPostsToState(posts) {
-        this.setState({posts: []});
-        this.setState({posts: [...posts]});
+        this.setState({postsSearch: []});
+        this.setState({postsSearch: [...posts]});
         this.animateSearchPosts();
     }
     animateSearchPosts() {
@@ -96,7 +97,7 @@ class Posts extends Component {
         let i = 1;
         this.state.postsSearch.map(post => {
             setTimeout(() => {
-                this.setState({postsMotion: [...this.state.postsSearchMotion, post]})
+                this.setState({postsSearchMotion: [...this.state.postsSearchMotion, post]})
                 i++;
             }, 400*i);
         })
@@ -168,9 +169,12 @@ class Posts extends Component {
                 <div style={{opacity: this.state.opacity, transition: 'opacity 2s ease'}}>
                     <h1>Posts</h1>
                     <div>
-                        {this.state.postsMotion.map(
-                            post => <RenderPosts opacity={this.state.opacity} key={post.pid} post={post} />
-                        )}
+                    {   this.state.posts
+                        ? this.state.postsMotion.map(
+                                post => <RenderPosts opacity={this.state.opacity} key={post.pid} post={post} />
+                        )
+                        : null
+                    }
                     </div>
                     <Pagination
                         activePage={this.state.activePage}
