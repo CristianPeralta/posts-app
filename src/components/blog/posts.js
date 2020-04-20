@@ -154,7 +154,7 @@ class Posts extends Component {
                         id='search'
                         label='Search'
                         margin='normal'
-                        onChange={this.addSearchPostsToState}
+                        onChange={this.handleSearch}
                     />
                 </div>
                 <div style={{opacity: this.state.opacity, transition: 'opacity 2s ease'}}>
