@@ -173,6 +173,7 @@ class Posts extends Component {
 const mapStateToProps = state => {
     return {
         posts: state.post.posts,
+        searchPosts: state.post.searchPosts,
         isAuthenticated: state.auth.isAuthenticated
     };
 }
@@ -180,6 +181,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         setPosts: posts => dispatch(ACTIONS.fetchPosts(posts)),
+        postsSuccess: posts => dispatch(ACTIONS.fetchSearchPosts(posts)),
+        postsFailure: () => dispatch(ACTIONS.removeSearchPosts())
     };
 }
 
