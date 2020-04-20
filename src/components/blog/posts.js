@@ -81,7 +81,7 @@ class Posts extends Component {
     }
     handleSearch(event) {
         const query = event.target.value;
-        axios.get('/search', { params: { query }})
+        axios.get('/posts/search', { params: { query }})
             .then(res => this.props.postsSuccess(res.data))
             .then(() => this.addSearchPostsToState(this.props.searchPosts))
             .catch(() => this.props.postsFailure())
