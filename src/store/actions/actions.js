@@ -103,3 +103,16 @@ export const removeUserPosts = () => {
     type: ACTION_TYPES.REMOVE_USER_POSTS
   }
 }
+
+export const fetchSearchPosts = posts => {
+  return {
+    type: ACTION_TYPES.SEARCH_POSTS_SUCCESS,
+    payload: posts
+  }
+}
+
+export const removeSearchPosts = () => {
+  return {
+    type: ACTION_TYPES.SEARCH_POSTS_FAILURE
+  }
+}
