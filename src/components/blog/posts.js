@@ -157,6 +157,14 @@ class Posts extends Component {
                         onChange={this.handleSearch}
                     />
                 </div>
+                <div>
+                {this.state.postsSearch
+                    ? this.state.postsSearchMotion.map(post =>
+                        <RenderPosts key={post.pid} post={post} />
+                        )
+                    : null
+                }
+                </div>
                 <div style={{opacity: this.state.opacity, transition: 'opacity 2s ease'}}>
                     <h1>Posts</h1>
                     <div>
