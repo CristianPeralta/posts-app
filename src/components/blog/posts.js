@@ -56,6 +56,8 @@ class Posts extends Component {
             activePage: 1,
             PostsPerPage: 5,
             postsSlice: [],
+            postsSearch: [],
+            postsSearchMotion: []
         }
         this.slicePosts = this.slicePosts.bind(this);
         this.handlePageChange = this.handlePageChange.bind(this);
@@ -76,6 +78,10 @@ class Posts extends Component {
         this.setState({numPosts: this.state.posts.length, pageRange: this.state.numPosts/5});
         this.slicePosts();
         this.animatePosts();
+    }
+    addSearchPostsToState(posts) {
+        this.setState({posts: []});
+        this.setState({posts: [...posts]});
     }
     slicePosts() {
         const indexOfLastPost = this.state.activePage * this.state.PostsPerPage;
@@ -130,7 +136,7 @@ class Posts extends Component {
                         id='search'
                         label='Search'
                         margin='normal'
-                        onChange={}
+                        onChange={this.addSearchPostsToState}
                     />
                 </div>
                 <div style={{opacity: this.state.opacity, transition: 'opacity 2s ease'}}>
