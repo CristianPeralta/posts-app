@@ -193,7 +193,7 @@ class ShowPost extends Component {
                     <p>{this.props.location.state.post.author}</p>
                     <a style={{cursor: "pointer"}} onClick={this.props.isAuthenticated
                         ? () => this.handleLikes()
-                        : history.replace("/signup")
+                        : () => history.replace("/signup")
                     }>
                         <i className="material-icons">thumb_up</i>
                         <small className="notification-num-showpost">{this.state.likes}</small>
