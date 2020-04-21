@@ -1,7 +1,9 @@
 import * as ACTION_TYPES from '../actions/action_types'
 
 const initialState = {
-  userText: ''
+  userText: '',
+  otherUserProfile: '',
+  otherUserPosts: []
 }
 
 const UserReducer = (state = initialState, action) => {
@@ -10,6 +12,26 @@ const UserReducer = (state = initialState, action) => {
         return {
           ...state,
           userText: action.payload
+        }
+      case ACTION_TYPES.SET_OTHER_USER_PROFILE:
+        return {
+          ...state,
+          otherUserProfile: action.payload
+        }
+      case ACTION_TYPES.REMOVE_OTHER_USER_PROFILE:
+        return {
+          ...state,
+          otherUserProfile: null
+        }
+      case ACTION_TYPES.SET_OTHER_USER_POSTS:
+        return {
+          ...state,
+          otherUserPosts: action.payload
+        }
+      case ACTION_TYPES.REMOVE_OTHER_USER_POSTS:
+        return {
+          ...state,
+          otherUserPosts: []
         }
       default:
         return state
