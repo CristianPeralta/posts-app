@@ -101,7 +101,7 @@ class Posts extends Component {
     animateSearchPosts() {
         this.setState({postsSearchMotion: []});
         let i = 1;
-        this.state.postsSearch.map(post => {
+        this.state.postsSearch.forEach(post => {
             setTimeout(() => {
                 this.setState({postsSearchMotion: [...this.state.postsSearchMotion, post]})
                 i++;
