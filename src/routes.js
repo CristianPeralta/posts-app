@@ -20,6 +20,8 @@ import Home from './functional/home';
 import RenderListItem from './functional/renderlistitem';
 import SignUp from './functional/signup';
 
+import ShowUser from './components/profile/showUser';
+
 import * as ACTIONS from './store/actions/actions';
 
 import Auth from './utils/auth';
@@ -70,6 +72,8 @@ class Routes extends Component {
             <Route path='/redirect' component={UnauthRedirect} />
             <Route path='/renderlist' component={RenderList} />
             <Route path='/signup' render={() => <SignUp auth={auth}/>} />
+
+            <Route path='/user/:uid' component={ShowUser} />
 
             <Route path='/posts' component={Posts} />
             <Route path='/post/:pid' component={ShowPost} />
