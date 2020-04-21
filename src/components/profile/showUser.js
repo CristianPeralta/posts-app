@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import axios from 'axios';
 import * as ACTIONS from '../../store/actions/actions';
 import {
     Card,
@@ -54,11 +55,15 @@ const RenderProfile = props => {
 };
 
 class ShowUser extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            profile : null
-        }
+    componentDidMount() {
+        const username = this.props.location.state.post.author;
+        axios.get('/users', { params: { username: username }})
+            .then(res => this.props.setOtherUserProfile(res.data))
+            .catch(err => console.log(err));
+        axios.get('/posts/username', { params: { username: username }})
+            .then(res => this.props.setOtherUserPosts(res.data))
+            .catch(err => console.log(err))
+        window.scrollTo({ top: 0, left: 0});
     }
     render() {
         return (
