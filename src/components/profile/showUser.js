@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as ACTIONS from '../../store/actions/actions';
 
 const RenderProfile = props => {
     return (
@@ -26,4 +28,17 @@ class ShowUser extends Component {
     }
 }
 
-export default ShowUser;
+const mapStateToProps = state => {
+    return {
+        profile: state.user.profile
+    };
+};
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setProfile: (profile) => dispatch(ACTIONS.setUserProfile(profile))
+    };
+};
+
+export default  connect(mapStateToProps, mapDispatchToProps)(ShowUser);
