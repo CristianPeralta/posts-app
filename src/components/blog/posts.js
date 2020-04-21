@@ -26,6 +26,12 @@ const RenderPosts = ({post}) => {
                         <div className='FlexRow'>
                             {moment(post.date_created).format('MMMM Do, YYYY | h:mm:ss a')}
                         </div>
+                        <div className='FlexRow'>
+                            <Link style={{paddingLeft: '5ps', textDecoration: 'none'}}
+                                to={{pathname: '/user/' + post.author, state:{post}}}>
+                                By: {post.author}
+                            </Link>
+                        </div>
                         <div className="FlexRow">
                             <i className="material-icons">thumb_up</i>
                             <div className="notification-num-posts">
