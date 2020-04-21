@@ -116,3 +116,29 @@ export const removeSearchPosts = () => {
     type: ACTION_TYPES.SEARCH_POSTS_FAILURE
   }
 }
+
+export const setOtherUserProfile = profile => {
+  return {
+    type: ACTION_TYPES.SET_OTHER_USER_PROFILE,
+    payload: profile
+  }
+}
+
+export const removeOtherUserProfile = () => {
+  return {
+    type: ACTION_TYPES.REMOVE_OTHER_USER_PROFILE
+  }
+}
+
+export const setOtherUserPosts = posts => {
+  return {
+    type: ACTION_TYPES.SET_OTHER_USER_POSTS,
+    payload: posts
+  }
+}
+
+export const removeOtherUserPosts = () => {
+  return {
+    type: ACTION_TYPES.REMOVE_OTHER_USER_POSTS
+  }
+}
