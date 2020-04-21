@@ -58,10 +58,10 @@ class ShowUser extends Component {
     componentDidMount() {
         const username = this.props.location.state.post.author;
         axios.get('/users', { params: { username: username }})
-            .then(res => this.props.setOtherUserProfile(res.data))
+            .then(res => this.props.setProfile(res.data[0]))
             .catch(err => console.log(err));
         axios.get('/posts/username', { params: { username: username }})
-            .then(res => this.props.setOtherUserPosts(res.data))
+            .then(res => this.props.setPosts(res.data))
             .catch(err => console.log(err))
         window.scrollTo({ top: 0, left: 0});
     }
@@ -92,6 +92,7 @@ class ShowUser extends Component {
 }
 
 const mapStateToProps = state => {
+    console.log('state', state)
     return {
         profile: state.user.otherUserProfile,
         userPosts: state.user.otherUserPosts
