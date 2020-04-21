@@ -30,14 +30,16 @@ class ShowUser extends Component {
 
 const mapStateToProps = state => {
     return {
-        profile: state.user.profile
+        profile: state.user.otherUserProfile,
+        userPosts: state.user.otherUserPosts
     };
 };
 
 
 const mapDispatchToProps = dispatch => {
     return {
-        setProfile: (profile) => dispatch(ACTIONS.setUserProfile(profile))
+        setProfile: (profile) => dispatch(ACTIONS.setOtherUserProfile(profile)),
+        setPosts: posts => dispatch(ACTIONS.setOtherUserPosts(posts))
     };
 };
 
