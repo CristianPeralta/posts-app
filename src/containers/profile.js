@@ -102,6 +102,13 @@ class Profile extends Component {
           <this.RenderProfile profile={this.props.profile} />
         </div>
         <div>
+            <Link to={{pathname: '/send-message' + this.props.dbProfile.uid}}>
+              <Button variant='contained' color='primary' type='submit'>
+                  Send Message
+              </Button>
+            </Link>
+        </div>
+        <div>
           {
             this.props.userPosts ?
               this.props.userPosts.map(post => (
