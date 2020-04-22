@@ -78,9 +78,9 @@ class Routes extends Component {
 
             <Route path='/user/:uid' component={ShowUser} />
 
-            <PrivateRoute path="/sendmessage" auth={auth} component={sendMessage}/>
-            <PrivateRoute path="/showmessages/:id" auth={auth} component={showMessages}/>
-            <PrivateRoute path="/replytomessage" auth={auth} component={replyToMessage}/>
+            <PrivateRoute path="/send-message" auth={auth} component={sendMessage}/>
+            <PrivateRoute path="/show-messages/:id" auth={auth} component={showMessages}/>
+            <PrivateRoute path="/reply-message" auth={auth} component={replyToMessage}/>
 
             <Route path='/posts' component={Posts} />
             <Route path='/post/:pid' component={ShowPost} />

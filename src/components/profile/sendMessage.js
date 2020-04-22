@@ -8,16 +8,20 @@ import {
 } from '@material-ui/core';
 
 class SendMessage extends Component {
+    constructor(props) {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
     handleSubmit(event) {
         event.preventDefault();
         const data = {
             messageSender: this.props.location.state.props.profile.username,
             messageTo: this.props.dbProfile.username,
-            messageTitle: event.target.value,
+            messageTitle: event.target.title.value,
             messageBody: event.target.body.value
         };
 
-        axios.post('/send-message', data)
+        axios.post('/users/messages', data)
             .then(res => console.log(res))
             .catch(err => console.log(err))
             .then(setTimeout(() => history.replace('/'), 500))

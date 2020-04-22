@@ -17,7 +17,7 @@ class ReplyToMessage extends Component {
             messageBody: event.target.body.value
         };
 
-        axios.post('/send-message', data)
+        axios.post('/users/messages', data)
             .then(res => console.log(res))
             .catch(err => console.log(err))
             .then(setTimeout(() => history.replace('/'), 500))

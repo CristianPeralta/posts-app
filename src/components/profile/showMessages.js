@@ -14,7 +14,7 @@ const RenderMessages = props => {
     return (
         <TableRow>
             <TableCell>
-                <p> From: {props.message.message_render}</p>
+                <p> From: {props.message.message_sender}</p>
                 <p> Title: {props.message.message_title}</p>
                 <p> Message: {props.message.message_body}</p>
                 <small>{props.message.date_created}</small>
