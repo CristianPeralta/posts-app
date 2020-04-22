@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import history from '../../utils/history';
 import {
     TextField,
@@ -50,4 +51,10 @@ class SendMessage extends Component {
     }
 }
 
-export default SendMessage;
+const mapStateToProps = state => {
+    return {
+        dbProfile: state.auth.dbProfile
+    };
+};
+
+export default connect(mapStateToProps)(SendMessage);
