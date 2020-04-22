@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import history from '../../utils/history';
 import axios from 'axios';
 import * as ACTIONS from '../../store/actions/actions';
 import {
@@ -12,6 +13,12 @@ import {
 } from '@material-ui/core';
 
 const RenderMessages = props => {
+    const deleteMessage = (mid) => {
+        axios.delete('/users/messages', { data: { mid: mid }})
+            .then(res => console.log(res))
+            .catch(error =>  console.log(error))
+            .then(() => setTimeout(() => history.replace('/'), 700));
+    }
     return (
         <TableRow>
             <TableCell>
@@ -25,7 +32,7 @@ const RenderMessages = props => {
                         Reply
                     </button>
                 </Link>
-                <button onClick={() => {}} > Delete </button>
+                <button onClick={() => deleteMessage(props.message.mid)}> Delete </button>
                 <br />
                 <br />
                 <button>Cancel</button>
