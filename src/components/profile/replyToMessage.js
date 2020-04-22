@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import history from '../../utils/history';
+import axios from 'axios';
 import {
     TextField,
     Button,
 } from '@material-ui/core';
 
 class ReplyToMessage extends Component {
-    handleSubmit() {
-        return;
+    handleSubmit(event) {
+        event.preventDefault();
+        const data = {
+            messageSender: this.props.location.state.props.message.message_sender,
+            messageTo: this.props.dbProfile.username,
+            messageTitle: event.target.title.value,
+            messageBody: event.target.body.value
+        };
+
+        axios.post('/send-message', data)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+            .then(setTimeout(() => history.replace('/'), 500))
     }
     render() {
         return (
