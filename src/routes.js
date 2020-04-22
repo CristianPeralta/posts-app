@@ -21,6 +21,9 @@ import RenderListItem from './functional/renderlistitem';
 import SignUp from './functional/signup';
 
 import ShowUser from './components/profile/showUser';
+import sendMessage from './components/profile/sendMessage';
+import replyToMessage from './components/profile/replyToMessage';
+import showMessages from './components/profile/showMessages';
 
 import * as ACTIONS from './store/actions/actions';
 
@@ -74,6 +77,10 @@ class Routes extends Component {
             <Route path='/signup' render={() => <SignUp auth={auth}/>} />
 
             <Route path='/user/:uid' component={ShowUser} />
+
+            <PrivateRoute path="/sendmessage" auth={auth} component={sendMessage}/>
+            <PrivateRoute path="/showmessages/:id" auth={auth} component={showMessages}/>
+            <PrivateRoute path="/replytomessage" auth={auth} component={replyToMessage}/>
 
             <Route path='/posts' component={Posts} />
             <Route path='/post/:pid' component={ShowPost} />
