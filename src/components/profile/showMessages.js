@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
 import {
     Table,
     TableBody,
@@ -10,9 +10,23 @@ import {
 
 const RenderMessages = props => {
     return (
-        <div>
-            RENDER MESSAGES
-        </div>
+        <TableRow>
+            <TableCell>
+                <p> From: {props.message.message_render}</p>
+                <p> Title: {props.message.message_title}</p>
+                <p> Message: {props.message.message_body}</p>
+                <small>{props.message.date_created}</small>
+                <Link to={{pathname: '/reply', state: {props}}}>
+                    <button>
+                        Reply
+                    </button>
+                </Link>
+                <button onClick={() => {}} > Delete </button>
+                <br />
+                <br />
+                <button>Cancel</button>
+            </TableCell>
+        </TableRow>
     );
 };
 class ShowMessages extends Component {
