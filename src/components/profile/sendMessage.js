@@ -15,8 +15,8 @@ class SendMessage extends Component {
     handleSubmit(event) {
         event.preventDefault();
         const data = {
-            messageSender: this.props.location.state.props.profile.username,
-            messageTo: this.props.dbProfile.username,
+            messageTo: this.props.location.state.props.profile.username,
+            messageSender: this.props.dbProfile.username,
             messageTitle: event.target.title.value,
             messageBody: event.target.body.value
         };

@@ -11,8 +11,8 @@ class ReplyToMessage extends Component {
     handleSubmit(event) {
         event.preventDefault();
         const data = {
-            messageSender: this.props.location.state.props.message.message_sender,
-            messageTo: this.props.dbProfile.username,
+            messageTo: this.props.location.state.props.message.message_sender,
+            messageSender: this.props.dbProfile.username,
             messageTitle: event.target.title.value,
             messageBody: event.target.body.value
         };
