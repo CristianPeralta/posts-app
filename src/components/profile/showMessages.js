@@ -35,7 +35,7 @@ const RenderMessages = props => {
                 <button onClick={() => deleteMessage(props.message.mid)}> Delete </button>
                 <br />
                 <br />
-                <button>Cancel</button>
+                <button onClick={() => history.goBack()}> Cancel </button>
             </TableCell>
         </TableRow>
     );

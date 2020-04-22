@@ -8,6 +8,10 @@ import {
 } from '@material-ui/core';
 
 class ReplyToMessage extends Component {
+    constructor(props) {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
     handleSubmit(event) {
         event.preventDefault();
         const data = {

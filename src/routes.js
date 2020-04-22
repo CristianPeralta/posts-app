@@ -80,7 +80,7 @@ class Routes extends Component {
 
             <PrivateRoute path="/send-message" auth={auth} component={sendMessage}/>
             <PrivateRoute path="/show-messages/:id" auth={auth} component={showMessages}/>
-            <PrivateRoute path="/reply-message" auth={auth} component={replyToMessage}/>
+            <PrivateRoute path="/reply" auth={auth} component={replyToMessage}/>
 
             <Route path='/posts' component={Posts} />
             <Route path='/post/:pid' component={ShowPost} />
