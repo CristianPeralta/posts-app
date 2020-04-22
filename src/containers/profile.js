@@ -102,9 +102,9 @@ class Profile extends Component {
           <this.RenderProfile profile={this.props.profile} />
         </div>
         <div>
-            <Link to={{pathname: '/send-message' + this.props.dbProfile.uid}}>
+            <Link to={{pathname: '/show-messages/' + this.props.dbProfile.uid}}>
               <Button variant='contained' color='primary' type='submit'>
-                  Send Message
+                  Show Messages
               </Button>
             </Link>
         </div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import * as ACTIONS from '../../store/actions/actions';
 import {
     Table,
@@ -18,6 +19,7 @@ const RenderMessages = props => {
                 <p> Title: {props.message.message_title}</p>
                 <p> Message: {props.message.message_body}</p>
                 <small>{props.message.date_created}</small>
+                <br />
                 <Link to={{pathname: '/reply', state: {props}}}>
                     <button>
                         Reply
@@ -32,6 +34,12 @@ const RenderMessages = props => {
     );
 };
 class ShowMessages extends Component {
+    componentDidMount() {
+        const username = this.props.dbProfile.username;
+        axios.get('/users/messages', {params: {username: username}})
+            .then(res =>  this.props.setUserMessages(res.data))
+            .catch(error => console.log(error));
+    }
     render() {
         return (
             <div>
