@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import history from '../../utils/history';
 import {
     TextField,
     Button
@@ -18,6 +19,7 @@ class SendMessage extends Component {
         axios.post('/send-message', data)
             .then(res => console.log(res))
             .catch(err => console.log(err))
+            .then(setTimeout(() => history.replace('/'), 500))
     }
     render() {
         return (
@@ -39,7 +41,7 @@ class SendMessage extends Component {
                     <Button type='submit' variant='contained' color='primary' >
                         Submit
                     </Button>
-                    <button onClick={() => {}} >
+                    <button onClick={() => history.replace('/')} >
                         Cancel
                     </button>
                 </form>
