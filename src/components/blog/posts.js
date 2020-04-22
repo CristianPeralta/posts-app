@@ -120,7 +120,6 @@ class Posts extends Component {
 
     animatePosts() {
         this.setState({postsMotion: []});
-        console.log('postsSlice', this.state.postsSlice);
         let i = 1;
         this.state.postsSlice.forEach(post => {
             setTimeout(
