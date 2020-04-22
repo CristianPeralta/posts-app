@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import history from '../../utils/history';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import {
     TextField,
@@ -64,4 +65,10 @@ class ReplyToMessage extends Component {
     }
 }
 
-export default ReplyToMessage;
+const mapStateToProps = state => {
+    return {
+        dbProfile: state.auth.dbProfile
+    }
+}
+
+export default connect(mapStateToProps)(ReplyToMessage);
