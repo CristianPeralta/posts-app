@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as ACTIONS from '../../store/actions/actions';
 import {
     Table,
     TableBody,
@@ -55,4 +57,17 @@ class ShowMessages extends Component {
     }
 }
 
-export default ShowMessages;
+const mapStateToProps = state => {
+    return {
+        dbProfile: state.auth.dbProfile,
+        userMessages: state.user.userMessages
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setUserMessages: messages => dispatch(ACTIONS.setUserMessages(messages))
+    };
+};
+
+export default  connect(mapStateToProps, mapDispatchToProps)(ShowMessages);
