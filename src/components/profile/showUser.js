@@ -5,6 +5,7 @@ import moment from 'moment';
 import axios from 'axios';
 import * as ACTIONS from '../../store/actions/actions';
 import {
+    Button,
     Card,
     CardContent,
     CardHeader,
@@ -46,10 +47,19 @@ const RenderPosts = ({post}) => {
 
 const RenderProfile = props => {
     return (
-        <div className='FlexRow'>
-            <h1>
-                {props.profile.username}
-            </h1>
+        <div>
+            <div className='FlexRow'>
+                <h1>
+                    {props.profile.username}
+                </h1>
+            </div>
+            <div>
+                <Link to={{pathname: '/send-message', state:{props}}}>
+                    <Button variant='contained' color='primary' type='submit'>
+                        Send Message
+                    </Button>
+                </Link>
+            </div>
         </div>
     );
 };
@@ -92,7 +102,6 @@ class ShowUser extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log('state', state)
     return {
         profile: state.user.otherUserProfile,
         userPosts: state.user.otherUserPosts
