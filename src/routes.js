@@ -101,13 +101,13 @@ class Routes extends Component {
       </div>
     )}
 }
-function mapDispatchToProps (dispatch) {
+const mapDispatchToProps = dispatch => {
   return {
     loginSuccess: () => dispatch(ACTIONS.loginSuccess()),
     loginFailure: () => dispatch(ACTIONS.loginFailure()),
     addProfile: (profile) => dispatch(ACTIONS.addProfile(profile)),
     removeProfile: () => dispatch(ACTIONS.removeProfile())
-  }
-}
+  };
+};
 
 export default connect(null, mapDispatchToProps)(Routes);
