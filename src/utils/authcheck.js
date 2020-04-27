@@ -12,7 +12,6 @@ class AuthCheck extends Component {
       email: profile.email,
       emailVerified: profile.email_verified
     };
-    console.log('data', data);
     axios.post('/users', data)
       .then(res => this.props.saveProfile(res.data));
   }

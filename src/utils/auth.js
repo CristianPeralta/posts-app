@@ -7,26 +7,26 @@ export default class Auth {
     clientID: 'uZxUdMAsiDWeu3OrNpoi4JwJscdF5nAx',
     redirectUri: 'http://localhost:3000/callback',
     responseType: 'token id_token',
-    scope: 'openid profile email'
+    scope: 'openid profile email',
   });
 
-  userProfile = {}
+  userProfile = {};
 
   login = () => this.auth0.authorize();
 
   handleAuth = () => {
     this.auth0.parseHash((err, authResult) => {
       if(authResult) {
-        localStorage.setItem('access_token', authResult.accessToken)
-        localStorage.setItem('id_token', authResult.idToken)
+        localStorage.setItem('access_token', authResult.accessToken);
+        localStorage.setItem('id_token', authResult.idToken);
 
-        let expiresAt = JSON.stringify((authResult.expiresIn * 1000 + new Date().getTime()))
-        localStorage.setItem('expiresAt', expiresAt)
+        const expiresAt = JSON.stringify((authResult.expiresIn * 1000 + new Date().getTime()));
+        localStorage.setItem('expiresAt', expiresAt);
 
         this.getProfile();
         setTimeout(() => { history.replace('/authcheck') }, 2000);
       } else {
-        console.log(err)
+        console.log(err);
       }
     })
   }
@@ -34,25 +34,25 @@ export default class Auth {
   getAccessToken = () => localStorage.getItem('access_token');
 
   getProfile = () => {
-    let accessToken = this.getAccessToken()
+    const accessToken = this.getAccessToken();
     if(accessToken) {
       this.auth0.client.userInfo(accessToken, (err, profile) => {
           if(profile) {
-            this.userProfile = { profile }
+            this.userProfile = { profile };
           }
-      } )
+      });
     }
-  }
+  };
 
   logout = () => {
-    localStorage.removeItem('access_token')
-    localStorage.removeItem('id_token')
-    localStorage.removeItem('expiresAt')
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('expiresAt');
     setTimeout(() => { history.replace('/authcheck') }, 200);
   }
 
   isAuthenticated = () => {
-    let expiresAt = JSON.parse(localStorage.getItem('expiresAt'))
-    return new Date().getTime() < expiresAt
+    const expiresAt = JSON.parse(localStorage.getItem('expiresAt'));
+    return (new Date().getTime() < expiresAt);
   }
 }
