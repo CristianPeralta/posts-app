@@ -8,13 +8,11 @@ export default class Auth {
     redirectUri: 'http://localhost:3000/callback',
     responseType: 'token id_token',
     scope: 'openid profile email'
-  })
+  });
 
   userProfile = {}
 
-  login = () => {
-      this.auth0.authorize()
-  }
+  login = () => this.auth0.authorize();
 
   handleAuth = () => {
     this.auth0.parseHash((err, authResult) => {
@@ -33,15 +31,7 @@ export default class Auth {
     })
   }
 
-  getAccessToken = () => {
-    if(localStorage.getItem('access_token')) {
-      const accessToken = localStorage.getItem('access_token')
-      return accessToken
-    } else {
-      return null
-    }
-  }
-
+  getAccessToken = () => localStorage.getItem('access_token');
 
   getProfile = () => {
     let accessToken = this.getAccessToken()
@@ -54,7 +44,6 @@ export default class Auth {
     }
   }
 
-
   logout = () => {
     localStorage.removeItem('access_token')
     localStorage.removeItem('id_token')
@@ -66,5 +55,4 @@ export default class Auth {
     let expiresAt = JSON.parse(localStorage.getItem('expiresAt'))
     return new Date().getTime() < expiresAt
   }
-
 }
