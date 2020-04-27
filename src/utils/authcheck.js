@@ -39,7 +39,7 @@ class AuthCheck extends Component {
     )}
 }
 
-function mapDispatchToProps (dispatch) {
+const mapDispatchToProps = dispatch => {
   return {
     loginSuccess: () => dispatch(ACTIONS.loginSuccess()),
     loginFailure: () => dispatch(ACTIONS.loginFailure()),
@@ -47,7 +47,7 @@ function mapDispatchToProps (dispatch) {
     removeProfile: () => dispatch(ACTIONS.removeProfile()),
     saveProfile: (profile) => dispatch(ACTIONS.saveProfile(profile)),
     removeDbProfile: () => dispatch(ACTIONS.removeDbProfile())
-  }
-}
+  };
+};
 
 export default connect(null, mapDispatchToProps)(AuthCheck);
