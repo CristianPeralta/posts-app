@@ -1,5 +1,4 @@
 import * as ACTION_TYPES from './action_types';
-import auth from '././../../utils/auth';
 
 export const SUCCESS = {
   type: ACTION_TYPES.SUCCESS
@@ -7,14 +6,6 @@ export const SUCCESS = {
 
 export const FAILURE = {
   type: ACTION_TYPES.FAILURE
-}
-
-export const login = () => {
-  const loginData = auth.auth0.authorize();
-  console.log('loginData', loginData);
-  return {
-    type: ACTION_TYPES.AUTH_LOGIN
-  }
 }
 
 export const logout = () => {
