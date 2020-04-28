@@ -1,11 +1,11 @@
 
-import * as ACTION_TYPES from '../actions/action_types'
+import * as ACTION_TYPES from '../actions/action_types';
 
 const initialState = {
   isAuthenticated: false,
   profile: null,
-  dbProfile: null
-}
+  dbProfile: null,
+};
 
 const AuthReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -38,6 +38,13 @@ const AuthReducer = (state = initialState, action) => {
         return {
           ...state,
           dbProfile: null
+        }
+      case ACTION_TYPES.AUTH_LOGOUT:
+        return {
+          ...state,
+          dbProfile: null,
+          profile: null,
+          isAuthenticated: false,
         }
       default:
         return state

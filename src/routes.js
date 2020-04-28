@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Container1 from './containers/container1'
@@ -19,6 +19,7 @@ import UnauthRedirect from './functional/unauthredirect';
 import Home from './functional/home';
 import RenderListItem from './functional/renderlistitem';
 import SignUp from './functional/signup';
+import Logout from './functional/logout';
 
 import ShowUser from './components/profile/showUser';
 import sendMessage from './components/profile/sendMessage';
@@ -35,8 +36,8 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 export const auth = new Auth();
 
 const handleAuthentication = (props) => {
-  if(props.location.hash) {
-    auth.handleAuth()
+  if (props.location.hash) {
+    auth.handleAuth();
   }
 }
 
@@ -50,7 +51,7 @@ const PrivateRoute = ({component: Component, auth }) => (
 
 class Routes extends Component {
   componentDidMount() {
-    if(this.props.isAuthenticated) {
+    if(auth.isAuthenticated()) {
       this.props.loginSuccess();
       auth.getProfile();
       setTimeout(() => {this.props.addProfile(auth.userProfile)}, 400);
@@ -60,23 +61,40 @@ class Routes extends Component {
     }
   }
   render() {
-    return(
-      <div>
-        <Header auth={auth} />
+    let routes = (
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route exact path='/form1' component={Form1} />
+        <Route path='/redirect' component={UnauthRedirect} />
+        <Route path='/renderlist' component={RenderList} />
+
+        <Route path='/user/:uid' component={ShowUser} />
+
+        <Route path='/posts' component={Posts} />
+        <Route path='/post/:pid' component={ShowPost} />
+        <Route path='/editpost/:pid' component={EditPost} />
+        <Route path='/addpost' component={AddPost} />
+
+        <Route path='/callback' render={(props) => { handleAuthentication(props); return <Callback />}} />
+        <Route path="/component1" render={(props) => <Component1 {...props} /> } />
+
+        <Route path="/listitem/:id" component={RenderListItem} />
+
+        <Route path='/authcheck' render={() => <AuthCheck auth={auth} /> } />
+        
+        <Route path='/logout' exact component={Logout} auth={auth} />
+        <Redirect to="/" />
+      </Switch>
+    );
+    if (true) {
+      routes = (
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/form1' component={Form1} />
-          <Route exact path='/container1' render={() => <Container1 auth={auth} /> } />
-          <Route path='/authcheck' render={() => <AuthCheck auth={auth} /> } />
           <Route path='/redirect' component={UnauthRedirect} />
           <Route path='/renderlist' component={RenderList} />
-          <Route path='/signup' render={() => <SignUp auth={auth}/>} />
 
           <Route path='/user/:uid' component={ShowUser} />
-
-          <PrivateRoute path="/send-message" auth={auth} component={sendMessage}/>
-          <PrivateRoute path="/show-messages/:id" auth={auth} component={showMessages}/>
-          <PrivateRoute path="/reply" auth={auth} component={replyToMessage}/>
 
           <Route path='/posts' component={Posts} />
           <Route path='/post/:pid' component={ShowPost} />
@@ -88,10 +106,27 @@ class Routes extends Component {
 
           <Route path="/listitem/:id" component={RenderListItem} />
 
+          <Route exact path='/container1' render={() => <Container1 auth={auth} /> } />
+          <Route path='/authcheck' render={() => <AuthCheck auth={auth} /> } />
+          <Route path='/signup' render={() => <SignUp auth={auth}/>} />
+
+          <PrivateRoute path="/send-message" auth={auth} component={sendMessage}/>
+          <PrivateRoute path="/show-messages/:id" auth={auth} component={showMessages}/>
+          <PrivateRoute path="/reply" auth={auth} component={replyToMessage}/>
+
           <PrivateRoute path="/privateroute" auth={auth} component={PrivateComponent} />
           <PrivateRoute path="/profile" auth={auth} component={Profile} />
+
+          <Route path='/logout' exact component={Logout} auth={auth} />
           <Redirect to="/" />
         </Switch>
+      );
+    }
+
+    return(
+      <div>
+        <Header auth={auth} />
+        {routes}
       </div>
     )}
 }

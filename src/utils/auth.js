@@ -31,13 +31,11 @@ export default class Auth {
     })
   }
 
-  getAccessToken = () => localStorage.getItem('access_token');
-
   getProfile = () => {
-    const accessToken = this.getAccessToken();
-    if(accessToken) {
+    const accessToken = localStorage.getItem('access_token');
+    if (accessToken) {
       this.auth0.client.userInfo(accessToken, (err, profile) => {
-          if(profile) {
+          if (profile) {
             this.userProfile = { profile };
           }
       });
@@ -48,7 +46,6 @@ export default class Auth {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expiresAt');
-    setTimeout(() => { history.replace('/authcheck') }, 200);
   }
 
   isAuthenticated = () => {
