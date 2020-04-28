@@ -30,7 +30,7 @@ import * as ACTIONS from './store/actions/actions';
 import Auth from './utils/auth';
 import AuthCheck from './utils/authcheck';
 
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 
 export const auth = new Auth();
 
@@ -111,4 +111,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Routes);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Routes)
+);
