@@ -30,7 +30,7 @@ import * as ACTIONS from './store/actions/actions';
 import Auth from './utils/auth';
 import AuthCheck from './utils/authcheck';
 
-import { Route, Switch, Redirect } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 export const auth = new Auth();
 
@@ -90,6 +90,7 @@ class Routes extends Component {
 
           <PrivateRoute path="/privateroute" auth={auth} component={PrivateComponent} />
           <PrivateRoute path="/profile" auth={auth} component={Profile} />
+          <Redirect to="/" />
         </Switch>
       </div>
     )}
