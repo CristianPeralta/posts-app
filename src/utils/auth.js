@@ -1,5 +1,4 @@
 import auth0 from 'auth0-js'
-import history from './history';
 
 export default class Auth {
   auth0 = new auth0.WebAuth({
@@ -14,7 +13,7 @@ export default class Auth {
 
   login = () => this.auth0.authorize();
 
-  handleAuth = () => {
+  handleAuth = (cb) => {
     this.auth0.parseHash((err, authResult) => {
       if(authResult) {
         localStorage.setItem('access_token', authResult.accessToken);
@@ -23,20 +22,20 @@ export default class Auth {
         const expiresAt = JSON.stringify((authResult.expiresIn * 1000 + new Date().getTime()));
         localStorage.setItem('expiresAt', expiresAt);
 
-        this.getProfile();
-        setTimeout(() => { history.replace('/authcheck') }, 2000);
+        this.getProfile(cb);
       } else {
         console.log(err);
       }
     })
   }
 
-  getProfile = () => {
+  getProfile = (cb) => {
     const accessToken = localStorage.getItem('access_token');
     if (accessToken) {
       this.auth0.client.userInfo(accessToken, (err, profile) => {
           if (profile) {
             this.userProfile = { profile };
+            cb();
           }
       });
     }

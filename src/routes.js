@@ -35,11 +35,6 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 
 export const auth = new Auth();
 
-const handleAuthentication = (props) => {
-  if (props.location.hash) {
-    auth.handleAuth();
-  }
-}
 
 const PrivateRoute = ({component: Component, auth }) => (
   <Route render={props => auth.isAuthenticated() === true
@@ -53,7 +48,7 @@ class Routes extends Component {
   componentDidMount() {
     if(auth.isAuthenticated()) {
       this.props.loginSuccess();
-      auth.getProfile();
+      auth.getProfile(() => {});
       setTimeout(() => {this.props.addProfile(auth.userProfile)}, 400);
     } else {
       this.props.loginFailure();
@@ -75,7 +70,7 @@ class Routes extends Component {
         <Route path='/editpost/:pid' component={EditPost} />
         <Route path='/addpost' component={AddPost} />
 
-        <Route path='/callback' render={(props) => { handleAuthentication(props); return <Callback />}} />
+        <Route path='/callback' render={(props) => { return <Callback auth={auth} {...props} />}} />
         <Route path="/component1" render={(props) => <Component1 {...props} /> } />
 
         <Route path="/listitem/:id" component={RenderListItem} />
@@ -101,7 +96,7 @@ class Routes extends Component {
           <Route path='/editpost/:pid' component={EditPost} />
           <Route path='/addpost' component={AddPost} />
 
-          <Route path='/callback' render={(props) => { handleAuthentication(props); return <Callback />}} />
+          <Route path='/callback' render={(props) => { return <Callback auth={auth} {...props} />}} />
           <Route path="/component1" render={(props) => <Component1 {...props} /> } />
 
           <Route path="/listitem/:id" component={RenderListItem} />
@@ -117,7 +112,7 @@ class Routes extends Component {
           <PrivateRoute path="/privateroute" auth={auth} component={PrivateComponent} />
           <PrivateRoute path="/profile" auth={auth} component={Profile} />
 
-          <Route path='/logout' exact render={props => <Logout auth={auth}  {...props} /> } />
+          <Route path='/logout' exact render={props => <Logout auth={auth} {...props} /> } />
           <Redirect to="/" />
         </Switch>
       );

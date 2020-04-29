@@ -23,7 +23,7 @@ class AuthCheck extends Component {
   }
 
   componentDidMount() {
-    if(this.props.auth.isAuthenticated()) {
+    if (this.props.auth.isAuthenticated()) {
       this.props.loginSuccess();
       this.props.addProfile(this.props.auth.userProfile.profile);
       this.sendProfileToDb(this.props.auth.userProfile.profile);
@@ -36,7 +36,6 @@ class AuthCheck extends Component {
   }
 
   render() {
-    console.log('this.state.readyToRedirect', this.state.readyToRedirect);
     return this.state.readyToRedirect ? <Redirect to="/" /> : null;
   }
 }
