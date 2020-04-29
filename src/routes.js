@@ -82,7 +82,7 @@ class Routes extends Component {
 
         <Route path='/authcheck' render={() => <AuthCheck auth={auth} /> } />
         
-        <Route path='/logout' exact component={Logout} auth={auth} />
+        <Route path='/logout' exact render={props => <Logout auth={auth}  {...props} /> } />
         <Redirect to="/" />
       </Switch>
     );
@@ -117,7 +117,7 @@ class Routes extends Component {
           <PrivateRoute path="/privateroute" auth={auth} component={PrivateComponent} />
           <PrivateRoute path="/profile" auth={auth} component={Profile} />
 
-          <Route path='/logout' exact component={Logout} auth={auth} />
+          <Route path='/logout' exact render={props => <Logout auth={auth}  {...props} /> } />
           <Redirect to="/" />
         </Switch>
       );

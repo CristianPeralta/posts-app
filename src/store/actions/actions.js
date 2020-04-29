@@ -9,9 +9,9 @@ export const FAILURE = {
 }
 
 export const logout = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('expirationDate');
-  localStorage.removeItem('userId');
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('id_token');
+  localStorage.removeItem('expiresAt');
   return {
     type: ACTION_TYPES.AUTH_LOGOUT,
   };
