@@ -16,7 +16,6 @@ class AddPost extends Component {
             username: this.props.profile.username,
             uid: this.props.profile.uid,
         };
-        console.log("handle submit", data);
         axios.post('/posts', data)
             .then(response => console.log(response))
             .catch(error => console.log(error))
