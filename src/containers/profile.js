@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import * as ACTIONS from '../store/actions/actions';
-import history from '../utils/history';
+import { Redirect } from 'react-router-dom';
 import '../App.css';
 import {
   Button,
@@ -21,6 +21,7 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      redirectToHome: false,
       open: false,
       postId: ''
     }
@@ -85,7 +86,7 @@ class Profile extends Component {
         .then(res => console.log(res)))
       .catch(err => console.log(err))
       .then(() => this.handleClickClose())
-      .then(() => setTimeout(() => history.replace('/'), 700));
+      .then(() => setTimeout(() => this.setState({redirectToHome: true}) , 700));
   }
 
   handleClickOpen = pid => {
@@ -98,6 +99,7 @@ class Profile extends Component {
   render() {
     return(
       <div>
+        {this.state.redirectToHome ? <Redirect to='/' /> : null}
         <div>
           <this.RenderProfile profile={this.props.profile} />
         </div>
