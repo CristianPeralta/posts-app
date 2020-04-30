@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField } from '@material-ui/core';
 import axios from 'axios';
-import history from '../../utils/history';
+import { Redirect } from 'react-router-dom';
 
 class AddPost extends Component {
+    state = {
+        redirectToPosts: false
+    }
     handleSubmit(event) {
         event.preventDefault();
         const data = {
@@ -17,30 +20,37 @@ class AddPost extends Component {
         axios.post('/posts', data)
             .then(response => console.log(response))
             .catch(error => console.log(error))
-            .then(setTimeout(() => history.replace('/posts'), 700));
+            .then(() => {
+                this.setState({
+                    redirectToPosts: true
+                });
+            });
     }
     render() {
         return (
             <div>
-                <form onSubmit={e => this.handleSubmit(e)}>
-                    <TextField 
-                        id='title'
-                        label='Title'
-                        margin='normal'
-                    />
-                    <br />
-                    <TextField 
-                        id='body'
-                        label='Body'
-                        multiline
-                        rows='4'
-                        margin='normal'
-                    />
-                    <br />
-                    <button type='submit' >Submit</button>
-                </form>
-                    <br />
-                    <button onClick={() => history.replace('/posts')} >Cancel</button>
+                {this.state.redirectToPosts ? <Redirect to="/posts" /> : null}
+                <div>
+                    <form onSubmit={e => this.handleSubmit(e)}>
+                        <TextField 
+                            id='title'
+                            label='Title'
+                            margin='normal'
+                        />
+                        <br />
+                        <TextField 
+                            id='body'
+                            label='Body'
+                            multiline
+                            rows='4'
+                            margin='normal'
+                        />
+                        <br />
+                        <button type='submit' >Submit</button>
+                    </form>
+                        <br />
+                    <button onClick={() => this.setState({redirectToPosts: true})} >Cancel</button>
+                </div>
             </div>
         );
     }
