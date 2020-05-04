@@ -4,7 +4,6 @@ import * as ACTIONS from '../../store/actions/actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import history from '../../utils/history';
 import {
     Button,
     TextField,

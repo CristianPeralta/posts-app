@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import history from '../../utils/history';
 import axios from 'axios';
 import * as ACTIONS from '../../store/actions/actions';
 import {
