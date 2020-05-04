@@ -17,7 +17,7 @@ const RenderMessages = props => {
         axios.delete('/users/messages', { data: { mid: mid }})
             .then(res => console.log(res))
             .catch(error =>  console.log(error))
-            .then(() => setTimeout(() => history.replace('/'), 700));
+            .then(() => setTimeout(() => props.history.replace('/'), 700));
     }
     return (
         <TableRow>
@@ -35,7 +35,7 @@ const RenderMessages = props => {
                 <button onClick={() => deleteMessage(props.message.mid)}> Delete </button>
                 <br />
                 <br />
-                <button onClick={() => history.goBack()}> Cancel </button>
+                <button onClick={() => props.history.goBack()}> Cancel </button>
             </TableCell>
         </TableRow>
     );
@@ -60,7 +60,7 @@ class ShowMessages extends Component {
                         <TableBody>
                             {this.props.userMessages
                                 ? this.props.userMessages.map(message =>
-                                    <RenderMessages key={message.mid} message={message}/>
+                                    <RenderMessages key={message.mid} message={message} history={this.props.history} />
                                     )
                                 : null
                             }

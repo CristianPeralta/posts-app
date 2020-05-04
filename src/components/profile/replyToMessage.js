@@ -24,7 +24,7 @@ class ReplyToMessage extends Component {
         axios.post('/users/messages', data)
             .then(res => console.log(res))
             .catch(err => console.log(err))
-            .then(setTimeout(() => history.replace('/'), 500))
+            .then(setTimeout(() => this.props.history.replace('/'), 500))
     }
     render() {
         return (
@@ -59,7 +59,7 @@ class ReplyToMessage extends Component {
                         <Button type='submit' variant='contained' color='primary' >
                             Submit
                         </Button>
-                        <button onClick={() => history.replace('/')} >
+                        <button onClick={() => this.props.history.replace('/')} >
                             Cancel
                         </button>
                     </form>
