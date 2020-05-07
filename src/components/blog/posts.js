@@ -172,7 +172,7 @@ class Posts extends Component {
                     <h1>Posts</h1>
                     <div>
                     {   this.state.posts
-                        ? this.state.postsMotion.map(
+                        ? this.state.posts.map(
                                 post => <RenderPosts opacity={this.state.opacity} key={post.pid} post={post} />
                         )
                         : null

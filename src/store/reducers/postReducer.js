@@ -2,6 +2,7 @@ import * as ACTION_TYPES from '../actions/action_types';
 
 const initialState = {
   posts: [],
+  loadingPosts: false,
   comments: [],
   userPosts: [],
   searchPosts: []
@@ -9,6 +10,22 @@ const initialState = {
 
 const PostReducer = (state = initialState, action) => {
     switch(action.type) {
+      case ACTION_TYPES.FETCH_POSTS_START:
+        return {
+          ...state,
+          loadingPosts: true
+        }
+      case ACTION_TYPES.FETCH_POSTS_SUCCESS:
+        return {
+          ...state,
+          loadingPosts: false,
+          posts: action.posts
+        }
+      case ACTION_TYPES.FETCH_POSTS_FAIL:
+        return {
+          ...state,
+          loadingPosts: false
+        }
       case ACTION_TYPES.FETCH_DB_POSTS:
         return {
           ...state,
