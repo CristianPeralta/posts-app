@@ -75,12 +75,6 @@ export const removeDbProfile = () => {
   }
 }
 
-export const removePosts = () => {
-  return {
-    type: ACTION_TYPES.REMOVE_DB_POSTS
-  }
-}
-
 export const fetchPostComments = comments => {
   return {
     type: ACTION_TYPES.FETCH_POSTS_COMMENTS,
