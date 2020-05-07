@@ -72,10 +72,8 @@ class Posts extends Component {
 
     componentDidMount() {
         this.handleTransition();
-        axios.get('/posts')
-            .then(res => this.props.setPosts(res.data))
-            .then(() => this.addPostsToState(this.props.posts))
-            .catch(error => console.log(error));
+        this.props.onFetchPosts();
+        // addPostsToState
     }
     handleTransition () {
         setTimeout(() => this.setState({opacity: 1}), 400);
@@ -207,7 +205,7 @@ const mapDispatchToProps = dispatch => {
         setPosts: posts => dispatch(ACTIONS.fetchPosts(posts)),
         postsSuccess: posts => dispatch(ACTIONS.fetchSearchPosts(posts)),
         postsFailure: () => dispatch(ACTIONS.removeSearchPosts()),
-        getPosts: () => dispatch(ACTIONS.getPosts())
+        onFetchPosts: () => dispatch(ACTIONS.fetchPosts())
     };
 }
 

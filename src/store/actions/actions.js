@@ -75,13 +75,6 @@ export const removeDbProfile = () => {
   }
 }
 
-export const fetchPosts = posts => {
-  return {
-    type: ACTION_TYPES.FETCH_DB_POSTS,
-    payload: posts
-  }
-}
-
 export const removePosts = () => {
   return {
     type: ACTION_TYPES.REMOVE_DB_POSTS
@@ -172,6 +165,13 @@ export const fetchPostsStart = () => {
   };
 };
 
+export const fetchPostsSuccess = posts => {
+  return {
+    type: ACTION_TYPES.FETCH_POSTS_SUCCESS,
+    posts: posts
+  }
+}
+
 export const fetchPostsFailed = (error) => {
   return {
       type: ACTION_TYPES.FETCH_POSTS_FAIL,
@@ -179,12 +179,12 @@ export const fetchPostsFailed = (error) => {
   };
 };
 
-export const getPosts = () => {
+export const fetchPosts = () => {
   return dispatch => {
       dispatch(fetchPostsStart());
       axios.get('/posts')
           .then(response => {
-             dispatch(fetchPosts(response.data));
+             dispatch(fetchPostsSuccess(response.data));
           })
           .catch(error => {
               dispatch(fetchPostsFailed(error));
