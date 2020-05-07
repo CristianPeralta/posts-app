@@ -1,4 +1,5 @@
 import * as ACTION_TYPES from './action_types';
+import axios from '../../axios';
 
 export const SUCCESS = {
   type: ACTION_TYPES.SUCCESS
@@ -164,3 +165,21 @@ export const removeUserMessages = () => {
     type: ACTION_TYPES.REMOVE_USER_MESSAGES
   }
 }
+
+export const fetchPostsFailed = () => {
+  return {
+      type: ACTION_TYPES.FETCH_POSTS_FAIL,
+  };
+};
+
+export const getPosts = () => {
+  return dispatch => {
+      axios.get('/posts')
+          .then(response => {
+             dispatch(fetchPosts(response.data));
+          })
+          .catch(error=>{
+              dispatch(fetchPostsFailed());
+          });
+  };
+};
