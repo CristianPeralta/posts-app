@@ -166,20 +166,28 @@ export const removeUserMessages = () => {
   }
 }
 
-export const fetchPostsFailed = () => {
+export const fetchPostsStart = () => {
+  return {
+      type: ACTION_TYPES.FETCH_POSTS_START,
+  };
+};
+
+export const fetchPostsFailed = (error) => {
   return {
       type: ACTION_TYPES.FETCH_POSTS_FAIL,
+      error: error
   };
 };
 
 export const getPosts = () => {
   return dispatch => {
+      dispatch(fetchPostsStart());
       axios.get('/posts')
           .then(response => {
              dispatch(fetchPosts(response.data));
           })
-          .catch(error=>{
-              dispatch(fetchPostsFailed());
+          .catch(error => {
+              dispatch(fetchPostsFailed(error));
           });
   };
 };

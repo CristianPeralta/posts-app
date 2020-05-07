@@ -206,7 +206,8 @@ const mapDispatchToProps = dispatch => {
     return {
         setPosts: posts => dispatch(ACTIONS.fetchPosts(posts)),
         postsSuccess: posts => dispatch(ACTIONS.fetchSearchPosts(posts)),
-        postsFailure: () => dispatch(ACTIONS.removeSearchPosts())
+        postsFailure: () => dispatch(ACTIONS.removeSearchPosts()),
+        getPosts: () => dispatch(ACTIONS.getPosts())
     };
 }
 
