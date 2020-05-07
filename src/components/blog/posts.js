@@ -54,7 +54,6 @@ class Posts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: [],
             postsMotion: [],
             opacity: 0,
             numPosts: 0,
