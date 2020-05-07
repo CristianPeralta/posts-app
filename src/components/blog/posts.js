@@ -56,8 +56,6 @@ class Posts extends Component {
         this.state = {
             postsMotion: [],
             opacity: 0,
-            numPosts: 0,
-            pageRange: 0,
             activePage: 1,
             PostsPerPage: 5,
             postsSlice: [],
@@ -72,15 +70,13 @@ class Posts extends Component {
     componentDidMount() {
         this.handleTransition();
         this.props.onFetchPosts();
-        // addPostsToState
     }
     handleTransition () {
         setTimeout(() => this.setState({opacity: 1}), 400);
     }
-    addPostsToState(posts) {
-        this.setState({posts: [...posts]});
-        this.setState({numPosts: this.state.posts.length, pageRange: this.state.numPosts/5});
-        this.slicePosts();
+    addPostsToState() {
+        // this.setState({numPosts: this.props.posts.length, pageRange: this.props.posts.length/5});
+        // this.slicePosts();
         this.animatePosts();
     }
     handleSearch(event) {
@@ -108,10 +104,8 @@ class Posts extends Component {
     slicePosts() {
         const indexOfLastPost = this.state.activePage * this.state.PostsPerPage;
         const indexOfFirstPost = indexOfLastPost - this.state.PostsPerPage;
-        console.log('posts', this.state.posts);
-        console.log(indexOfLastPost, indexOfFirstPost);
         this.setState({
-            postsSlice: this.state.posts.slice(indexOfFirstPost, indexOfLastPost)
+            postsSlice: this.props.posts.slice(indexOfFirstPost, indexOfLastPost)
         });
     }
 
@@ -171,8 +165,8 @@ class Posts extends Component {
                 <div style={{opacity: this.state.opacity, transition: 'opacity 2s ease'}}>
                     <h1>Posts</h1>
                     <div>
-                    {   this.state.posts
-                        ? this.state.posts.map(
+                    {   this.props.posts
+                        ? this.props.posts.map(
                                 post => <RenderPosts opacity={this.state.opacity} key={post.pid} post={post} />
                         )
                         : null
@@ -181,8 +175,8 @@ class Posts extends Component {
                     <Pagination
                         activePage={this.state.activePage}
                         itemsCountPerPage={5}
-                        totalItemsCount={this.state.numPosts}
-                        pageRangeDisplayed={this.state.pageRange}
+                        totalItemsCount={this.props.posts.length}
+                        pageRangeDisplayed={this.props.posts.length/5}
                         onChange={this.handlePageChange}
                     />
                 </div>
