@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField } from '@material-ui/core';
-import axios from 'axios';
+import axios from '../../axios';
 import { Redirect } from 'react-router-dom';
 
 class AddPost extends Component {

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import * as ACTIONS from '../../store/actions/actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../axios';
 import {
     Button,
     TextField,

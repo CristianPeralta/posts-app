@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import {
     TextField
 } from '@material-ui/core';
-import axios from 'axios';
+import axios from '../../axios';
 
 class EditPost extends Component {
     constructor(props) {

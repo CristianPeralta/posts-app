@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import axios from 'axios';
+import axios from '../../axios';
 import * as ACTIONS from '../../store/actions/actions';
 import {
     Table,

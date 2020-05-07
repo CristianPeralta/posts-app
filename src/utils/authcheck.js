@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as ACTIONS from '../store/actions/actions';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../axios';
 
 class AuthCheck extends Component {
   constructor(props) {
