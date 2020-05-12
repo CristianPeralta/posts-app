@@ -110,19 +110,6 @@ export const removeUserPosts = () => {
   }
 }
 
-export const fetchSearchPosts = posts => {
-  return {
-    type: ACTION_TYPES.SEARCH_POSTS_SUCCESS,
-    payload: posts
-  }
-}
-
-export const removeSearchPosts = () => {
-  return {
-    type: ACTION_TYPES.SEARCH_POSTS_FAILURE
-  }
-}
-
 export const setOtherUserProfile = profile => {
   return {
     type: ACTION_TYPES.SET_OTHER_USER_PROFILE,
