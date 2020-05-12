@@ -53,13 +53,10 @@ class Posts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            postsMotion: [],
             opacity: 0,
             activePage: 1,
             PostsPerPage: 5,
             postsSlice: [],
-            postsSearch: [],
-            postsSearchMotion: []
         }
         this.slicePosts = this.slicePosts.bind(this);
         this.handlePageChange = this.handlePageChange.bind(this);
@@ -74,50 +71,18 @@ class Posts extends Component {
         setTimeout(() => this.setState({opacity: 1}), 400);
     }
     addPostsToState() {
-        // this.setState({numPosts: this.props.posts.length, pageRange: this.props.posts.length/5});
-        // this.slicePosts();
         this.animatePosts();
     }
     handleSearch(event) {
         const query = event.target.value;
         this.props.onFetchPosts(query);
-        /* axios.get('/posts', { params: { query }})
-            .then(res => this.props.postsSuccess(res.data))
-            .then(() => this.addSearchPostsToState(this.props.searchPosts))
-            .catch(() => this.props.postsFailure()) */
     }
-    addSearchPostsToState(posts) {
-        this.setState({postsSearch: []});
-        this.setState({postsSearch: [...posts]});
-        this.animateSearchPosts();
-    }
-    animateSearchPosts() {
-        this.setState({postsSearchMotion: []});
-        let i = 1;
-        this.state.postsSearch.forEach(post => {
-            setTimeout(() => {
-                this.setState({postsSearchMotion: [...this.state.postsSearchMotion, post]})
-                i++;
-            }, 400*i);
-        })
-    }
+
     slicePosts() {
         const indexOfLastPost = this.state.activePage * this.state.PostsPerPage;
         const indexOfFirstPost = indexOfLastPost - this.state.PostsPerPage;
         this.setState({
             postsSlice: this.props.posts.slice(indexOfFirstPost, indexOfLastPost)
-        });
-    }
-
-    animatePosts() {
-        this.setState({postsMotion: []});
-        let i = 1;
-        this.state.postsSlice.forEach(post => {
-            setTimeout(
-                () => {
-                    this.setState({ postsMotion: [...this.state.postsMotion, post]});
-                }, 400*i);
-            i++;
         });
     }
 
@@ -153,14 +118,6 @@ class Posts extends Component {
                         margin='normal'
                         onChange={this.handleSearch}
                     />
-                </div>
-                <div>
-                {this.state.postsSearch
-                    ? this.state.postsSearchMotion.map(post =>
-                        <RenderPosts key={post.pid} post={post} />
-                        )
-                    : null
-                }
                 </div>
                 <div style={{opacity: this.state.opacity, transition: 'opacity 2s ease'}}>
                     <h1>Posts</h1>
