@@ -45,3 +45,11 @@ export const addPostFailed = () => {
       type: ACTION_TYPES.ADD_POST_FAIL,
   };
 };
+
+export const addPost = (data) => {
+  return dispatch => {
+      axios.post('/posts', data)
+          .then(() => dispatch(addPostSuccess()))
+          .catch(() => dispatch(addPostFailed()));
+  };
+};
