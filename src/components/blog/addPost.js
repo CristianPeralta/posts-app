@@ -21,7 +21,7 @@ class AddPost extends Component {
     render() {
         return (
             <div>
-                {this.state.redirectToPosts ? <Redirect to="/posts" /> : null}
+                {this.props.added || this.state.redirectToPosts ? <Redirect to="/posts" /> : null}
                 <div>
                     <form onSubmit={e => this.handleSubmit(e)}>
                         <TextField 
@@ -51,6 +51,7 @@ class AddPost extends Component {
 const mapStateToProps = state => {
     return {
         profile: state.auth.dbProfile,
+        added: state.post.added,
     };
 };
 
