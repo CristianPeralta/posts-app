@@ -5,6 +5,9 @@ export {
   fetchPostsSuccess,
   fetchPostsFailed,
   fetchPosts,
+  addPostFailed,
+  addPostSuccess,
+  addPost,
 } from './post';
 
 export const SUCCESS = {

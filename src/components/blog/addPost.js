@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField } from '@material-ui/core';
-import axios from '../../axios';
 import { Redirect } from 'react-router-dom';
+import * as ACTIONS from '../../store/actions/actions';
 
 class AddPost extends Component {
     state = {
@@ -16,14 +16,7 @@ class AddPost extends Component {
             username: this.props.profile.username,
             uid: this.props.profile.uid,
         };
-        axios.post('/posts', data)
-            .then(response => console.log(response))
-            .catch(error => console.log(error))
-            .then(() => {
-                this.setState({
-                    redirectToPosts: true
-                });
-            });
+        this.props.onAddPost(data);
     }
     render() {
         return (
@@ -61,4 +54,10 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(AddPost);
+const mapDispatchToProps = dispatch => {
+    return {
+        onAddPost: data => dispatch(ACTIONS.addPost(data)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddPost);
