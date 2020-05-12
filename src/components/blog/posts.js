@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import axios from '../../axios';
 import * as ACTIONS from '../../store/actions/actions';
 import Pagination from 'react-js-pagination';
 import moment from 'moment';
@@ -81,10 +80,11 @@ class Posts extends Component {
     }
     handleSearch(event) {
         const query = event.target.value;
-        axios.get('/posts/search', { params: { query }})
+        this.props.onFetchPosts(query);
+        /* axios.get('/posts', { params: { query }})
             .then(res => this.props.postsSuccess(res.data))
             .then(() => this.addSearchPostsToState(this.props.searchPosts))
-            .catch(() => this.props.postsFailure())
+            .catch(() => this.props.postsFailure()) */
     }
     addSearchPostsToState(posts) {
         this.setState({postsSearch: []});
@@ -198,7 +198,7 @@ const mapDispatchToProps = dispatch => {
         setPosts: posts => dispatch(ACTIONS.fetchPosts(posts)),
         postsSuccess: posts => dispatch(ACTIONS.fetchSearchPosts(posts)),
         postsFailure: () => dispatch(ACTIONS.removeSearchPosts()),
-        onFetchPosts: () => dispatch(ACTIONS.fetchPosts())
+        onFetchPosts: query => dispatch(ACTIONS.fetchPosts(query))
     };
 }
 

@@ -173,10 +173,10 @@ export const fetchPostsFailed = (error) => {
   };
 };
 
-export const fetchPosts = () => {
+export const fetchPosts = (query) => {
   return dispatch => {
       dispatch(fetchPostsStart());
-      axios.get('/posts')
+      axios.get('/posts', { params: { query }})
           .then(response => {
              dispatch(fetchPostsSuccess(response.data));
           })
