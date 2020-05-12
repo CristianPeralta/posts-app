@@ -152,9 +152,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setPosts: posts => dispatch(ACTIONS.fetchPosts(posts)),
-        postsSuccess: posts => dispatch(ACTIONS.fetchSearchPosts(posts)),
-        postsFailure: () => dispatch(ACTIONS.removeSearchPosts()),
         onFetchPosts: query => dispatch(ACTIONS.fetchPosts(query))
     };
 }
