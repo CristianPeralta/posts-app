@@ -5,11 +5,21 @@ const initialState = {
   loadingPosts: false,
   comments: [],
   userPosts: [],
-  searchPosts: []
+  added: false,
 }
 
 const PostReducer = (state = initialState, action) => {
     switch(action.type) {
+      case ACTION_TYPES.ADD_POST_SUCCESS:
+        return {
+          ...state,
+          added: true,
+        }
+      case ACTION_TYPES.ADD_POST_FAIL:
+        return {
+          ...state,
+          added: false,
+        }
       case ACTION_TYPES.FETCH_POSTS_START:
         return {
           ...state,
@@ -45,16 +55,6 @@ const PostReducer = (state = initialState, action) => {
         return {
           ...state,
           userPosts: []
-        }
-      case ACTION_TYPES.SEARCH_POSTS_SUCCESS:
-        return {
-          ...state,
-          searchPosts: action.payload
-        }
-      case ACTION_TYPES.SEARCH_POSTS_FAILURE:
-        return {
-          ...state,
-          searchPosts: []
         }
       default:
         return state

@@ -37,8 +37,8 @@ export const fetchPosts = (query) => {
 export const addPostSuccess = () => {
   return {
     type: ACTION_TYPES.ADD_POST_SUCCESS,
-  }
-}
+  };
+};
   
 export const addPostFailed = () => {
   return {
