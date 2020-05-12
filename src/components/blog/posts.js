@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import * as ACTIONS from '../../store/actions/actions';
 import Pagination from 'react-js-pagination';
 import moment from 'moment';
+import withErrorHandler from '../../hoc/withErrorHandler';
+import axios from '../../axios';
 import {
     Card,
     CardContent,
@@ -156,4 +158,4 @@ const mapDispatchToProps = dispatch => {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Posts);
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Posts, axios));
