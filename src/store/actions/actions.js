@@ -8,6 +8,9 @@ export {
   addPostFailed,
   addPostSuccess,
   addPost,
+  editPostSuccess,
+  editPostFailed,
+  editPost,
 } from './post';
 
 export const SUCCESS = {

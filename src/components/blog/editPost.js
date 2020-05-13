@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import {
     TextField
 } from '@material-ui/core';
+import * as ACTIONS from '../../store/actions/actions';
 import axios from '../../axios';
 
 class EditPost extends Component {
@@ -86,4 +87,10 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(EditPost);
+const mapDispatchToProps = dispatch => {
+    return {
+        onEditPost: data => dispatch(ACTIONS.editPost(data)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditPost);
