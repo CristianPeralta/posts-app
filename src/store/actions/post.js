@@ -73,3 +73,23 @@ export const editPost = (data) => {
           .catch(() => dispatch(editPostFailed()));
   };
 };
+
+export const fetchPostCommentsStart = () => {
+  return {
+      type: ACTION_TYPES.FETCH_POST_COMMENTS_START,
+  };
+};
+  
+export const fetchPostCommentsSuccess = comments => {
+  return {
+    type: ACTION_TYPES.FETCH_POST_COMMENTS_SUCCESS,
+    comments: comments,
+  }
+};
+  
+export const fetchPostCommentsFailed = (error) => {
+  return {
+      type: ACTION_TYPES.FETCH_POST_COMMENTS_FAIL,
+      error: error,
+  };
+};
