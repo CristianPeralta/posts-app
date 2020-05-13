@@ -53,3 +53,15 @@ export const addPost = (data) => {
           .catch(() => dispatch(addPostFailed()));
   };
 };
+
+export const editPostSuccess = () => {
+  return {
+    type: ACTION_TYPES.EDIT_POST_SUCCESS,
+  };
+};
+  
+export const editPostFailed = () => {
+  return {
+      type: ACTION_TYPES.EDIT_POST_FAIL,
+  };
+};
