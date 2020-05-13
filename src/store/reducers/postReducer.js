@@ -64,16 +64,6 @@ const PostReducer = (state = initialState, action) => {
           ...state,
           loadingComments: false,
         }
-      case ACTION_TYPES.FETCH_POSTS_COMMENTS:
-        return {
-          ...state,
-          comments: action.payload
-        }
-      case ACTION_TYPES.REMOVE_POSTS_COMMENTS:
-        return {
-          ...state,
-          comments: []
-        }
       case ACTION_TYPES.FETCH_USER_POSTS:
         return {
           ...state,

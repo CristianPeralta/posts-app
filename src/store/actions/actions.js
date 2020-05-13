@@ -87,19 +87,6 @@ export const removeDbProfile = () => {
   }
 }
 
-export const fetchPostComments = comments => {
-  return {
-    type: ACTION_TYPES.FETCH_POSTS_COMMENTS,
-    payload: comments
-  }
-}
-
-export const removePostComments = () => {
-  return {
-    type: ACTION_TYPES.REMOVE_POSTS_COMMENTS
-  }
-}
-
 export const fetchUserPosts = posts => {
   return {
     type: ACTION_TYPES.FETCH_USER_POSTS,
