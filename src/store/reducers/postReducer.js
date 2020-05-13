@@ -6,6 +6,7 @@ const initialState = {
   comments: [],
   userPosts: [],
   added: false,
+  edited: false,
 }
 
 const PostReducer = (state = initialState, action) => {
@@ -19,6 +20,16 @@ const PostReducer = (state = initialState, action) => {
         return {
           ...state,
           added: false,
+        }
+      case ACTION_TYPES.EDIT_POST_SUCCESS:
+        return {
+          ...state,
+          edited: true,
+        }
+      case ACTION_TYPES.EDIT_POST_FAIL:
+        return {
+          ...state,
+          edited: false,
         }
       case ACTION_TYPES.FETCH_POSTS_START:
         return {
