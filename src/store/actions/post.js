@@ -65,3 +65,11 @@ export const editPostFailed = () => {
       type: ACTION_TYPES.EDIT_POST_FAIL,
   };
 };
+
+export const editPost = (data) => {
+  return dispatch => {
+      axios.put('/posts', data)
+          .then(() => dispatch(editPostSuccess()))
+          .catch(() => dispatch(editPostFailed()));
+  };
+};
