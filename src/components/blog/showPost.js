@@ -59,30 +59,11 @@ class ShowPost extends Component {
     }
 
     componentDidMount() {
-        console.log('this.props.location.state.post', this.props.location.state.post)
         this.props.onFetchPostComments({ pid: this.props.location.state.post.pid });
-        /* axios.get('/posts/comments', { params: { pid: this.props.location.state.post.pid }})
-            .then(resp => this.props.setComments(resp.data))
-            .then(() => this.addCommentsToState(this.props.comments))
-            .catch(err => console.log(err)) */
-        // this.handleTransition();
     }
 
     handleTransition() {
         setTimeout(() => this.setState({opacity: 1}), 400);
-    }
-
-    addCommentsToState(comments) {
-        this.setState({commentsArr: [...comments]});
-        this.animateComments();
-    }
-
-    animateComments() {
-        let i = 1;
-        this.state.commentsArr.forEach(comment => {
-            setTimeout(() => this.setState({commentsMotion: [...this.state.commentsMotion, comment] }), 400*i)
-            i++;
-        });
     }
 
     handleCommentSubmit(submitedComment) {
