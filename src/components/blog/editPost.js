@@ -5,14 +5,12 @@ import {
     TextField
 } from '@material-ui/core';
 import * as ACTIONS from '../../store/actions/actions';
-import axios from '../../axios';
 
 class EditPost extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            redirectToProfile: false,
             title: '',
             body: ''
         };
@@ -43,17 +41,12 @@ class EditPost extends Component {
             username: this.props.profile.username,
         };
 
-        axios.put('/posts', data)
-            .then(res => console.log(res.data))
-            .catch(err => console.log(err))
-            .then(() => {
-                this.setState({ redirectToProfile: true });
-            });
+        this.props.onEditPost(data);
     }
     render() {
         return (
             <div>
-                {this.state.redirectToProfile ? <Redirect to='/profile' /> : null}
+                {this.props.edited ? <Redirect to='/profile' /> : null}
                 <form onSubmit={this.handleSubmit}>
                     <TextField
                         id='title'
@@ -83,7 +76,8 @@ class EditPost extends Component {
 
 const mapStateToProps = state => {
     return {
-        profile: state.auth.dbProfile
+        profile: state.auth.dbProfile,
+        edited: state.post.edited,
     };
 };
 
