@@ -3,6 +3,7 @@ import * as ACTION_TYPES from '../actions/action_types';
 const initialState = {
   posts: [],
   loadingPosts: false,
+  loadingComments: false,
   comments: [],
   userPosts: [],
   added: false,
@@ -46,6 +47,22 @@ const PostReducer = (state = initialState, action) => {
         return {
           ...state,
           loadingPosts: false
+        }
+      case ACTION_TYPES.FETCH_POST_COMMENTS_START:
+        return {
+          ...state,
+          loadingComments: true,
+        }
+      case ACTION_TYPES.FETCH_POST_COMMENTS_SUCCESS:
+        return {
+          ...state,
+          loadingComments: false,
+          comments: action.comments,
+        }
+      case ACTION_TYPES.FETCH_POST_COMMENTS_FAIL:
+        return {
+          ...state,
+          loadingComments: false,
         }
       case ACTION_TYPES.FETCH_POSTS_COMMENTS:
         return {
