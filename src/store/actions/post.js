@@ -84,12 +84,25 @@ export const fetchPostCommentsSuccess = comments => {
   return {
     type: ACTION_TYPES.FETCH_POST_COMMENTS_SUCCESS,
     comments: comments,
-  }
+  };
 };
   
 export const fetchPostCommentsFailed = (error) => {
   return {
       type: ACTION_TYPES.FETCH_POST_COMMENTS_FAIL,
       error: error,
+  };
+};
+
+export const fetchPostComments = (params) => {
+  return dispatch => {
+      dispatch(fetchPostCommentsStart());
+      axios.get('/posts/comments', { params: params })
+          .then(response => {
+              dispatch(fetchPostCommentsSuccess(response.data));
+          })
+          .catch(error => {
+              dispatch(fetchPostCommentsFailed(error));
+          });
   };
 };
