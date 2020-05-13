@@ -43,7 +43,7 @@ class ShowPost extends Component {
             open: false,
             comment: '',
             cid: '',
-            opacity: 0,
+            opacity: 1,
             commentsArr: [],
             commentsMotion: [],
             likes: this.props.location.state.post.likes,
@@ -60,11 +60,12 @@ class ShowPost extends Component {
 
     componentDidMount() {
         console.log('this.props.location.state.post', this.props.location.state.post)
-        axios.get('/posts/comments', { params: { pid: this.props.location.state.post.pid }})
+        this.props.onFetchPostComments({ pid: this.props.location.state.post.pid });
+        /* axios.get('/posts/comments', { params: { pid: this.props.location.state.post.pid }})
             .then(resp => this.props.setComments(resp.data))
             .then(() => this.addCommentsToState(this.props.comments))
-            .catch(err => console.log(err))
-        this.handleTransition();
+            .catch(err => console.log(err)) */
+        // this.handleTransition();
     }
 
     handleTransition() {
@@ -201,7 +202,7 @@ class ShowPost extends Component {
                 <div style={{opacity: this.state.opacity, transition: 'ease-out 2s' }} >
                     <h2>Comments</h2>
                     {this.props.comments
-                    ? this.state.commentsMotion.map(comment => (
+                    ? this.props.comments.map(comment => (
                         <RenderComments
                             key={comment.cid}
                             comment={comment}
@@ -280,7 +281,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setComments: comments => dispatch(ACTIONS.fetchPostComments(comments))
+        onFetchPostComments: params => dispatch(ACTIONS.fetchPostComments(params)),
     }
 }
 

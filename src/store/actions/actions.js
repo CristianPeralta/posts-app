@@ -11,6 +11,10 @@ export {
   editPostSuccess,
   editPostFailed,
   editPost,
+  fetchPostCommentsStart,
+  fetchPostCommentsSuccess,
+  fetchPostCommentsFailed,
+  fetchPostComments,
 } from './post';
 
 export const SUCCESS = {
