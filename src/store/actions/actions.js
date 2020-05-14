@@ -15,6 +15,9 @@ export {
   fetchPostCommentsSuccess,
   fetchPostCommentsFailed,
   fetchPostComments,
+  addPostCommentFailed,
+  addPostCommentSuccess,
+  addPostComment,
 } from './post';
 
 export const SUCCESS = {

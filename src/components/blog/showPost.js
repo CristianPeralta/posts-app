@@ -256,14 +256,15 @@ const mapStateToProps = state => {
     return {
         comments: state.post.comments,
         profile: state.auth.dbProfile,
-        isAuthenticated: state.auth.isAuthenticated
-    }
-}
+        isAuthenticated: state.auth.isAuthenticated,
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
         onFetchPostComments: params => dispatch(ACTIONS.fetchPostComments(params)),
-    }
-}
+        onAddPostComment: (data) => dispatch(ACTIONS.addPostComment(data)),
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowPost);
