@@ -112,9 +112,7 @@ class ShowPost extends Component {
             date_created: justNow
         };
 
-        axios.post('/posts/comments', data)
-            .then(res => this.props.setComments(res.data))
-            .catch(err => console.log(err))
+        this.props.onAddPostComment(data);
 
         window.scroll({top: 0, left: 0, behavior: 'smooth'});
         this.handleCommentSubmit(submitedComment);
