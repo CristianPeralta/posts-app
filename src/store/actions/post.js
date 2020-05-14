@@ -106,3 +106,15 @@ export const fetchPostComments = (params) => {
           });
   };
 };
+
+export const addPostCommentSuccess = () => {
+  return {
+    type: ACTION_TYPES.ADD_POST_COMMENT_SUCCESS,
+  };
+};
+  
+export const addPostCommentFailed = () => {
+  return {
+      type: ACTION_TYPES.ADD_POST_COMMENT_FAIL,
+  };
+};
