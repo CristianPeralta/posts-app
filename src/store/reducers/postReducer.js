@@ -8,6 +8,7 @@ const initialState = {
   userPosts: [],
   added: false,
   edited: false,
+  commentAdded: false,
 }
 
 const PostReducer = (state = initialState, action) => {
@@ -47,6 +48,16 @@ const PostReducer = (state = initialState, action) => {
         return {
           ...state,
           loadingPosts: false
+        }
+      case ACTION_TYPES.ADD_POST_COMMENT_SUCCESS:
+        return {
+          ...state,
+          commentAdded: true,
+        }
+      case ACTION_TYPES.ADD_POST_COMMENT_FAIL:
+        return {
+          ...state,
+          commentAdded: false,
         }
       case ACTION_TYPES.FETCH_POST_COMMENTS_START:
         return {
