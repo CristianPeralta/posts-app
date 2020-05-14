@@ -118,3 +118,11 @@ export const addPostCommentFailed = () => {
       type: ACTION_TYPES.ADD_POST_COMMENT_FAIL,
   };
 };
+
+export const addPostComment = (data) => {
+  return dispatch => {
+      axios.post('/posts/comments', data)
+          .then(() => dispatch(addPostCommentSuccess()))
+          .catch(() => dispatch(addPostCommentFailed()));
+  };
+};
