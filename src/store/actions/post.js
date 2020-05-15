@@ -107,9 +107,10 @@ export const fetchPostComments = (params) => {
   };
 };
 
-export const addPostCommentSuccess = () => {
+export const addPostCommentSuccess = comment => {
   return {
     type: ACTION_TYPES.ADD_POST_COMMENT_SUCCESS,
+    comment: comment,
   };
 };
   
@@ -122,7 +123,7 @@ export const addPostCommentFailed = () => {
 export const addPostComment = (data) => {
   return dispatch => {
       axios.post('/posts/comments', data)
-          .then(() => dispatch(addPostCommentSuccess()))
+          .then(response => dispatch(addPostCommentSuccess(response.data)))
           .catch(() => dispatch(addPostCommentFailed()));
   };
 };

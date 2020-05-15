@@ -53,6 +53,7 @@ const PostReducer = (state = initialState, action) => {
         return {
           ...state,
           commentAdded: true,
+          comments: [action.comment, ...state.comments],
         }
       case ACTION_TYPES.ADD_POST_COMMENT_FAIL:
         return {
