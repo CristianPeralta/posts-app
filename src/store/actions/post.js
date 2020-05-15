@@ -161,3 +161,11 @@ export const deletePostCommentFailed = () => {
       type: ACTION_TYPES.DELETE_POST_COMMENT_FAIL,
   };
 };
+
+export const deletePostComment = cid => {
+  return dispatch => {
+      axios.delete('/posts/comments', { data: { cid: cid } })
+          .then(response => dispatch(deletePostCommentSuccess(response.data)))
+          .catch(() => dispatch(deletePostCommentFailed()));
+  };
+};
