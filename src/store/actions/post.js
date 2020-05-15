@@ -140,3 +140,11 @@ export const editPostCommentFailed = () => {
       type: ACTION_TYPES.EDIT_POST_COMMENT_FAIL,
   };
 };
+
+export const editPostComment = (data) => {
+  return dispatch => {
+      axios.put('/posts/comments', data)
+          .then(response => dispatch(editPostCommentSuccess(response.data)))
+          .catch(() => dispatch(editPostCommentFailed()));
+  };
+};
