@@ -164,8 +164,8 @@ export const deletePostCommentFailed = () => {
 
 export const deletePostComment = cid => {
   return dispatch => {
-      axios.delete('/posts/comments', { data: { cid: cid } })
-          .then(response => dispatch(deletePostCommentSuccess(response.data)))
+      axios.delete('/posts/comment', { data: { cid: cid } })
+          .then(response => dispatch(deletePostCommentSuccess(response.data.cid)))
           .catch(() => dispatch(deletePostCommentFailed()));
   };
 };

@@ -124,10 +124,8 @@ class ShowPost extends Component {
     }
     handleDelete() {
         const cid = this.state.cid;
-        axios.delete('/posts/comment', { data: { cid: cid }})
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-        this.handleCommentDelete(cid);   
+        this.props.onDeletePostComment(cid);
+        //this.handleCommentDelete(cid);
     }
     handleLikes() {
         const data = {
