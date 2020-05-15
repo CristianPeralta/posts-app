@@ -169,3 +169,16 @@ export const deletePostComment = cid => {
           .catch(() => dispatch(deletePostCommentFailed()));
   };
 };
+
+export const addPostLikeSuccess = likes => {
+  return {
+    type: ACTION_TYPES.ADD_POST_LIKE_SUCCESS,
+    likes: likes,
+  };
+};
+  
+export const addPostLikeFailed = () => {
+  return {
+      type: ACTION_TYPES.ADD_POST_LIKE_FAIL,
+  };
+};
