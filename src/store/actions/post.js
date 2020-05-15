@@ -127,3 +127,16 @@ export const addPostComment = (data) => {
           .catch(() => dispatch(addPostCommentFailed()));
   };
 };
+
+export const editPostCommentSuccess = comment => {
+  return {
+    type: ACTION_TYPES.EDIT_POST_COMMENT_SUCCESS,
+    comment: comment,
+  };
+};
+  
+export const editPostCommentFailed = () => {
+  return {
+      type: ACTION_TYPES.EDIT_POST_COMMENT_FAIL,
+  };
+};
