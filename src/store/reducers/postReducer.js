@@ -60,6 +60,18 @@ const PostReducer = (state = initialState, action) => {
           ...state,
           commentAdded: false,
         }
+      case ACTION_TYPES.EDIT_POST_COMMENT_SUCCESS:
+        let comments = [...state];
+        let commentIndex = comments.findIndex(c => c.cid === action.comment.cid);
+        comments[commentIndex] = action.comment;
+        return {
+          ...state,
+          comments: comments,
+        }
+      case ACTION_TYPES.EDIT_POST_COMMENT_FAIL:
+        return {
+          ...state,
+        }
       case ACTION_TYPES.FETCH_POST_COMMENTS_START:
         return {
           ...state,
