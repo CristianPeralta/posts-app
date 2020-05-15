@@ -61,7 +61,7 @@ const PostReducer = (state = initialState, action) => {
           commentAdded: false,
         }
       case ACTION_TYPES.EDIT_POST_COMMENT_SUCCESS:
-        let comments = [...state];
+        let comments = [...state.comments];
         let commentIndex = comments.findIndex(c => c.cid === action.comment.cid);
         comments[commentIndex] = action.comment;
         return {

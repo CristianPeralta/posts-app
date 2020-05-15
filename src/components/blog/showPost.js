@@ -70,13 +70,6 @@ class ShowPost extends Component {
         setTimeout(() => this.setState({commentsMotion: [submitedComment, ...this.state.commentsMotion]}), 50);
     }
 
-    handleCommentUpdate(comment) {
-        let commentIndex = this.state.commentsMotion.findIndex(c => c.cid === comment.cid);
-        let newArr = [...this.state.commentsMotion];
-        newArr[commentIndex] = comment;
-        this.setState({commentsMotion: newArr});
-    }
-
     handleCommentDelete(cid) {
         this.setState({ deleteCommentId: cid});
         const newArr = this.state.commentsMotion.filter(c => c.cid !== cid);
@@ -127,20 +120,7 @@ class ShowPost extends Component {
             username: this.props.profile.username,
         };
 
-        const edittedComment = {
-            cid: data.cid,
-            comment: data.comment,
-            post_id: data.postId,
-            user_id: data.userId,
-            author: data.username,
-            date_created: 'Just Now',
-            isEdited: true
-        };
-
-        axios.put('/posts/comments', data)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-        this.handleCommentUpdate(edittedComment);
+        this.props.onEditPostComment(data);
     }
     handleDelete() {
         const cid = this.state.cid;
