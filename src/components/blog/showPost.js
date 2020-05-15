@@ -262,6 +262,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onFetchPostComments: params => dispatch(ACTIONS.fetchPostComments(params)),
         onAddPostComment: (data) => dispatch(ACTIONS.addPostComment(data)),
+        onEditPostComment: data => dispatch(ACTIONS.editPostComment(data)),
     };
 };
 

@@ -18,6 +18,9 @@ export {
   addPostCommentFailed,
   addPostCommentSuccess,
   addPostComment,
+  editPostCommentFailed,
+  editPostCommentSuccess,
+  editPostComment,
 } from './post';
 
 export const SUCCESS = {
