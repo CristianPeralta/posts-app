@@ -24,6 +24,9 @@ export {
   deletePostCommentFailed,
   deletePostCommentSuccess,
   deletePostComment,
+  addPostLikeFailed,
+  addPostLikeSuccess,
+  addPostLike,
 } from './post';
 
 export const SUCCESS = {

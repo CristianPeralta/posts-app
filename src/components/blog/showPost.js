@@ -235,6 +235,7 @@ const mapDispatchToProps = dispatch => {
         onAddPostComment: (data) => dispatch(ACTIONS.addPostComment(data)),
         onEditPostComment: data => dispatch(ACTIONS.editPostComment(data)),
         onDeletePostComment: cid => dispatch(ACTIONS.deletePostComment(cid)),
+        onaddPostLike: data => dispatch(ACTIONS.addPostLike(data)),
     };
 };
 
