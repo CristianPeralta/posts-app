@@ -72,6 +72,17 @@ const PostReducer = (state = initialState, action) => {
         return {
           ...state,
         }
+      case ACTION_TYPES.DELETE_POST_COMMENT_SUCCESS:
+        let allComments = [...state.comments];
+        allComments = allComments.filter(c => c.cid !== action.cid);
+        return {
+          ...state,
+          comments: allComments,
+        }
+      case ACTION_TYPES.DELETE_POST_COMMENT_FAIL:
+        return {
+          ...state,
+        }
       case ACTION_TYPES.FETCH_POST_COMMENTS_START:
         return {
           ...state,
