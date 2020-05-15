@@ -148,3 +148,16 @@ export const editPostComment = (data) => {
           .catch(() => dispatch(editPostCommentFailed()));
   };
 };
+
+export const deletePostCommentSuccess = cid => {
+  return {
+    type: ACTION_TYPES.DELETE_POST_COMMENT_SUCCESS,
+    cid: cid,
+  };
+};
+  
+export const deletePostCommentFailed = () => {
+  return {
+      type: ACTION_TYPES.DELETE_POST_COMMENT_FAIL,
+  };
+};
