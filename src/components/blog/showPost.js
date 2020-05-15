@@ -70,12 +70,6 @@ class ShowPost extends Component {
         setTimeout(() => this.setState({commentsMotion: [submitedComment, ...this.state.commentsMotion]}), 50);
     }
 
-    handleCommentDelete(cid) {
-        this.setState({ deleteCommentId: cid});
-        const newArr = this.state.commentsMotion.filter(c => c.cid !== cid);
-        setTimeout(() => this.setState({commentsMotion: newArr}), 2000);
-    }
-
     handleClickOpen(cid, comment) {
         this.setState({ open: true, comment: comment, cid: cid });
     }
@@ -125,7 +119,6 @@ class ShowPost extends Component {
     handleDelete() {
         const cid = this.state.cid;
         this.props.onDeletePostComment(cid);
-        //this.handleCommentDelete(cid);
     }
     handleLikes() {
         const data = {
