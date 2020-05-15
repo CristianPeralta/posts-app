@@ -83,6 +83,17 @@ const PostReducer = (state = initialState, action) => {
         return {
           ...state,
         }
+      case ACTION_TYPES.ADD_POST_LIKE_SUCCESS:
+        let allPosts = [...state.posts];
+        allPosts[action.pid].likes = action.likes;
+        return {
+          ...state,
+          posts: allPosts,
+        }
+      case ACTION_TYPES.ADD_POST_LIKE_FAIL:
+        return {
+          ...state,
+        }
       case ACTION_TYPES.FETCH_POST_COMMENTS_START:
         return {
           ...state,
