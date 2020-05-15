@@ -21,6 +21,9 @@ export {
   editPostCommentFailed,
   editPostCommentSuccess,
   editPostComment,
+  deletePostCommentFailed,
+  deletePostCommentSuccess,
+  deletePostComment,
 } from './post';
 
 export const SUCCESS = {
