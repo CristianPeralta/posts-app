@@ -170,15 +170,24 @@ export const deletePostComment = cid => {
   };
 };
 
-export const addPostLikeSuccess = likes => {
+export const addPostLikeSuccess = post => {
   return {
     type: ACTION_TYPES.ADD_POST_LIKE_SUCCESS,
-    likes: likes,
+    pid: post.pid,
+    likes: post.likes,
   };
 };
   
 export const addPostLikeFailed = () => {
   return {
       type: ACTION_TYPES.ADD_POST_LIKE_FAIL,
+  };
+};
+
+export const addPostLike = data => {
+  return dispatch => {
+      axios.put("/posts/likes", data)
+          .then(response => dispatch(addPostLikeSuccess(response.data)))
+          .catch(() => dispatch(addPostLikeFailed()));
   };
 };
