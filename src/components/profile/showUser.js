@@ -67,9 +67,7 @@ const RenderProfile = props => {
 class ShowUser extends Component {
     componentDidMount() {
         const username = this.props.location.state.post.author;
-        axios.get('/users', { params: { username: username }})
-            .then(res => this.props.setProfile(res.data[0]))
-            .catch(err => console.log(err));
+        this.props.onGetOtherUser(username);
         axios.get('/posts/username', { params: { username: username }})
             .then(res => this.props.setPosts(res.data))
             .catch(err => console.log(err))

@@ -33,7 +33,7 @@ export {
   getOtherUserFailed,
   getOtherUserSuccess,
   getOtherUser,
-} from './auth';
+} from './user';
 
 export const SUCCESS = {
   type: ACTION_TYPES.SUCCESS

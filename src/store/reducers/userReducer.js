@@ -9,6 +9,16 @@ const initialState = {
 
 const UserReducer = (state = initialState, action) => {
     switch(action.type) {
+      case ACTION_TYPES.GET_OTHER_USER_SUCCESS:
+        return {
+          ...state,
+          otherUserProfile: action.user
+        }
+      case ACTION_TYPES.GET_OTHER_USER_FAIL:
+        return {
+          ...state,
+          otherUserProfile: null
+        }
       case ACTION_TYPES.USER_INPUT:
         return {
           ...state,
