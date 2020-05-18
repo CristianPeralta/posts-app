@@ -29,6 +29,12 @@ export {
   addPostLike,
 } from './post';
 
+export {
+  getOtherUserFailed,
+  getOtherUserSuccess,
+  getOtherUser,
+} from './auth';
+
 export const SUCCESS = {
   type: ACTION_TYPES.SUCCESS
 }

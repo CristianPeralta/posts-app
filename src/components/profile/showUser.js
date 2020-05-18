@@ -111,6 +111,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        onGetOtherUser: username => dispatch(ACTIONS.getOtherUser(username)),
         setProfile: (profile) => dispatch(ACTIONS.setOtherUserProfile(profile)),
         setPosts: posts => dispatch(ACTIONS.setOtherUserPosts(posts))
     };
