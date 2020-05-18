@@ -36,3 +36,15 @@ export const fetchOtherUserPostsFailed = (error) => {
       error: error,
   };
 };
+
+export const fetchOtherUserPosts = username => {
+  return dispatch => {
+      axios.get('/posts', { params: { username: username }})
+          .then(response => {
+              dispatch(fetchOtherUserPostsSuccess(response.data));
+          })
+          .catch(error => {
+              dispatch(fetchOtherUserPostsFailed(error));
+          });
+  };
+};
