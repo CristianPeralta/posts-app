@@ -18,7 +18,7 @@ export const getOtherUserFailed = (error) => {
 export const getOtherUser = username => {
     return dispatch => {
         axios.get('/users', { params: { username: username }})
-            .then(() => dispatch(getOtherUserSuccess()))
+            .then(response => dispatch(getOtherUserSuccess(response.data[0])))
             .catch(() => dispatch(getOtherUserFailed()));
     };
   };
