@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import * as ACTIONS from '../../store/actions/actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import axios from '../../axios';
 import {
     Button,
     TextField,
@@ -125,13 +124,7 @@ class ShowPost extends Component {
             uid: this.props.profile.uid,
             postId: this.props.location.state.post.pid,
         };
-        axios.put("/posts/likes", data)
-            .then(!this.state.like_user_id.includes(data.like_user_id) && this.state.like_post
-                ? this.setState({likes: this.state.likes + 1})
-                : null
-            )
-            .then(this.setState({like_post: false}))
-            .catch(err => console.log(err));
+        this.props.onAddPostLike(data);
     }
     render() {
         return (
@@ -146,7 +139,7 @@ class ShowPost extends Component {
                         : () => this.props.history.replace("/signup")
                     }>
                         <i className="material-icons">thumb_up</i>
-                        <small className="notification-num-showpost">{this.state.likes}</small>
+                        <small className="notification-num-showpost">{this.props.location.state.post.likes}</small>
                     </a>
                 </div>
                 <div style={{opacity: this.state.opacity, transition: 'ease-out 2s' }} >
@@ -235,7 +228,7 @@ const mapDispatchToProps = dispatch => {
         onAddPostComment: (data) => dispatch(ACTIONS.addPostComment(data)),
         onEditPostComment: data => dispatch(ACTIONS.editPostComment(data)),
         onDeletePostComment: cid => dispatch(ACTIONS.deletePostComment(cid)),
-        onaddPostLike: data => dispatch(ACTIONS.addPostLike(data)),
+        onAddPostLike: data => dispatch(ACTIONS.addPostLike(data)),
     };
 };
 

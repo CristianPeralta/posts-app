@@ -85,7 +85,8 @@ const PostReducer = (state = initialState, action) => {
         }
       case ACTION_TYPES.ADD_POST_LIKE_SUCCESS:
         let allPosts = [...state.posts];
-        allPosts[action.pid].likes = action.likes;
+        let postcommentIndex = allPosts.findIndex(p => p.pid === action.pid);
+        allPosts[postcommentIndex].likes = action.likes;
         return {
           ...state,
           posts: allPosts,
