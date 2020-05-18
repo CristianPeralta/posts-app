@@ -33,6 +33,9 @@ export {
   getOtherUserFailed,
   getOtherUserSuccess,
   getOtherUser,
+  fetchOtherUserPostsFailed,
+  fetchOtherUserPostsSuccess,
+  fetchOtherUserPosts,
 } from './user';
 
 export const SUCCESS = {
