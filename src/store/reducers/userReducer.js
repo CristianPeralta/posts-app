@@ -19,6 +19,16 @@ const UserReducer = (state = initialState, action) => {
           ...state,
           otherUserProfile: null
         }
+      case ACTION_TYPES.FETCH_OTHER_USER_POSTS_SUCCESS:
+        return {
+          ...state,
+          otherUserPosts: action.posts,
+        }
+      case ACTION_TYPES.FETCH_OTHER_USER_POSTS_FAIL:
+        return {
+          ...state,
+          otherUserPosts: [],
+        }
       case ACTION_TYPES.USER_INPUT:
         return {
           ...state,
