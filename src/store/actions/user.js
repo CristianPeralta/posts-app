@@ -22,3 +22,17 @@ export const getOtherUser = username => {
             .catch(() => dispatch(getOtherUserFailed()));
     };
   };
+
+export const fetchOtherUserPostsSuccess = posts => {
+  return {
+    type: ACTION_TYPES.FETCH_OTHER_USER_POSTS_SUCCESS,
+    posts: posts,
+  };
+};
+  
+export const fetchOtherUserPostsFailed = (error) => {
+  return {
+      type: ACTION_TYPES.FETCH_OTHER_USER_POSTS_FAIL,
+      error: error,
+  };
+};
