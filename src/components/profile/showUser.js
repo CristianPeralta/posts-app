@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import axios from '../../axios';
 import * as ACTIONS from '../../store/actions/actions';
 import {
     Button,
@@ -68,9 +67,7 @@ class ShowUser extends Component {
     componentDidMount() {
         const username = this.props.location.state.post.author;
         this.props.onGetOtherUser(username);
-        axios.get('/posts/username', { params: { username: username }})
-            .then(res => this.props.setPosts(res.data))
-            .catch(err => console.log(err))
+        this.props.onFetchOtherUserPosts(username);
         window.scrollTo({ top: 0, left: 0});
     }
     render() {
