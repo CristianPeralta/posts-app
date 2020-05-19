@@ -42,9 +42,7 @@ const RenderMessages = props => {
 class ShowMessages extends Component {
     componentDidMount() {
         const username = this.props.dbProfile.username;
-        axios.get('/users/messages', {params: {username: username}})
-            .then(res =>  this.props.setUserMessages(res.data))
-            .catch(error => console.log(error));
+        this.props.onFetchUserMessages(username);
     }
     render() {
         return (
@@ -80,7 +78,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setUserMessages: messages => dispatch(ACTIONS.setUserMessages(messages))
+        onFetchUserMessages: (username) => dispatch(ACTIONS.fetchUserMessages(username)),
+        setUserMessages: messages => dispatch(ACTIONS.setUserMessages(messages)),
     };
 };
 
