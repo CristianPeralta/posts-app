@@ -54,6 +54,16 @@ const UserReducer = (state = initialState, action) => {
           ...state,
           otherUserPosts: []
         }
+      case ACTION_TYPES.FETCH_USER_MESSAGES_SUCCESS:
+        return {
+          ...state,
+          userMessages: action.messages,
+        }
+      case ACTION_TYPES.FETCH_USER_MESSAGES_FAIL:
+        return {
+          ...state,
+          userMessages: [],
+        }
       case ACTION_TYPES.SET_USER_MESSAGES:
         return {
           ...state,
