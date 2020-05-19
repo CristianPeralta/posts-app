@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import axios from '../../axios';
 import { connect } from 'react-redux';
 import * as ACTIONS from '../../store/actions/actions';
+import { Redirect } from 'react-router-dom';
 import {
     TextField,
     Button
@@ -10,6 +10,9 @@ import {
 class SendMessage extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            submited: false,
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleSubmit(event) {
@@ -21,14 +24,14 @@ class SendMessage extends Component {
             messageBody: event.target.body.value
         };
 
-        axios.post('/users/messages', data)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-            .then(setTimeout(() => this.props.history.replace('/'), 500))
+        this.props.onSendUserMessage(data);
+
+        this.setState({ submited: true });
     }
     render() {
         return (
             <div>
+                {this.state.submited ? <Redirect to="/" /> : null}
                 <form onSubmit={this.handleSubmit}>
                     <TextField
                         id='title'
