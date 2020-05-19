@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import axios from '../axios';
 import * as ACTIONS from '../store/actions/actions';
 import { Redirect } from 'react-router-dom';
 import '../App.css';
@@ -79,12 +78,8 @@ class Profile extends Component {
 
   DeletePost = () => {
     const postId = this.state.postId;
-    axios.delete('/posts/comments', { data: { postId: postId }})
-      .then(() => axios.delete('/posts', { data: { postId: postId }})
-        .then(res => console.log(res)))
-      .catch(err => console.log(err))
-      .then(() => this.handleClickClose())
-      .then(() => setTimeout(() => this.setState({redirectToHome: true}) , 700));
+    this.props.onDeletePost(postId);
+    this.handleClickClose();
   }
 
   handleClickOpen = pid => {
