@@ -48,3 +48,17 @@ export const fetchOtherUserPosts = username => {
           });
   };
 };
+
+export const fetchUserMessagesSuccess = messages => {
+  return {
+    type: ACTION_TYPES.FETCH_USER_MESSAGES_SUCCESS,
+    messages: messages,
+  };
+};
+  
+export const fetchUserMessagesFailed = (error) => {
+  return {
+      type: ACTION_TYPES.FETCH_USER_MESSAGES_SUCCESS,
+      error: error,
+  };
+};
