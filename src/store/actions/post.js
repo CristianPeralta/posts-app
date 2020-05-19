@@ -149,16 +149,25 @@ export const editPostComment = (data) => {
   };
 };
 
-export const deletePostSuccess = cid => {
+export const deletePostSuccess = pid => {
   return {
     type: ACTION_TYPES.DELETE_POST_SUCCESS,
-    cid: cid,
+    pid: pid,
   };
 };
-  
+
 export const deletePostFailed = () => {
   return {
       type: ACTION_TYPES.DELETE_POST_FAIL,
+  };
+};
+
+export const deletePost = pid => {
+  return dispatch => {
+      axios.delete('/posts/comments', { data: { postId: pid }})
+          .then(() => axios.delete('/posts', { data: { postId: pid }}))
+          .then(response => dispatch(deletePostSuccess(response.data.pid)))
+          .catch(() => dispatch(deletePostFailed()));
   };
 };
 
