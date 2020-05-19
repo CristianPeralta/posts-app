@@ -27,6 +27,9 @@ export {
   addPostLikeFailed,
   addPostLikeSuccess,
   addPostLike,
+  deletePostFailed,
+  deletePostSuccess,
+  deletePost,
 } from './post';
 
 export {

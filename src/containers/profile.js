@@ -152,6 +152,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => {
   return {
     onFetchUserPosts: query => dispatch(ACTIONS.fetchPosts(query)),
+    onDeletePost: pid => dispatch(ACTIONS.deletePost(pid)),
   };
 };
 
