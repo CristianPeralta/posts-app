@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import * as ACTIONS from '../../store/actions/actions';
 import {
     TextField,
@@ -9,6 +10,9 @@ import {
 class ReplyToMessage extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            submited: false,
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleSubmit(event) {
@@ -25,6 +29,7 @@ class ReplyToMessage extends Component {
     render() {
         return (
             <div>
+                {this.state.submited ? <Redirect to="/" /> : null}
                 <h2>Message:</h2>
                 <div className='FlexColumn'>
                     <div>
