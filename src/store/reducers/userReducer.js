@@ -4,7 +4,7 @@ const initialState = {
   userText: '',
   otherUserProfile: '',
   otherUserPosts: [],
-  userMessages: []
+  userMessages: [],
 }
 
 const UserReducer = (state = initialState, action) => {

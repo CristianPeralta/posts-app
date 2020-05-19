@@ -42,6 +42,9 @@ export {
   deleteUserMessageFailed,
   deleteUserMessageSuccess,
   deleteUserMessage,
+  sendUserMessageFailed,
+  sendUserMessageSuccess,
+  sendUserMessage,
 } from './user';
 
 export const SUCCESS = {

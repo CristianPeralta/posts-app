@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from '../../axios';
 import { connect } from 'react-redux';
+import * as ACTIONS from '../../store/actions/actions';
 import {
     TextField,
     Button
@@ -60,4 +61,10 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(SendMessage);
+const mapDispatchToProps = dispatch => {
+    return {
+        onSendUserMessage: data => dispatch(ACTIONS.sendUserMessage(data)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SendMessage);
