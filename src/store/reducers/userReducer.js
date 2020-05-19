@@ -74,6 +74,15 @@ const UserReducer = (state = initialState, action) => {
           ...state,
           userMessages: []
         }
+      case ACTION_TYPES.SEND_MESSAGE_SUCCESS:
+        return {
+          ...state,
+          userMessages: [action.message, ...state.userMessages],
+        }
+      case ACTION_TYPES.SEND_MESSAGE_FAIL:
+        return {
+          ...state,
+        }
       case ACTION_TYPES.DELETE_USER_MESSAGE_SUCCESS:
         let allMessages = [...state.userMessages];
         allMessages = allMessages.filter(m => m.mid !== action.mid);
