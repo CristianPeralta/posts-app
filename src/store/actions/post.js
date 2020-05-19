@@ -149,6 +149,19 @@ export const editPostComment = (data) => {
   };
 };
 
+export const deletePostSuccess = cid => {
+  return {
+    type: ACTION_TYPES.DELETE_POST_SUCCESS,
+    cid: cid,
+  };
+};
+  
+export const deletePostFailed = () => {
+  return {
+      type: ACTION_TYPES.DELETE_POST_FAIL,
+  };
+};
+
 export const deletePostCommentSuccess = cid => {
   return {
     type: ACTION_TYPES.DELETE_POST_COMMENT_SUCCESS,
