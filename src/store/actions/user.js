@@ -75,9 +75,10 @@ export const fetchUserMessages = username => {
   };
 };
 
-export const deleteUserMessageSuccess = () => {
+export const deleteUserMessageSuccess = mid => {
   return {
     type: ACTION_TYPES.DELETE_USER_MESSAGE_SUCCESS,
+    mid: mid,
   };
 };
   
@@ -91,7 +92,7 @@ export const deleteUserMessage = mid => {
   return dispatch => {
       axios.delete('/users/messages', { data: { mid: mid }})
           .then(response => {
-              dispatch(deleteUserMessageSuccess());
+              dispatch(deleteUserMessageSuccess(response.data.mid));
           })
           .catch(error => {
               dispatch(deleteUserMessageFailed());
