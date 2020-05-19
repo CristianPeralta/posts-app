@@ -100,15 +100,27 @@ export const deleteUserMessage = mid => {
   };
 };
 
-export const sendUserMessageSuccess = data => {
+export const sendUserMessageSuccess = message => {
   return {
     type: ACTION_TYPES.SEND_MESSAGE_SUCCESS,
-    data: data,
+    message: message,
   };
 };
   
 export const sendUserMessageFailed = () => {
   return {
       type: ACTION_TYPES.SEND_MESSAGE_FAIL,
+  };
+};
+
+export const sendUserMessage = data => {
+  return dispatch => {
+      axios.post('/users/messages', data)
+          .then(response => {
+              dispatch(sendUserMessageSuccess(response.data));
+          })
+          .catch(error => {
+              dispatch(sendUserMessageFailed());
+          });
   };
 };
