@@ -75,14 +75,26 @@ export const fetchUserMessages = username => {
   };
 };
 
-export const deleteUserMessageSuccess = messages => {
+export const deleteUserMessageSuccess = () => {
   return {
     type: ACTION_TYPES.DELETE_USER_MESSAGE_SUCCESS,
   };
 };
   
-export const deleteUserMessageFailed = (error) => {
+export const deleteUserMessageFailed = () => {
   return {
       type: ACTION_TYPES.DELETE_USER_MESSAGE_FAIL,
+  };
+};
+
+export const deleteUserMessage = mid => {
+  return dispatch => {
+      axios.delete('/users/messages', { data: { mid: mid }})
+          .then(response => {
+              dispatch(deleteUserMessageSuccess());
+          })
+          .catch(error => {
+              dispatch(deleteUserMessageFailed());
+          });
   };
 };
