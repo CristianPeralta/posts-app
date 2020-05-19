@@ -39,6 +39,9 @@ export {
   fetchUserMessagesFailed,
   fetchUserMessagesSuccess,
   fetchUserMessages,
+  deleteUserMessageFailed,
+  deleteUserMessageSuccess,
+  deleteUserMessage,
 } from './user';
 
 export const SUCCESS = {

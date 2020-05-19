@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import axios from '../../axios';
 import * as ACTIONS from '../../store/actions/actions';
 import {
     Table,
@@ -13,10 +12,7 @@ import {
 
 const RenderMessages = props => {
     const deleteMessage = (mid) => {
-        axios.delete('/users/messages', { data: { mid: mid }})
-            .then(res => console.log(res))
-            .catch(error =>  console.log(error))
-            .then(() => setTimeout(() => props.history.replace('/'), 700));
+        props.onDeleteUserMessage(mid);
     }
     return (
         <TableRow>
@@ -57,7 +53,11 @@ class ShowMessages extends Component {
                         <TableBody>
                             {this.props.userMessages
                                 ? this.props.userMessages.map(message =>
-                                    <RenderMessages key={message.mid} message={message} history={this.props.history} />
+                                    <RenderMessages
+                                        key={message.mid}
+                                        message={message}
+                                        onDeleteUserMessage={this.props.onDeleteUserMessage}
+                                        history={this.props.history} />
                                     )
                                 : null
                             }
@@ -79,6 +79,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onFetchUserMessages: (username) => dispatch(ACTIONS.fetchUserMessages(username)),
+        onDeleteUserMessage: mid => dispatch(ACTIONS.deleteUserMessage(mid)),
         setUserMessages: messages => dispatch(ACTIONS.setUserMessages(messages)),
     };
 };
