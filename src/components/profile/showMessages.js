@@ -11,9 +11,6 @@ import {
 } from '@material-ui/core';
 
 const RenderMessages = props => {
-    const deleteMessage = (mid) => {
-        props.onDeleteUserMessage(mid);
-    }
     return (
         <TableRow>
             <TableCell>
@@ -22,15 +19,16 @@ const RenderMessages = props => {
                 <p> Message: {props.message.message_body}</p>
                 <small>{props.message.date_created}</small>
                 <br />
-                <Link to={{pathname: '/reply', state: {props}}}>
-                    <button>
+                <Link to={{pathname: '/reply', state: { props: { message: props.message } }}}>
+                    <button >
                         Reply
                     </button>
                 </Link>
-                <button onClick={() => deleteMessage(props.message.mid)}> Delete </button>
+                <button onClick={() => props.deleteUserMessage(props.message.mid)}> Delete </button>
                 <br />
                 <br />
                 <button onClick={() => props.history.goBack()}> Cancel </button>
+
             </TableCell>
         </TableRow>
     );
@@ -56,7 +54,7 @@ class ShowMessages extends Component {
                                     <RenderMessages
                                         key={message.mid}
                                         message={message}
-                                        onDeleteUserMessage={this.props.onDeleteUserMessage}
+                                        deleteUserMessage={this.props.onDeleteUserMessage}
                                         history={this.props.history} />
                                     )
                                 : null
