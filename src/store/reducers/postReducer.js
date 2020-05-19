@@ -72,6 +72,17 @@ const PostReducer = (state = initialState, action) => {
         return {
           ...state,
         }
+      case ACTION_TYPES.DELETE_POST_SUCCESS:
+        let posts = [...state.posts];
+        posts = posts.filter(p => p.cid !== action.pid);
+        return {
+          ...state,
+          posts: posts,
+        }
+      case ACTION_TYPES.DELETE_POST_FAIL:
+        return {
+          ...state,
+        }
       case ACTION_TYPES.DELETE_POST_COMMENT_SUCCESS:
         let allComments = [...state.comments];
         allComments = allComments.filter(c => c.cid !== action.cid);
