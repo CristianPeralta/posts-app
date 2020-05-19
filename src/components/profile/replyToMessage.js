@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as ACTIONS from '../../store/actions/actions';
-import axios from '../../axios';
 import {
     TextField,
     Button,
@@ -18,13 +17,10 @@ class ReplyToMessage extends Component {
             messageTo: this.props.location.state.props.message.message_sender,
             messageSender: this.props.dbProfile.username,
             messageTitle: event.target.title.value,
-            messageBody: event.target.body.value
+            messageBody: event.target.body.value,
         };
 
-        axios.post('/users/messages', data)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-            .then(setTimeout(() => this.props.history.replace('/'), 500))
+        this.props.onSendUserMessage(data);
     }
     render() {
         return (
