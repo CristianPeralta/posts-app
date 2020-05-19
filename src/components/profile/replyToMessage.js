@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as ACTIONS from '../../store/actions/actions';
 import axios from '../../axios';
 import {
     TextField,
@@ -70,8 +71,14 @@ class ReplyToMessage extends Component {
 
 const mapStateToProps = state => {
     return {
-        dbProfile: state.auth.dbProfile
-    }
-}
+        dbProfile: state.auth.dbProfile,
+    };
+};
 
-export default connect(mapStateToProps)(ReplyToMessage);
+const mapDispatchToProps = dispatch => {
+    return {
+        onSendUserMessage: data => dispatch(ACTIONS.sendUserMessage(data)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReplyToMessage);
