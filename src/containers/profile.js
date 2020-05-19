@@ -28,9 +28,7 @@ class Profile extends Component {
   }
   componentDidMount() {
     const userId = this.props.dbProfile.uid;
-    axios.get('/posts/user', { params: { userId: userId }})
-      .then(res => this.props.setUserPosts(res.data))
-      .catch(err => console.log(err));
+    this.props.onFetchUserPosts({ userId: userId });
   }
   RenderProfile = (props) => (
     <div>
@@ -147,13 +145,13 @@ function mapStateToProps(state) {
   return {
     profile: state.auth.profile,
     dbProfile: state.auth.dbProfile,
-    userPosts: state.post.userPosts
+    userPosts: state.post.posts,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    setUserPosts: posts => dispatch(ACTIONS.fetchUserPosts(posts))
+    onFetchUserPosts: query => dispatch(ACTIONS.fetchPosts(query)),
   };
 };
 

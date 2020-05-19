@@ -77,7 +77,7 @@ class Posts extends Component {
     }
     handleSearch(event) {
         const query = event.target.value;
-        this.props.onFetchPosts(query);
+        this.props.onFetchPosts({query});
     }
 
     slicePosts() {

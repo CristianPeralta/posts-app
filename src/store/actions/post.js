@@ -24,7 +24,7 @@ export const fetchPostsFailed = (error) => {
 export const fetchPosts = (query) => {
   return dispatch => {
       dispatch(fetchPostsStart());
-      axios.get('/posts', { params: { query }})
+      axios.get('/posts', { params: query})
           .then(response => {
               dispatch(fetchPostsSuccess(response.data));
           })
