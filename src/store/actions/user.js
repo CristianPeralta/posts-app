@@ -74,3 +74,15 @@ export const fetchUserMessages = username => {
           });
   };
 };
+
+export const deleteUserMessageSuccess = messages => {
+  return {
+    type: ACTION_TYPES.DELETE_USER_MESSAGE_SUCCESS,
+  };
+};
+  
+export const deleteUserMessageFailed = (error) => {
+  return {
+      type: ACTION_TYPES.DELETE_USER_MESSAGE_FAIL,
+  };
+};
