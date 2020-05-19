@@ -99,3 +99,16 @@ export const deleteUserMessage = mid => {
           });
   };
 };
+
+export const sendUserMessageSuccess = data => {
+  return {
+    type: ACTION_TYPES.SEND_MESSAGE_SUCCESS,
+    data: data,
+  };
+};
+  
+export const sendUserMessageFailed = () => {
+  return {
+      type: ACTION_TYPES.SEND_MESSAGE_FAIL,
+  };
+};
