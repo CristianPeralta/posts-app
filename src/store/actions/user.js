@@ -62,3 +62,15 @@ export const fetchUserMessagesFailed = (error) => {
       error: error,
   };
 };
+
+export const fetchUserMessages = username => {
+  return dispatch => {
+      axios.get('/users/messages', {params: {username: username}})
+          .then(response => {
+              dispatch(fetchUserMessagesSuccess(response.data));
+          })
+          .catch(error => {
+              dispatch(fetchUserMessagesFailed(error));
+          });
+  };
+};
