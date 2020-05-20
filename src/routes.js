@@ -32,6 +32,7 @@ import Auth from './utils/auth';
 import AuthCheck from './utils/authcheck';
 
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import { getProfile } from './api';
 
 export const auth = new Auth();
 
@@ -46,10 +47,13 @@ const PrivateRoute = ({component: Component, auth }) => (
 
 class Routes extends Component {
   componentDidMount() {
-    if(auth.isAuthenticated()) {
+    if (auth.isAuthenticated()) {
       this.props.loginSuccess();
-      auth.getProfile(() => {});
-      setTimeout(() => {this.props.addProfile(auth.userProfile)}, 400);
+      auth.getProfile((data) => {
+        this.props.addProfile(auth.userProfile.profile);
+        getProfile(auth.userProfile.profile.nickname)
+          .then(data => this.props.saveProfile(data));
+      });
     } else {
       this.props.loginFailure();
       this.props.removeProfile();
@@ -137,6 +141,7 @@ const mapDispatchToProps = dispatch => {
     loginSuccess: () => dispatch(ACTIONS.loginSuccess()),
     loginFailure: () => dispatch(ACTIONS.loginFailure()),
     addProfile: (profile) => dispatch(ACTIONS.addProfile(profile)),
+    saveProfile: (profile) => dispatch(ACTIONS.saveProfile(profile)),
     removeProfile: () => dispatch(ACTIONS.removeProfile()),
   };
 };
