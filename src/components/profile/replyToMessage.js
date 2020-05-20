@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import history from '../../utils/history';
 import { connect } from 'react-redux';
-import axios from 'axios';
+import { Redirect } from 'react-router-dom';
+import * as ACTIONS from '../../store/actions/actions';
 import {
     TextField,
     Button,
@@ -10,6 +10,9 @@ import {
 class ReplyToMessage extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            submited: false,
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleSubmit(event) {
@@ -18,17 +21,15 @@ class ReplyToMessage extends Component {
             messageTo: this.props.location.state.props.message.message_sender,
             messageSender: this.props.dbProfile.username,
             messageTitle: event.target.title.value,
-            messageBody: event.target.body.value
+            messageBody: event.target.body.value,
         };
 
-        axios.post('/users/messages', data)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-            .then(setTimeout(() => history.replace('/'), 500))
+        this.props.onSendUserMessage(data);
     }
     render() {
         return (
             <div>
+                {this.state.submited ? <Redirect to="/" /> : null}
                 <h2>Message:</h2>
                 <div className='FlexColumn'>
                     <div>
@@ -59,7 +60,7 @@ class ReplyToMessage extends Component {
                         <Button type='submit' variant='contained' color='primary' >
                             Submit
                         </Button>
-                        <button onClick={() => history.replace('/')} >
+                        <button onClick={() => this.props.history.replace('/')} >
                             Cancel
                         </button>
                     </form>
@@ -71,8 +72,14 @@ class ReplyToMessage extends Component {
 
 const mapStateToProps = state => {
     return {
-        dbProfile: state.auth.dbProfile
-    }
-}
+        dbProfile: state.auth.dbProfile,
+    };
+};
 
-export default connect(mapStateToProps)(ReplyToMessage);
+const mapDispatchToProps = dispatch => {
+    return {
+        onSendUserMessage: data => dispatch(ACTIONS.sendUserMessage(data)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReplyToMessage);

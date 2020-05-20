@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import * as ACTIONS from '../../store/actions/actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import history from '../../utils/history';
 import {
     Button,
     TextField,
@@ -44,7 +42,7 @@ class ShowPost extends Component {
             open: false,
             comment: '',
             cid: '',
-            opacity: 0,
+            opacity: 1,
             commentsArr: [],
             commentsMotion: [],
             likes: this.props.location.state.post.likes,
@@ -60,46 +58,15 @@ class ShowPost extends Component {
     }
 
     componentDidMount() {
-        console.log('this.props.location.state.post', this.props.location.state.post)
-        axios.get('/posts/comments', { params: { pid: this.props.location.state.post.pid }})
-            .then(resp => this.props.setComments(resp.data))
-            .then(() => this.addCommentsToState(this.props.comments))
-            .catch(err => console.log(err))
-        this.handleTransition();
+        this.props.onFetchPostComments({ pid: this.props.location.state.post.pid });
     }
 
     handleTransition() {
         setTimeout(() => this.setState({opacity: 1}), 400);
     }
 
-    addCommentsToState(comments) {
-        this.setState({commentsArr: [...comments]});
-        this.animateComments();
-    }
-
-    animateComments() {
-        let i = 1;
-        this.state.commentsArr.forEach(comment => {
-            setTimeout(() => this.setState({commentsMotion: [...this.state.commentsMotion, comment] }), 400*i)
-            i++;
-        });
-    }
-
     handleCommentSubmit(submitedComment) {
         setTimeout(() => this.setState({commentsMotion: [submitedComment, ...this.state.commentsMotion]}), 50);
-    }
-
-    handleCommentUpdate(comment) {
-        let commentIndex = this.state.commentsMotion.findIndex(c => c.cid === comment.cid);
-        let newArr = [...this.state.commentsMotion];
-        newArr[commentIndex] = comment;
-        this.setState({commentsMotion: newArr});
-    }
-
-    handleCommentDelete(cid) {
-        this.setState({ deleteCommentId: cid});
-        const newArr = this.state.commentsMotion.filter(c => c.cid !== cid);
-        setTimeout(() => this.setState({commentsMotion: newArr}), 2000);
     }
 
     handleClickOpen(cid, comment) {
@@ -131,9 +98,7 @@ class ShowPost extends Component {
             date_created: justNow
         };
 
-        axios.post('/posts/comments', data)
-            .then(res => this.props.setComments(res.data))
-            .catch(err => console.log(err))
+        this.props.onAddPostComment(data);
 
         window.scroll({top: 0, left: 0, behavior: 'smooth'});
         this.handleCommentSubmit(submitedComment);
@@ -148,40 +113,18 @@ class ShowPost extends Component {
             username: this.props.profile.username,
         };
 
-        const edittedComment = {
-            cid: data.cid,
-            comment: data.comment,
-            post_id: data.postId,
-            user_id: data.userId,
-            author: data.username,
-            date_created: 'Just Now',
-            isEdited: true
-        };
-
-        axios.put('/posts/comments', data)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-        this.handleCommentUpdate(edittedComment);
+        this.props.onEditPostComment(data);
     }
     handleDelete() {
         const cid = this.state.cid;
-        axios.delete('/posts/comment', { data: { cid: cid }})
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-        this.handleCommentDelete(cid);   
+        this.props.onDeletePostComment(cid);
     }
     handleLikes() {
         const data = {
             uid: this.props.profile.uid,
             postId: this.props.location.state.post.pid,
         };
-        axios.put("/posts/likes", data)
-            .then(!this.state.like_user_id.includes(data.like_user_id) && this.state.like_post
-                ? this.setState({likes: this.state.likes + 1})
-                : null
-            )
-            .then(this.setState({like_post: false}))
-            .catch(err => console.log(err));
+        this.props.onAddPostLike(data);
     }
     render() {
         return (
@@ -193,16 +136,16 @@ class ShowPost extends Component {
                     <p>{this.props.location.state.post.author}</p>
                     <a style={{cursor: "pointer"}} onClick={this.props.isAuthenticated
                         ? () => this.handleLikes()
-                        : () => history.replace("/signup")
+                        : () => this.props.history.replace("/signup")
                     }>
                         <i className="material-icons">thumb_up</i>
-                        <small className="notification-num-showpost">{this.state.likes}</small>
+                        <small className="notification-num-showpost">{this.props.location.state.post.likes}</small>
                     </a>
                 </div>
                 <div style={{opacity: this.state.opacity, transition: 'ease-out 2s' }} >
                     <h2>Comments</h2>
                     {this.props.comments
-                    ? this.state.commentsMotion.map(comment => (
+                    ? this.props.comments.map(comment => (
                         <RenderComments
                             key={comment.cid}
                             comment={comment}
@@ -275,14 +218,18 @@ const mapStateToProps = state => {
     return {
         comments: state.post.comments,
         profile: state.auth.dbProfile,
-        isAuthenticated: state.auth.isAuthenticated
-    }
-}
+        isAuthenticated: state.auth.isAuthenticated,
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
-        setComments: comments => dispatch(ACTIONS.fetchPostComments(comments))
-    }
-}
+        onFetchPostComments: params => dispatch(ACTIONS.fetchPostComments(params)),
+        onAddPostComment: (data) => dispatch(ACTIONS.addPostComment(data)),
+        onEditPostComment: data => dispatch(ACTIONS.editPostComment(data)),
+        onDeletePostComment: cid => dispatch(ACTIONS.deletePostComment(cid)),
+        onAddPostLike: data => dispatch(ACTIONS.addPostLike(data)),
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowPost);

@@ -32,7 +32,7 @@ class Header extends Component {
           </Link>
           {!this.props.isAuthenticated
             ? <button onClick={() => this.props.auth.login()}>Login</button>
-            : <button onClick={() => this.props.auth.logout()}>Logout</button>
+            : <Link to='/logout' style={{padding: '5px'}}>Logout</Link>
           }
           <br />
           <br />

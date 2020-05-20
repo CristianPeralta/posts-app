@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import * as ACTIONS from '../store/actions/actions';
-import history from '../utils/history';
+import { Redirect } from 'react-router-dom';
 import '../App.css';
 import {
   Button,
@@ -21,15 +20,14 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      redirectToHome: false,
       open: false,
       postId: ''
     }
   }
   componentDidMount() {
     const userId = this.props.dbProfile.uid;
-    axios.get('/posts/user', { params: { userId: userId }})
-      .then(res => this.props.setUserPosts(res.data))
-      .catch(err => console.log(err));
+    this.props.onFetchUserPosts({ userId: userId });
   }
   RenderProfile = (props) => (
     <div>
@@ -80,12 +78,8 @@ class Profile extends Component {
 
   DeletePost = () => {
     const postId = this.state.postId;
-    axios.delete('/posts/comments', { data: { postId: postId }})
-      .then(() => axios.delete('/posts', { data: { postId: postId }})
-        .then(res => console.log(res)))
-      .catch(err => console.log(err))
-      .then(() => this.handleClickClose())
-      .then(() => setTimeout(() => history.replace('/'), 700));
+    this.props.onDeletePost(postId);
+    this.handleClickClose();
   }
 
   handleClickOpen = pid => {
@@ -98,6 +92,7 @@ class Profile extends Component {
   render() {
     return(
       <div>
+        {this.state.redirectToHome ? <Redirect to='/' /> : null}
         <div>
           <this.RenderProfile profile={this.props.profile} />
         </div>
@@ -145,13 +140,14 @@ function mapStateToProps(state) {
   return {
     profile: state.auth.profile,
     dbProfile: state.auth.dbProfile,
-    userPosts: state.post.userPosts
+    userPosts: state.post.posts,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    setUserPosts: posts => dispatch(ACTIONS.fetchUserPosts(posts))
+    onFetchUserPosts: query => dispatch(ACTIONS.fetchPosts(query)),
+    onDeletePost: pid => dispatch(ACTIONS.deletePost(pid)),
   };
 };
 

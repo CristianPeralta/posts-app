@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import axios from 'axios';
 import * as ACTIONS from '../../store/actions/actions';
 import {
     Button,
@@ -67,12 +66,8 @@ const RenderProfile = props => {
 class ShowUser extends Component {
     componentDidMount() {
         const username = this.props.location.state.post.author;
-        axios.get('/users', { params: { username: username }})
-            .then(res => this.props.setProfile(res.data[0]))
-            .catch(err => console.log(err));
-        axios.get('/posts/username', { params: { username: username }})
-            .then(res => this.props.setPosts(res.data))
-            .catch(err => console.log(err))
+        this.props.onGetOtherUser(username);
+        this.props.onFetchOtherUserPosts(username);
         window.scrollTo({ top: 0, left: 0});
     }
     render() {
@@ -111,8 +106,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        onGetOtherUser: username => dispatch(ACTIONS.getOtherUser(username)),
+        onFetchOtherUserPosts: username => dispatch(ACTIONS.fetchOtherUserPosts(username)),
         setProfile: (profile) => dispatch(ACTIONS.setOtherUserProfile(profile)),
-        setPosts: posts => dispatch(ACTIONS.setOtherUserPosts(posts))
+        setPosts: posts => dispatch(ACTIONS.setOtherUserPosts(posts)),
     };
 };
 

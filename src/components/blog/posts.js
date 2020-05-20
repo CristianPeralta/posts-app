@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import * as ACTIONS from '../../store/actions/actions';
 import Pagination from 'react-js-pagination';
 import moment from 'moment';
+import withErrorHandler from '../../hoc/withErrorHandler';
+import axios from '../../axios';
 import {
     Card,
     CardContent,
@@ -54,16 +55,10 @@ class Posts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: [],
-            postsMotion: [],
             opacity: 0,
-            numPosts: 0,
-            pageRange: 0,
             activePage: 1,
             PostsPerPage: 5,
             postsSlice: [],
-            postsSearch: [],
-            postsSearchMotion: []
         }
         this.slicePosts = this.slicePosts.bind(this);
         this.handlePageChange = this.handlePageChange.bind(this);
@@ -72,61 +67,24 @@ class Posts extends Component {
 
     componentDidMount() {
         this.handleTransition();
-        axios.get('/posts')
-            .then(res => this.props.setPosts(res.data))
-            .then(() => this.addPostsToState(this.props.posts))
-            .catch(error => console.log(error));
+        this.props.onFetchPosts();
     }
     handleTransition () {
         setTimeout(() => this.setState({opacity: 1}), 400);
     }
-    addPostsToState(posts) {
-        this.setState({posts: [...posts]});
-        this.setState({numPosts: this.state.posts.length, pageRange: this.state.numPosts/5});
-        this.slicePosts();
+    addPostsToState() {
         this.animatePosts();
     }
     handleSearch(event) {
         const query = event.target.value;
-        axios.get('/posts/search', { params: { query }})
-            .then(res => this.props.postsSuccess(res.data))
-            .then(() => this.addSearchPostsToState(this.props.searchPosts))
-            .catch(() => this.props.postsFailure())
+        this.props.onFetchPosts({query});
     }
-    addSearchPostsToState(posts) {
-        this.setState({postsSearch: []});
-        this.setState({postsSearch: [...posts]});
-        this.animateSearchPosts();
-    }
-    animateSearchPosts() {
-        this.setState({postsSearchMotion: []});
-        let i = 1;
-        this.state.postsSearch.forEach(post => {
-            setTimeout(() => {
-                this.setState({postsSearchMotion: [...this.state.postsSearchMotion, post]})
-                i++;
-            }, 400*i);
-        })
-    }
+
     slicePosts() {
         const indexOfLastPost = this.state.activePage * this.state.PostsPerPage;
         const indexOfFirstPost = indexOfLastPost - this.state.PostsPerPage;
-        console.log('posts', this.state.posts);
-        console.log(indexOfLastPost, indexOfFirstPost);
         this.setState({
-            postsSlice: this.state.posts.slice(indexOfFirstPost, indexOfLastPost)
-        });
-    }
-
-    animatePosts() {
-        this.setState({postsMotion: []});
-        let i = 1;
-        this.state.postsSlice.forEach(post => {
-            setTimeout(
-                () => {
-                    this.setState({ postsMotion: [...this.state.postsMotion, post]});
-                }, 400*i);
-            i++;
+            postsSlice: this.props.posts.slice(indexOfFirstPost, indexOfLastPost)
         });
     }
 
@@ -163,19 +121,11 @@ class Posts extends Component {
                         onChange={this.handleSearch}
                     />
                 </div>
-                <div>
-                {this.state.postsSearch
-                    ? this.state.postsSearchMotion.map(post =>
-                        <RenderPosts key={post.pid} post={post} />
-                        )
-                    : null
-                }
-                </div>
                 <div style={{opacity: this.state.opacity, transition: 'opacity 2s ease'}}>
                     <h1>Posts</h1>
                     <div>
-                    {   this.state.posts
-                        ? this.state.postsMotion.map(
+                    {   this.props.posts
+                        ? this.props.posts.map(
                                 post => <RenderPosts opacity={this.state.opacity} key={post.pid} post={post} />
                         )
                         : null
@@ -184,8 +134,8 @@ class Posts extends Component {
                     <Pagination
                         activePage={this.state.activePage}
                         itemsCountPerPage={5}
-                        totalItemsCount={this.state.numPosts}
-                        pageRangeDisplayed={this.state.pageRange}
+                        totalItemsCount={this.props.posts.length}
+                        pageRangeDisplayed={this.props.posts.length/5}
                         onChange={this.handlePageChange}
                     />
                 </div>
@@ -204,10 +154,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setPosts: posts => dispatch(ACTIONS.fetchPosts(posts)),
-        postsSuccess: posts => dispatch(ACTIONS.fetchSearchPosts(posts)),
-        postsFailure: () => dispatch(ACTIONS.removeSearchPosts())
+        onFetchPosts: query => dispatch(ACTIONS.fetchPosts(query))
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Posts);
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Posts, axios));

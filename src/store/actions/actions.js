@@ -1,5 +1,55 @@
 import * as ACTION_TYPES from './action_types';
 
+export {
+  fetchPostsStart,
+  fetchPostsSuccess,
+  fetchPostsFailed,
+  fetchPosts,
+  addPostFailed,
+  addPostSuccess,
+  addPost,
+  editPostSuccess,
+  editPostFailed,
+  editPost,
+  fetchPostCommentsStart,
+  fetchPostCommentsSuccess,
+  fetchPostCommentsFailed,
+  fetchPostComments,
+  addPostCommentFailed,
+  addPostCommentSuccess,
+  addPostComment,
+  editPostCommentFailed,
+  editPostCommentSuccess,
+  editPostComment,
+  deletePostCommentFailed,
+  deletePostCommentSuccess,
+  deletePostComment,
+  addPostLikeFailed,
+  addPostLikeSuccess,
+  addPostLike,
+  deletePostFailed,
+  deletePostSuccess,
+  deletePost,
+} from './post';
+
+export {
+  getOtherUserFailed,
+  getOtherUserSuccess,
+  getOtherUser,
+  fetchOtherUserPostsFailed,
+  fetchOtherUserPostsSuccess,
+  fetchOtherUserPosts,
+  fetchUserMessagesFailed,
+  fetchUserMessagesSuccess,
+  fetchUserMessages,
+  deleteUserMessageFailed,
+  deleteUserMessageSuccess,
+  deleteUserMessage,
+  sendUserMessageFailed,
+  sendUserMessageSuccess,
+  sendUserMessage,
+} from './user';
+
 export const SUCCESS = {
   type: ACTION_TYPES.SUCCESS
 }
@@ -7,6 +57,15 @@ export const SUCCESS = {
 export const FAILURE = {
   type: ACTION_TYPES.FAILURE
 }
+
+export const logout = () => {
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('id_token');
+  localStorage.removeItem('expiresAt');
+  return {
+    type: ACTION_TYPES.AUTH_LOGOUT,
+  };
+};
 
 export const success = () => {
   return {
@@ -65,32 +124,6 @@ export const removeDbProfile = () => {
   }
 }
 
-export const fetchPosts = posts => {
-  return {
-    type: ACTION_TYPES.FETCH_DB_POSTS,
-    payload: posts
-  }
-}
-
-export const removePosts = () => {
-  return {
-    type: ACTION_TYPES.REMOVE_DB_POSTS
-  }
-}
-
-export const fetchPostComments = comments => {
-  return {
-    type: ACTION_TYPES.FETCH_POSTS_COMMENTS,
-    payload: comments
-  }
-}
-
-export const removePostComments = () => {
-  return {
-    type: ACTION_TYPES.REMOVE_POSTS_COMMENTS
-  }
-}
-
 export const fetchUserPosts = posts => {
   return {
     type: ACTION_TYPES.FETCH_USER_POSTS,
@@ -101,19 +134,6 @@ export const fetchUserPosts = posts => {
 export const removeUserPosts = () => {
   return {
     type: ACTION_TYPES.REMOVE_USER_POSTS
-  }
-}
-
-export const fetchSearchPosts = posts => {
-  return {
-    type: ACTION_TYPES.SEARCH_POSTS_SUCCESS,
-    payload: posts
-  }
-}
-
-export const removeSearchPosts = () => {
-  return {
-    type: ACTION_TYPES.SEARCH_POSTS_FAILURE
   }
 }
 

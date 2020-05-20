@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import history from '../../utils/history';
+import { Redirect } from 'react-router-dom';
 import {
     TextField
 } from '@material-ui/core';
-import axios from 'axios';
+import * as ACTIONS from '../../store/actions/actions';
 
 class EditPost extends Component {
     constructor(props) {
@@ -41,14 +41,12 @@ class EditPost extends Component {
             username: this.props.profile.username,
         };
 
-        axios.put('/posts', data)
-            .then(res => console.log(res.data))
-            .catch(err => console.log(err))
-            .then(setTimeout(() => history.replace('/profile'), 700));
+        this.props.onEditPost(data);
     }
     render() {
         return (
             <div>
+                {this.props.edited ? <Redirect to='/profile' /> : null}
                 <form onSubmit={this.handleSubmit}>
                     <TextField
                         id='title'
@@ -70,7 +68,7 @@ class EditPost extends Component {
                     <button type="submit"> Submit </button>
                 </form>
                 <br />
-                <button onClick={() => history.goBack()}> Cancel </button>
+                <button onClick={() => this.props.history.goBack()}> Cancel </button>
             </div>
         );
     }
@@ -78,8 +76,15 @@ class EditPost extends Component {
 
 const mapStateToProps = state => {
     return {
-        profile: state.auth.dbProfile
+        profile: state.auth.dbProfile,
+        edited: state.post.edited,
     };
 };
 
-export default connect(mapStateToProps)(EditPost);
+const mapDispatchToProps = dispatch => {
+    return {
+        onEditPost: data => dispatch(ACTIONS.editPost(data)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditPost);
