@@ -26,9 +26,22 @@ class Profile extends Component {
     }
   }
   componentDidMount() {
+    if (this.props.dbProfile) {
+      this.loadPosts();
+    }
+  }
+
+  loadPosts = () => {
     const userId = this.props.dbProfile.uid;
     this.props.onFetchUserPosts({ userId: userId });
   }
+  shouldComponentUpdate(nextProps, nextStates) {
+    const shouldUpdate = (nextProps.dbProfile && !this.props.dbProfile) 
+      || !(nextProps.dbProfile && this.props.dbProfile && nextProps.dbProfile.uid === this.props.dbProfile.uid
+      && nextProps.userPosts.length === this.props.userPosts.length);
+    return shouldUpdate;
+  }
+
   RenderProfile = (props) => (
     <div>
       <h1>{props.profile.nickname}</h1>
@@ -94,15 +107,19 @@ class Profile extends Component {
       <div>
         {this.state.redirectToHome ? <Redirect to='/' /> : null}
         <div>
-          <this.RenderProfile profile={this.props.profile} />
+          {this.props.dbProfile ? <this.RenderProfile profile={this.props.profile} /> : <p>Loading</p>} 
         </div>
         <div>
-            <Link to={{pathname: '/show-messages/' + this.props.dbProfile.uid}}>
-              <Button variant='contained' color='primary' type='submit'>
-                  Show Messages
-              </Button>
-            </Link>
+          {
+            this.props.dbProfile ? <Link to={{pathname: '/show-messages/' + this.props.dbProfile.uid}}>
+            <Button variant='contained' color='primary' type='submit'>
+                Show Messages
+            </Button>
+          </Link>
+          : <p>Loading</p>
+          }
         </div>
+        {this.props.dbProfile ? this.loadPosts() : null}
         <div>
           {
             this.props.userPosts ?
