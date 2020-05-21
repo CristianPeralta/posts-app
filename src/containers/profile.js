@@ -39,7 +39,7 @@ class Profile extends Component {
     const shouldUpdate = (nextProps.dbProfile && !this.props.dbProfile) 
       || !(nextProps.dbProfile && this.props.dbProfile && nextProps.dbProfile.uid === this.props.dbProfile.uid
       && nextProps.userPosts.length === this.props.userPosts.length);
-    return shouldUpdate;
+    return shouldUpdate || JSON.stringify(this.state) !== JSON.stringify(nextStates);
   }
 
   RenderProfile = (props) => (
@@ -96,7 +96,9 @@ class Profile extends Component {
   }
 
   handleClickOpen = pid => {
+    console.log('handleClickOpen');
     this.setState({ open: true, postId: pid });
+    console.log('open', this.state.open, this.state.postId);
   }
 
   handleClickClose = () => {

@@ -1,5 +1,5 @@
 import * as ACTION_TYPES from './action_types';
-import axios from '../../axios';
+import * as api from '../../api';
 
 export const fetchPostsStart = () => {
   return {
@@ -24,9 +24,9 @@ export const fetchPostsFailed = (error) => {
 export const fetchPosts = (query) => {
   return dispatch => {
       dispatch(fetchPostsStart());
-      axios.get('/posts', { params: query})
-          .then(response => {
-              dispatch(fetchPostsSuccess(response.data));
+      api.fetchPosts(query)
+          .then(data => {
+              dispatch(fetchPostsSuccess(data));
           })
           .catch(error => {
               dispatch(fetchPostsFailed(error));
@@ -48,7 +48,7 @@ export const addPostFailed = () => {
 
 export const addPost = (data) => {
   return dispatch => {
-      axios.post('/posts', data)
+      api.addPost(data)
           .then(() => dispatch(addPostSuccess()))
           .catch(() => dispatch(addPostFailed()));
   };
@@ -68,7 +68,7 @@ export const editPostFailed = () => {
 
 export const editPost = (data) => {
   return dispatch => {
-      axios.put('/posts', data)
+      api.editPost(data)
           .then(() => dispatch(editPostSuccess()))
           .catch(() => dispatch(editPostFailed()));
   };
@@ -97,9 +97,9 @@ export const fetchPostCommentsFailed = (error) => {
 export const fetchPostComments = (params) => {
   return dispatch => {
       dispatch(fetchPostCommentsStart());
-      axios.get('/posts/comments', { params: params })
-          .then(response => {
-              dispatch(fetchPostCommentsSuccess(response.data));
+      api.fetchPostComments(params)
+          .then(data => {
+              dispatch(fetchPostCommentsSuccess(data));
           })
           .catch(error => {
               dispatch(fetchPostCommentsFailed(error));
@@ -122,8 +122,8 @@ export const addPostCommentFailed = () => {
 
 export const addPostComment = (data) => {
   return dispatch => {
-      axios.post('/posts/comments', data)
-          .then(response => dispatch(addPostCommentSuccess(response.data)))
+      api.addPostComment(data)
+          .then(data => dispatch(addPostCommentSuccess(data)))
           .catch(() => dispatch(addPostCommentFailed()));
   };
 };
@@ -143,8 +143,8 @@ export const editPostCommentFailed = () => {
 
 export const editPostComment = (data) => {
   return dispatch => {
-      axios.put('/posts/comments', data)
-          .then(response => dispatch(editPostCommentSuccess(response.data)))
+      api.editPostComment(data)
+          .then(data => dispatch(editPostCommentSuccess(data)))
           .catch(() => dispatch(editPostCommentFailed()));
   };
 };
@@ -163,10 +163,11 @@ export const deletePostFailed = () => {
 };
 
 export const deletePost = pid => {
+  console.log('deletePost', deletePost);
   return dispatch => {
-      axios.delete('/posts/comments', { data: { postId: pid }})
-          .then(() => axios.delete('/posts', { data: { postId: pid }}))
-          .then(response => dispatch(deletePostSuccess(response.data.pid)))
+      api.deletePostComments(pid)
+          .then(() => api.deletePost(pid))
+          .then(data => dispatch(deletePostSuccess(data.pid)))
           .catch(() => dispatch(deletePostFailed()));
   };
 };
@@ -186,8 +187,8 @@ export const deletePostCommentFailed = () => {
 
 export const deletePostComment = cid => {
   return dispatch => {
-      axios.delete('/posts/comment', { data: { cid: cid } })
-          .then(response => dispatch(deletePostCommentSuccess(response.data.cid)))
+      api.deletePostComment(cid)
+          .then(data => dispatch(deletePostCommentSuccess(data.cid)))
           .catch(() => dispatch(deletePostCommentFailed()));
   };
 };
@@ -208,8 +209,8 @@ export const addPostLikeFailed = () => {
 
 export const addPostLike = data => {
   return dispatch => {
-      axios.put("/posts/likes", data)
-          .then(response => dispatch(addPostLikeSuccess(response.data)))
+      api.addPostLike(data)
+          .then(data => dispatch(addPostLikeSuccess(data)))
           .catch(() => dispatch(addPostLikeFailed()));
   };
 };

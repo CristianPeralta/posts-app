@@ -19,3 +19,8 @@ export const sendMessage = data => {
     return axios.post('/users/messages', data)
         .then(response => response.data);
 };
+
+export const registerUser = data => {
+    return axios.post('/users', data)
+        .then(response => response.data);
+};
