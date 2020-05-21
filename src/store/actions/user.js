@@ -1,5 +1,6 @@
 import * as ACTION_TYPES from './action_types';
 import axios from '../../axios';
+import { getProfile } from '../../api';
 
 export const getOtherUserSuccess = user => {
   return {
@@ -17,8 +18,8 @@ export const getOtherUserFailed = (error) => {
 
 export const getOtherUser = username => {
     return dispatch => {
-        axios.get('/users', { params: { username: username }})
-            .then(response => dispatch(getOtherUserSuccess(response.data)))
+        getProfile(username)
+            .then(data => dispatch(getOtherUserSuccess(data)))
             .catch(() => dispatch(getOtherUserFailed()));
     };
   };
