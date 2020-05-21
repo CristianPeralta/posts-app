@@ -7,7 +7,7 @@ import {
     CardHeader,
 } from '@material-ui/core';
 
-const Post = ({post}) => {
+const Post = ({post, showAuthor}) => {
     return (
         <div className="CardStyles">
             <Card style={{width:'500px', height: '200px', marginBottom: '10px', paddingBottom: '80px'}}>
@@ -20,12 +20,13 @@ const Post = ({post}) => {
                         <div className='FlexRow'>
                             {moment(post.date_created).format('MMMM Do, YYYY | h:mm:ss a')}
                         </div>
-                        <div className='FlexRow'>
+                        {showAuthor ? <div className='FlexRow'>
                             <Link style={{paddingLeft: '5ps', textDecoration: 'none'}}
                                 to={{pathname: '/user/' + post.author, state:{post}}}>
                                 By: {post.author}
                             </Link>
-                        </div>
+                        </div> : null}
+                        
                         <div className="FlexRow">
                             <i className="material-icons">thumb_up</i>
                             <div className="notification-num-posts">

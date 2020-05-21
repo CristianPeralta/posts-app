@@ -65,7 +65,7 @@ class Posts extends Component {
                     <div>
                     {   this.props.posts
                         ? this.props.posts.map(
-                                post => <Post key={post.pid} post={post} />
+                                post => <Post key={post.pid} post={post} showAuthor />
                         )
                         : null
                     }

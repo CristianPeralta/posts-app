@@ -4,11 +4,9 @@ import { Link } from 'react-router-dom';
 import * as ACTIONS from '../store/actions/actions';
 import { Redirect } from 'react-router-dom';
 import '../App.css';
+import Post from '../components/Posts/Post/Post';
 import {
   Button,
-  Card,
-  CardHeader,
-  CardContent,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -58,37 +56,6 @@ class Profile extends Component {
     </div>
   )
 
-  RenderPost = ({post}) => (
-    <Card style={{width:'500px', height: '200px', marginBottom: '10px', paddingBottom: '80px'}}>
-        <CardHeader
-          title={<Link to={{ pathname: '/post/' + post.pid, state: {post} }} >
-                  {post.title}
-                 </Link>}
-          subheader={
-            <div className='FlexColumn'>
-              <div className='FlexRow'>
-                {post.date_created}
-              </div>
-              <div className='FlexRow'>
-                <Link to={{ pathname: '/editpost/' + post.pid, state: {post}}}>
-                  <button>
-                    Edit
-                  </button>
-                </Link>
-                <button onClick={() => this.handleClickOpen(post.pid)} >
-                  Delete
-                </button>
-              </div>
-            </div>
-          }
-        />
-        <br />
-        <CardContent>
-          <span style={{overflow: 'hidden'}}>{post.body}</span>
-        </CardContent>
-    </Card>
-  )
-
   DeletePost = () => {
     const postId = this.state.postId;
     this.props.onDeletePost(postId);
@@ -126,7 +93,7 @@ class Profile extends Component {
           {
             this.props.userPosts ?
               this.props.userPosts.map(post => (
-                <this.RenderPost post={post} key={post.pid} /> )) : null
+                <Post post={post} key={post.pid} showAuthor={false} /> )) : null
           }
         </div>
         <Dialog
