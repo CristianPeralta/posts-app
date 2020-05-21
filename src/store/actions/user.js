@@ -1,6 +1,5 @@
 import * as ACTION_TYPES from './action_types';
-import axios from '../../axios';
-import { getProfile } from '../../api';
+import * as api from '../../api';
 
 export const getOtherUserSuccess = user => {
   return {
@@ -18,7 +17,7 @@ export const getOtherUserFailed = (error) => {
 
 export const getOtherUser = username => {
     return dispatch => {
-        getProfile(username)
+        api.getProfile(username)
             .then(data => dispatch(getOtherUserSuccess(data)))
             .catch(() => dispatch(getOtherUserFailed()));
     };
@@ -40,9 +39,9 @@ export const fetchOtherUserPostsFailed = (error) => {
 
 export const fetchOtherUserPosts = username => {
   return dispatch => {
-      axios.get('/posts', { params: { username: username }})
-          .then(response => {
-              dispatch(fetchOtherUserPostsSuccess(response.data));
+      api.fetchUserPosts(username)
+          .then(data => {
+              dispatch(fetchOtherUserPostsSuccess(data));
           })
           .catch(error => {
               dispatch(fetchOtherUserPostsFailed(error));
@@ -66,9 +65,9 @@ export const fetchUserMessagesFailed = (error) => {
 
 export const fetchUserMessages = username => {
   return dispatch => {
-      axios.get('/users/messages', {params: {username: username}})
-          .then(response => {
-              dispatch(fetchUserMessagesSuccess(response.data));
+      api.fetchUserMessages(username)
+          .then(data => {
+              dispatch(fetchUserMessagesSuccess(data));
           })
           .catch(error => {
               dispatch(fetchUserMessagesFailed(error));
@@ -91,9 +90,9 @@ export const deleteUserMessageFailed = () => {
 
 export const deleteUserMessage = mid => {
   return dispatch => {
-      axios.delete('/users/messages', { data: { mid: mid }})
-          .then(response => {
-              dispatch(deleteUserMessageSuccess(response.data.mid));
+      api.deleteMessages(mid)
+          .then(data => {
+              dispatch(deleteUserMessageSuccess(data.mid));
           })
           .catch(error => {
               dispatch(deleteUserMessageFailed());
@@ -116,9 +115,9 @@ export const sendUserMessageFailed = () => {
 
 export const sendUserMessage = data => {
   return dispatch => {
-      axios.post('/users/messages', data)
-          .then(response => {
-              dispatch(sendUserMessageSuccess(response.data));
+      api.sendMessage(data)
+          .then(data => {
+              dispatch(sendUserMessageSuccess(data));
           })
           .catch(error => {
               dispatch(sendUserMessageFailed());
