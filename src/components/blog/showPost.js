@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import * as ACTIONS from '../../store/actions/actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Post from '../Posts/Post/Post';
 import {
     Button,
     TextField,
@@ -129,19 +130,15 @@ class ShowPost extends Component {
     render() {
         return (
             <div>
-                <div>
-                    <h2>Post</h2>
-                    <h4>{this.props.location.state.post.title}</h4>
-                    <p>{this.props.location.state.post.body}</p>
-                    <p>{this.props.location.state.post.author}</p>
-                    <a style={{cursor: "pointer"}} onClick={this.props.isAuthenticated
-                        ? () => this.handleLikes()
-                        : () => this.props.history.replace("/signup")
-                    }>
-                        <i className="material-icons">thumb_up</i>
-                        <small className="notification-num-showpost">{this.props.location.state.post.likes}</small>
-                    </a>
-                </div>
+                <Post
+                    key={this.props.location.state.post.pid}
+                    post={this.props.location.state.post}
+                    showAuthor
+                    isAuthenticated={this.props.isAuthenticated}
+                    history={this.props.history}
+                    profile={this.props.profile}
+                    onAddPostLike={this.props.onAddPostLike}
+                />
                 <div style={{opacity: this.state.opacity, transition: 'ease-out 2s' }} >
                     <h2>Comments</h2>
                     {this.props.comments

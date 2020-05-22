@@ -65,7 +65,15 @@ class Posts extends Component {
                     <div>
                     {   this.props.posts
                         ? this.props.posts.map(
-                                post => <Post key={post.pid} post={post} showAuthor />
+                                post => <Post
+                                    key={post.pid}
+                                    post={post}
+                                    showAuthor
+                                    isAuthenticated={this.props.isAuthenticated}
+                                    history={this.props.history}
+                                    profile={this.props.profile}
+                                    onAddPostLike={this.props.onAddPostLike}
+                                    />
                         )
                         : null
                     }
@@ -86,6 +94,7 @@ class Posts extends Component {
 const mapStateToProps = state => {
     return {
         posts: state.post.posts,
+        profile: state.auth.dbProfile,
         searchPosts: state.post.searchPosts,
         isAuthenticated: state.auth.isAuthenticated,
     };
@@ -94,6 +103,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onFetchPosts: query => dispatch(ACTIONS.fetchPosts(query)),
+        onAddPostLike: data => dispatch(ACTIONS.addPostLike(data)),
     };
 };
 

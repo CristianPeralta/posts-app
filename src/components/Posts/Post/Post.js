@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
@@ -7,7 +8,14 @@ import {
     CardHeader,
 } from '@material-ui/core';
 
-const Post = ({post, showAuthor}) => {
+const Post = ({post, profile, showAuthor, isAuthenticated, history, onAddPostLike}) => {
+    const handleLikes = () => {
+        const data = {
+            uid: profile.uid,
+            postId: post.pid,
+        };
+        onAddPostLike(data);
+    };
     return (
         <div className="CardStyles">
             <Card style={{width:'500px', height: '200px', marginBottom: '10px', paddingBottom: '80px'}}>
@@ -28,10 +36,13 @@ const Post = ({post, showAuthor}) => {
                         </div> : null}
                         
                         <div className="FlexRow">
-                            <i className="material-icons">thumb_up</i>
-                            <div className="notification-num-posts">
-                                {post.likes}
-                            </div>
+                            <a style={{cursor: "pointer"}} onClick={isAuthenticated
+                                ? () => handleLikes()
+                                : () => history.replace("/signup")
+                            }>
+                                <i className="material-icons">thumb_up</i>
+                                <small className="notification-num">{post.likes}</small>
+                            </a>
                         </div>
                     </div>
                 }
