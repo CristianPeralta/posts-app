@@ -8,7 +8,7 @@ import Form1 from './containers/form1';
 import RenderList from './containers/renderlist';
 
 import AddPost from './components/blog/addPost';
-import Posts from './components/Posts/Posts';
+import Posts from './containers/Posts/Posts';
 import ShowPost from './components/blog/showPost';
 import EditPost from './components/blog/editPost';
 
