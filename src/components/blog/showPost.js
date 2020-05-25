@@ -4,6 +4,7 @@ import * as ACTIONS from '../../store/actions/actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Post from '../Posts/Post/Post';
+import Comment from '../Posts/Comment';
 import {
     Button,
     TextField,
@@ -13,28 +14,6 @@ import {
     DialogContent,
     DialogContentText
 } from '@material-ui/core';
-
-const RenderComments = ({comment, userId, edit, commentStyle}) => (
-    <div className={commentStyle}  >
-        <h3>{comment.comment}</h3>
-        <small>{comment.date_created === "Just Now"
-            ? <div>
-                { comment.isEdited
-                    ? <span> Edited </span>
-                    : <span> Just Now </span>
-                }
-            </div>
-            : comment.date_created
-        }</small>
-        <p>By: {comment.author} </p>
-        {
-            comment.user_id === userId
-            ?   <Button onClick={() => edit(comment.cid, comment.comment)} >
-                Edit
-            </Button> : null
-        }
-    </div>
-);
 
 class ShowPost extends Component {
     constructor(props) {
@@ -143,7 +122,7 @@ class ShowPost extends Component {
                     <h2>Comments</h2>
                     {this.props.comments
                     ? this.props.comments.map(comment => (
-                        <RenderComments
+                        <Comment
                             key={comment.cid}
                             comment={comment}
                             edit={this.handleClickOpen}
