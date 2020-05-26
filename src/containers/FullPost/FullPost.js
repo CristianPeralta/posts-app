@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import * as ACTIONS from '../../store/actions/actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Post from '../../components/Posts/Post/Post';
-import Comment from '../../components/Posts/Comment';
+import Post from '../../components/Post';
+import Comment from '../../components/Comment';
 import {
     Button,
     TextField,

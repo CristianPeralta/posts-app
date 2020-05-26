@@ -9,7 +9,7 @@ import {
     Button,
     TextField,
 } from '@material-ui/core';
-import Post from '../../components/Posts/Post/Post';
+import Post from '../../components/Post';
 
 class Posts extends Component {
     constructor(props) {

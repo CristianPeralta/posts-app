@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import * as ACTIONS from '../store/actions/actions';
 import { Redirect } from 'react-router-dom';
 import '../App.css';
-import Post from '../components/Posts/Post/Post';
+import Post from '../components/Post';
 import {
   Button,
   Dialog,
