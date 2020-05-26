@@ -10,7 +10,7 @@ import RenderList from './containers/renderlist';
 import NewPost from './containers/NewPost/NewPost';
 import Posts from './containers/Posts/Posts';
 import FullPost from './containers/FullPost/FullPost';
-import EditPost from './components/blog/editPost';
+import EditPost from './containers/EditPost/EditPost';
 
 import Component1 from './functional/component1';
 import Callback from './functional/callback';
