@@ -9,7 +9,7 @@ import RenderList from './containers/renderlist';
 
 import AddPost from './components/blog/addPost';
 import Posts from './containers/Posts/Posts';
-import ShowPost from './components/blog/showPost';
+import FullPost from './containers/FullPost/FullPost';
 import EditPost from './components/blog/editPost';
 
 import Component1 from './functional/component1';
@@ -70,7 +70,7 @@ class Routes extends Component {
         <Route path='/user/:uid' component={ShowUser} />
 
         <Route path='/posts' component={Posts} />
-        <Route path='/post/:pid' component={ShowPost} />
+        <Route path='/post/:pid' component={FullPost} />
         <Route path='/editpost/:pid' component={EditPost} />
         <Route path='/addpost' component={AddPost} />
 
@@ -96,7 +96,7 @@ class Routes extends Component {
           <Route path='/user/:uid' component={ShowUser} />
 
           <Route path='/posts' component={Posts} />
-          <Route path='/post/:pid' component={ShowPost} />
+          <Route path='/post/:pid' component={FullPost} />
           <Route path='/editpost/:pid' component={EditPost} />
           <Route path='/addpost' component={AddPost} />
 
