@@ -7,7 +7,7 @@ import Profile from './containers/profile';
 import Form1 from './containers/form1';
 import RenderList from './containers/renderlist';
 
-import AddPost from './components/blog/addPost';
+import NewPost from './containers/NewPost/NewPost';
 import Posts from './containers/Posts/Posts';
 import FullPost from './containers/FullPost/FullPost';
 import EditPost from './components/blog/editPost';
@@ -72,7 +72,7 @@ class Routes extends Component {
         <Route path='/posts' component={Posts} />
         <Route path='/post/:pid' component={FullPost} />
         <Route path='/editpost/:pid' component={EditPost} />
-        <Route path='/addpost' component={AddPost} />
+        <Route path='/addpost' component={NewPost} />
 
         <Route path='/callback' render={(props) => { return <Callback auth={auth} {...props} />}} />
         <Route path="/component1" render={(props) => <Component1 {...props} /> } />
@@ -98,7 +98,7 @@ class Routes extends Component {
           <Route path='/posts' component={Posts} />
           <Route path='/post/:pid' component={FullPost} />
           <Route path='/editpost/:pid' component={EditPost} />
-          <Route path='/addpost' component={AddPost} />
+          <Route path='/addpost' component={NewPost} />
 
           <Route path='/callback' render={(props) => { return <Callback auth={auth} {...props} />}} />
           <Route path="/component1" render={(props) => <Component1 {...props} /> } />
