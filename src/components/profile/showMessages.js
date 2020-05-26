@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as ACTIONS from '../../store/actions/actions';
+import Message from '../Message';
 import {
     Table,
     TableBody,
@@ -10,29 +10,6 @@ import {
     TableRow
 } from '@material-ui/core';
 
-const RenderMessages = props => {
-    return (
-        <TableRow>
-            <TableCell>
-                <p> From: {props.message.message_sender}</p>
-                <p> Title: {props.message.message_title}</p>
-                <p> Message: {props.message.message_body}</p>
-                <small>{props.message.date_created}</small>
-                <br />
-                <Link to={{pathname: '/reply', state: { props: { message: props.message } }}}>
-                    <button >
-                        Reply
-                    </button>
-                </Link>
-                <button onClick={() => props.deleteUserMessage(props.message.mid)}> Delete </button>
-                <br />
-                <br />
-                <button onClick={() => props.history.goBack()}> Cancel </button>
-
-            </TableCell>
-        </TableRow>
-    );
-};
 class ShowMessages extends Component {
     componentDidMount() {
         const username = this.props.dbProfile.username;
@@ -51,7 +28,7 @@ class ShowMessages extends Component {
                         <TableBody>
                             {this.props.userMessages
                                 ? this.props.userMessages.map(message =>
-                                    <RenderMessages
+                                    <Message
                                         key={message.mid}
                                         message={message}
                                         deleteUserMessage={this.props.onDeleteUserMessage}
