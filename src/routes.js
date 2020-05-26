@@ -24,7 +24,7 @@ import Logout from './functional/logout';
 import ShowUser from './components/profile/showUser';
 import sendMessage from './components/profile/sendMessage';
 import replyToMessage from './components/profile/replyToMessage';
-import showMessages from './components/profile/showMessages';
+import Messages from './containers/Messages/Messages';
 
 import * as ACTIONS from './store/actions/actions';
 
@@ -110,7 +110,7 @@ class Routes extends Component {
           <Route path='/signup' render={() => <SignUp auth={auth}/>} />
 
           <PrivateRoute path="/send-message" auth={auth} component={sendMessage}/>
-          <PrivateRoute path="/show-messages/:id" auth={auth} component={showMessages}/>
+          <PrivateRoute path="/show-messages/:id" auth={auth} component={Messages}/>
           <PrivateRoute path="/reply" auth={auth} component={replyToMessage}/>
 
           <PrivateRoute path="/privateroute" auth={auth} component={PrivateComponent} />
