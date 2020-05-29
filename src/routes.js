@@ -21,7 +21,7 @@ import RenderListItem from './functional/renderlistitem';
 import SignUp from './functional/signup';
 import Logout from './functional/logout';
 
-import ShowUser from './components/profile/showUser';
+import User from './containers/User/User';
 import NewMessage from './containers/NewMessage/NewMessage';
 import Reply from './containers/Reply/Reply';
 import Messages from './containers/Messages/Messages';
@@ -67,7 +67,7 @@ class Routes extends Component {
         <Route path='/redirect' component={UnauthRedirect} />
         <Route path='/renderlist' component={RenderList} />
 
-        <Route path='/user/:uid' component={ShowUser} />
+        <Route path='/user/:uid' component={User} />
 
         <Route path='/posts' component={Posts} />
         <Route path='/post/:pid' component={FullPost} />
@@ -93,7 +93,7 @@ class Routes extends Component {
           <Route path='/redirect' component={UnauthRedirect} />
           <Route path='/renderlist' component={RenderList} />
 
-          <Route path='/user/:uid' component={ShowUser} />
+          <Route path='/user/:uid' component={User} />
 
           <Route path='/posts' component={Posts} />
           <Route path='/post/:pid' component={FullPost} />
