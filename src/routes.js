@@ -22,7 +22,7 @@ import SignUp from './functional/signup';
 import Logout from './functional/logout';
 
 import ShowUser from './components/profile/showUser';
-import sendMessage from './components/profile/sendMessage';
+import NewMessage from './containers/NewMessage/NewMessage';
 import replyToMessage from './components/profile/replyToMessage';
 import Messages from './containers/Messages/Messages';
 
@@ -109,7 +109,7 @@ class Routes extends Component {
           <Route path='/authcheck' render={() => <AuthCheck auth={auth} /> } />
           <Route path='/signup' render={() => <SignUp auth={auth}/>} />
 
-          <PrivateRoute path="/send-message" auth={auth} component={sendMessage}/>
+          <PrivateRoute path="/send-message" auth={auth} component={NewMessage}/>
           <PrivateRoute path="/show-messages/:id" auth={auth} component={Messages}/>
           <PrivateRoute path="/reply" auth={auth} component={replyToMessage}/>
 
