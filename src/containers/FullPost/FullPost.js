@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Post from '../../components/Post';
 import Comment from '../../components/Comment';
+import ModalDialog from '../../components/UI/ModalDialog';
 import {
     Button,
     TextField,
@@ -154,6 +155,19 @@ class ShowPost extends Component {
                     </form>
                 </div>
                 <div>
+                <ModalDialog
+                    title="Edit Comment"
+                    open={this.state.open}
+                    close={this.handleClose}
+                    agreeAction={this.DeletePost}
+                    cancelAction={this.handleClickClose}
+                    deleteAction={() => {
+                        this.handleDelete();
+                        this.setState({ open: false });
+                    }}
+                >
+                    <input type='text' value={this.state.comment} onChange={this.handleCommentChange} />
+                </ModalDialog>
                     <Dialog
                         open={this.state.open}
                         onClose={this.handleClose}
