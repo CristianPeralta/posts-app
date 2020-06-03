@@ -5,6 +5,7 @@ import * as ACTIONS from '../store/actions/actions';
 import { Redirect } from 'react-router-dom';
 import '../App.css';
 import Post from '../components/Post';
+import ModalDialog from '../components/UI/ModalDialog';
 import {
   Button,
   Dialog,
