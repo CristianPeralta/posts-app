@@ -108,27 +108,14 @@ class Profile extends Component {
                 </Post> )) : null
           }
         </div>
-        <Dialog
+        <ModalDialog
+          title="Delete Post"
+          text="Deleting Post"
           open={this.state.open}
-          onClose={this.handleClickClose}
-          aria-labelledby='alert-dialog-title'
-          aria-describedby='alert-dialog-description'
-        >
-          <DialogTitle id='alert-dialog-title'>Delete Post</DialogTitle>
-          <DialogContent>
-            <DialogContentText id='alert-dialog-description'>
-              Deleting Post
-            </DialogContentText>
-            <DialogActions>
-              <Button onClick={() => this.DeletePost()}>
-                Agree
-              </Button>
-              <Button onClick={() => this.handleClickClose()}>
-                Cancel
-              </Button>
-            </DialogActions>
-          </DialogContent>
-        </Dialog>
+          close={this.handleClickClose}
+          agreeAction={this.DeletePost}
+          cancelAction={this.handleClickClose}
+        />
       </div>
     );
   }
