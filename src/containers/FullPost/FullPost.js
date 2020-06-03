@@ -19,8 +19,6 @@ class ShowPost extends Component {
             comment: '',
             cid: '',
             opacity: 1,
-            commentsArr: [],
-            commentsMotion: [],
             likes: this.props.location.state.post.likes,
             like_user_id: this.props.location.state.post.like_user_id,
             like_post: true
@@ -35,14 +33,6 @@ class ShowPost extends Component {
 
     componentDidMount() {
         this.props.onFetchPostComments({ pid: this.props.location.state.post.pid });
-    }
-
-    handleTransition() {
-        setTimeout(() => this.setState({opacity: 1}), 400);
-    }
-
-    handleCommentSubmit(submitedComment) {
-        setTimeout(() => this.setState({commentsMotion: [submitedComment, ...this.state.commentsMotion]}), 50);
     }
 
     handleClickOpen(cid, comment) {
