@@ -93,7 +93,18 @@ class Profile extends Component {
           {
             this.props.userPosts ?
               this.props.userPosts.map(post => (
-                <Post post={post} key={post.pid} showAuthor={false} /> )) : null
+                <Post post={post} key={post.pid} showAuthor={false} >
+                  <div className='FlexRow'>
+                    <Link to={{ pathname: '/editpost/' + post.pid, state: {post}}}>
+                      <button>
+                        Edit
+                      </button>
+                    </Link>
+                    <button onClick={() => this.handleClickOpen(post.pid)} >
+                      Delete
+                    </button>
+                  </div>
+                </Post> )) : null
           }
         </div>
         <Dialog

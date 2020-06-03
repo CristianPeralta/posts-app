@@ -8,7 +8,7 @@ import {
     CardHeader,
 } from '@material-ui/core';
 
-const Post = ({post, profile, showAuthor, isAuthenticated, history, onAddPostLike}) => {
+const Post = ({post, profile, showAuthor, isAuthenticated, history, onAddPostLike, children}) => {
     const handleLikes = () => {
         const data = {
             uid: profile.uid,
@@ -34,7 +34,6 @@ const Post = ({post, profile, showAuthor, isAuthenticated, history, onAddPostLik
                                 By: {post.author}
                             </Link>
                         </div> : null}
-                        
                         <div className="FlexRow">
                             <a style={{cursor: "pointer"}} onClick={isAuthenticated
                                 ? () => handleLikes()
@@ -44,6 +43,8 @@ const Post = ({post, profile, showAuthor, isAuthenticated, history, onAddPostLik
                                 <small className="notification-num">{post.likes}</small>
                             </a>
                         </div>
+                        <br />
+                        {children}
                     </div>
                 }
                 />
