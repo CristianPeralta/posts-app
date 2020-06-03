@@ -63,21 +63,10 @@ class ShowPost extends Component {
             userId: this.props.profile.uid,
             username: this.props.profile.username,
         };
-        const tempCid = 154424;
-        const justNow = 'Just Now';
-        const submitedComment = {
-            cid: tempCid,
-            comment: data.comment,
-            post_id: data.postId,
-            user_id: data.userId,
-            author: data.username,
-            date_created: justNow
-        };
 
         this.props.onAddPostComment(data);
 
         window.scroll({top: 0, left: 0, behavior: 'smooth'});
-        this.handleCommentSubmit(submitedComment);
     }
     handleUpdate() {
         this.setState({comment: ''});
