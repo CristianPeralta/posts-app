@@ -9,11 +9,6 @@ import ModalDialog from '../../components/UI/ModalDialog';
 import {
     Button,
     TextField,
-    Dialog,
-    DialogTitle,
-    DialogActions,
-    DialogContent,
-    DialogContentText
 } from '@material-ui/core';
 
 class ShowPost extends Component {
