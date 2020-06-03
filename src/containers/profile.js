@@ -6,14 +6,7 @@ import { Redirect } from 'react-router-dom';
 import '../App.css';
 import Post from '../components/Post';
 import ModalDialog from '../components/UI/ModalDialog';
-import {
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions
-} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 class Profile extends Component {
   constructor(props) {
