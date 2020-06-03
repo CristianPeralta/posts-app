@@ -113,7 +113,7 @@ class Profile extends Component {
           aria-labelledby='alert-dialog-title'
           aria-describedby='alert-dialog-description'
         >
-          <DialogTitle id='alert-dialog-title'>Edit Comment</DialogTitle>
+          <DialogTitle id='alert-dialog-title'>Delete Post</DialogTitle>
           <DialogContent>
             <DialogContentText id='alert-dialog-description'>
               Deleting Post
