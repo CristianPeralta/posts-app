@@ -19,7 +19,7 @@ const ModalDialog = props => {
             <DialogTitle id='alert-dialog-title'>{props.title}</DialogTitle>
             <DialogContent>
             <DialogContentText id='alert-dialog-description'>
-                {props.text}
+                {props.children}
             </DialogContentText>
             <DialogActions>
                 <Button onClick={() => props.agreeAction()}>

@@ -103,12 +103,13 @@ class Profile extends Component {
         </div>
         <ModalDialog
           title="Delete Post"
-          text="Deleting Post"
           open={this.state.open}
           close={this.handleClickClose}
           agreeAction={this.DeletePost}
           cancelAction={this.handleClickClose}
-        />
+        >
+          Deleting Post
+        </ModalDialog>
       </div>
     );
   }

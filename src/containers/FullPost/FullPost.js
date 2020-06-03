@@ -159,8 +159,11 @@ class ShowPost extends Component {
                     title="Edit Comment"
                     open={this.state.open}
                     close={this.handleClose}
-                    agreeAction={this.DeletePost}
-                    cancelAction={this.handleClickClose}
+                    agreeAction={() => {
+                        this.handleUpdate();
+                        this.setState({ open: false });
+                    }}
+                    cancelAction={this.handleClose}
                     deleteAction={() => {
                         this.handleDelete();
                         this.setState({ open: false });
@@ -168,36 +171,6 @@ class ShowPost extends Component {
                 >
                     <input type='text' value={this.state.comment} onChange={this.handleCommentChange} />
                 </ModalDialog>
-                    <Dialog
-                        open={this.state.open}
-                        onClose={this.handleClose}
-                        aria-labelledby='alert-dialog-title'
-                        aria-describedby='alert-dialog-description'
-                    >
-                        <DialogTitle id='alert-dialog-title'>Edit Comment</DialogTitle>
-                        <DialogContent>
-                            <DialogContentText id='alert-dialog-description'>
-                                <input type='text' value={this.state.comment} onChange={this.handleCommentChange} />
-                            </DialogContentText>
-                            <DialogActions>
-                                <Button onClick={() => {
-                                    this.handleUpdate();
-                                    this.setState({ open: false });
-                                }} >
-                                    Agree
-                                </Button>
-                                <Button onClick={() => this.handleClose() } >
-                                    Cancel
-                                </Button>
-                                <Button onClick={() => {
-                                    this.handleDelete();
-                                    this.setState({ open: false });
-                                }} >
-                                    Delete
-                                </Button>
-                            </DialogActions>
-                        </DialogContent>
-                    </Dialog>
                 </div>
             </div>
         );
