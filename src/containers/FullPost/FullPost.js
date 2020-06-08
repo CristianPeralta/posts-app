@@ -3,37 +3,13 @@ import React, { Component } from 'react';
 import * as ACTIONS from '../../store/actions/actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Post from '../../components/Post';
+import Comment from '../../components/Comment';
+import ModalDialog from '../../components/UI/ModalDialog';
 import {
     Button,
     TextField,
-    Dialog,
-    DialogTitle,
-    DialogActions,
-    DialogContent,
-    DialogContentText
 } from '@material-ui/core';
-
-const RenderComments = ({comment, userId, edit, commentStyle}) => (
-    <div className={commentStyle}  >
-        <h3>{comment.comment}</h3>
-        <small>{comment.date_created === "Just Now"
-            ? <div>
-                { comment.isEdited
-                    ? <span> Edited </span>
-                    : <span> Just Now </span>
-                }
-            </div>
-            : comment.date_created
-        }</small>
-        <p>By: {comment.author} </p>
-        {
-            comment.user_id === userId
-            ?   <Button onClick={() => edit(comment.cid, comment.comment)} >
-                Edit
-            </Button> : null
-        }
-    </div>
-);
 
 class ShowPost extends Component {
     constructor(props) {
@@ -43,8 +19,6 @@ class ShowPost extends Component {
             comment: '',
             cid: '',
             opacity: 1,
-            commentsArr: [],
-            commentsMotion: [],
             likes: this.props.location.state.post.likes,
             like_user_id: this.props.location.state.post.like_user_id,
             like_post: true
@@ -59,14 +33,6 @@ class ShowPost extends Component {
 
     componentDidMount() {
         this.props.onFetchPostComments({ pid: this.props.location.state.post.pid });
-    }
-
-    handleTransition() {
-        setTimeout(() => this.setState({opacity: 1}), 400);
-    }
-
-    handleCommentSubmit(submitedComment) {
-        setTimeout(() => this.setState({commentsMotion: [submitedComment, ...this.state.commentsMotion]}), 50);
     }
 
     handleClickOpen(cid, comment) {
@@ -87,21 +53,10 @@ class ShowPost extends Component {
             userId: this.props.profile.uid,
             username: this.props.profile.username,
         };
-        const tempCid = 154424;
-        const justNow = 'Just Now';
-        const submitedComment = {
-            cid: tempCid,
-            comment: data.comment,
-            post_id: data.postId,
-            user_id: data.userId,
-            author: data.username,
-            date_created: justNow
-        };
 
         this.props.onAddPostComment(data);
 
         window.scroll({top: 0, left: 0, behavior: 'smooth'});
-        this.handleCommentSubmit(submitedComment);
     }
     handleUpdate() {
         this.setState({comment: ''});
@@ -129,24 +84,20 @@ class ShowPost extends Component {
     render() {
         return (
             <div>
-                <div>
-                    <h2>Post</h2>
-                    <h4>{this.props.location.state.post.title}</h4>
-                    <p>{this.props.location.state.post.body}</p>
-                    <p>{this.props.location.state.post.author}</p>
-                    <a style={{cursor: "pointer"}} onClick={this.props.isAuthenticated
-                        ? () => this.handleLikes()
-                        : () => this.props.history.replace("/signup")
-                    }>
-                        <i className="material-icons">thumb_up</i>
-                        <small className="notification-num-showpost">{this.props.location.state.post.likes}</small>
-                    </a>
-                </div>
+                <Post
+                    key={this.props.location.state.post.pid}
+                    post={this.props.location.state.post}
+                    showAuthor
+                    isAuthenticated={this.props.isAuthenticated}
+                    history={this.props.history}
+                    profile={this.props.profile}
+                    onAddPostLike={this.props.onAddPostLike}
+                />
                 <div style={{opacity: this.state.opacity, transition: 'ease-out 2s' }} >
                     <h2>Comments</h2>
                     {this.props.comments
                     ? this.props.comments.map(comment => (
-                        <RenderComments
+                        <Comment
                             key={comment.cid}
                             comment={comment}
                             edit={this.handleClickOpen}
@@ -178,36 +129,22 @@ class ShowPost extends Component {
                     </form>
                 </div>
                 <div>
-                    <Dialog
-                        open={this.state.open}
-                        onClose={this.handleClose}
-                        aria-labelledby='alert-dialog-title'
-                        aria-describedby='alert-dialog-description'
-                    >
-                        <DialogTitle id='alert-dialog-title'>Edit Comment</DialogTitle>
-                        <DialogContent>
-                            <DialogContentText id='alert-dialog-description'>
-                                <input type='text' value={this.state.comment} onChange={this.handleCommentChange} />
-                            </DialogContentText>
-                            <DialogActions>
-                                <Button onClick={() => {
-                                    this.handleUpdate();
-                                    this.setState({ open: false });
-                                }} >
-                                    Agree
-                                </Button>
-                                <Button onClick={() => this.handleClose() } >
-                                    Cancel
-                                </Button>
-                                <Button onClick={() => {
-                                    this.handleDelete();
-                                    this.setState({ open: false });
-                                }} >
-                                    Delete
-                                </Button>
-                            </DialogActions>
-                        </DialogContent>
-                    </Dialog>
+                <ModalDialog
+                    title="Edit Comment"
+                    open={this.state.open}
+                    close={this.handleClose}
+                    agreeAction={() => {
+                        this.handleUpdate();
+                        this.setState({ open: false });
+                    }}
+                    cancelAction={this.handleClose}
+                    deleteAction={() => {
+                        this.handleDelete();
+                        this.setState({ open: false });
+                    }}
+                >
+                    <input type='text' value={this.state.comment} onChange={this.handleCommentChange} />
+                </ModalDialog>
                 </div>
             </div>
         );

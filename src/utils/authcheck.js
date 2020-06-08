@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as ACTIONS from '../store/actions/actions';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
-import axios from '../axios';
+import { registerUser } from '../api';
 
 class AuthCheck extends Component {
   constructor(props) {
@@ -18,8 +18,8 @@ class AuthCheck extends Component {
       email: profile.email,
       emailVerified: profile.email_verified,
     };
-    axios.post('/users', data)
-      .then(res => this.props.saveProfile(res.data));
+    registerUser(data)
+      .then(user => this.props.saveProfile(user));
   }
 
   componentDidMount() {

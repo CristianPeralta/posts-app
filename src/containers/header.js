@@ -9,9 +9,9 @@ class Header extends Component {
           <Link to='/' style={{padding: '5px'}}>
             Home
           </Link>
-          <Link to='/profile' style={{padding: '5px'}}>
+          {this.props.isAuthenticated ? <Link to='/profile' style={{padding: '5px'}}>
             Profile
-          </Link>
+          </Link> : null}
           <Link to='/component1' style={{padding: '5px'}}>
             Component 1
           </Link>

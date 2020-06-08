@@ -1,48 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import * as ACTIONS from '../../store/actions/actions';
+import Post from '../../components/Post';
 import {
     Button,
-    Card,
-    CardContent,
-    CardHeader,
 } from '@material-ui/core';
-
-const RenderPosts = ({post}) => {
-    return (
-        <div className="CardStyles">
-            <Card style={{width:'500px', height: '200px', marginBottom: '10px', paddingBottom: '80px'}}>
-                <CardHeader
-                title={<Link to={{ pathname: '/post/' + post.pid, state: {post} }} >
-                        {post.title}
-                        </Link>}
-                subheader={
-                    <div className='FlexColumn'>
-                        <div className='FlexRow'>
-                            {moment(post.date_created).format('MMMM Do, YYYY | h:mm:ss a')}
-                        </div>
-                        <div className='FlexRow'>
-                            By: {post.author}
-                        </div>
-                        <div className="FlexRow">
-                            <i className="material-icons">thumb_up</i>
-                            <div className="notification-num-posts">
-                                {post.likes}
-                            </div>
-                        </div>
-                    </div>
-                }
-                />
-                <br />
-                <CardContent>
-                <span style={{overflow: 'hidden'}}>{post.body}</span>
-                </CardContent>
-            </Card>
-        </div>
-    );
-};
 
 const RenderProfile = props => {
     return (
@@ -83,7 +46,7 @@ class ShowUser extends Component {
                             {this.props.userPosts
                                 ? this.props.userPosts.map(post =>
                                     <div>
-                                        <RenderPosts key={post.pid} post={post} />
+                                        <Post post={post} key={post.pid} />
                                         <br />
                                     </div>
                                     )

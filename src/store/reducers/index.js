@@ -1,7 +1,7 @@
 
-import AuthReducer from './authReducer';
-import UserReducer from './userReducer';
-import PostReducer from './postReducer';
+import AuthReducer from './auth';
+import UserReducer from './user';
+import PostReducer from './post';
 import Reducer1 from './reducer1';
 import { combineReducers } from 'redux';
 

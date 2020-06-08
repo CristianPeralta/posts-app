@@ -7,10 +7,10 @@ import Profile from './containers/profile';
 import Form1 from './containers/form1';
 import RenderList from './containers/renderlist';
 
-import AddPost from './components/blog/addPost';
-import Posts from './components/blog/posts';
-import ShowPost from './components/blog/showPost';
-import EditPost from './components/blog/editPost';
+import NewPost from './containers/NewPost/NewPost';
+import Posts from './containers/Posts/Posts';
+import FullPost from './containers/FullPost/FullPost';
+import EditPost from './containers/EditPost/EditPost';
 
 import Component1 from './functional/component1';
 import Callback from './functional/callback';
@@ -21,10 +21,10 @@ import RenderListItem from './functional/renderlistitem';
 import SignUp from './functional/signup';
 import Logout from './functional/logout';
 
-import ShowUser from './components/profile/showUser';
-import sendMessage from './components/profile/sendMessage';
-import replyToMessage from './components/profile/replyToMessage';
-import showMessages from './components/profile/showMessages';
+import User from './containers/User/User';
+import NewMessage from './containers/NewMessage/NewMessage';
+import Reply from './containers/Reply/Reply';
+import Messages from './containers/Messages/Messages';
 
 import * as ACTIONS from './store/actions/actions';
 
@@ -32,6 +32,7 @@ import Auth from './utils/auth';
 import AuthCheck from './utils/authcheck';
 
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import { getProfile } from './api';
 
 export const auth = new Auth();
 
@@ -46,10 +47,13 @@ const PrivateRoute = ({component: Component, auth }) => (
 
 class Routes extends Component {
   componentDidMount() {
-    if(auth.isAuthenticated()) {
+    if (auth.isAuthenticated()) {
       this.props.loginSuccess();
-      auth.getProfile(() => {});
-      setTimeout(() => {this.props.addProfile(auth.userProfile)}, 400);
+      auth.getProfile((data) => {
+        this.props.addProfile(auth.userProfile.profile);
+        getProfile(auth.userProfile.profile.nickname)
+          .then(data => this.props.saveProfile(data));
+      });
     } else {
       this.props.loginFailure();
       this.props.removeProfile();
@@ -63,12 +67,12 @@ class Routes extends Component {
         <Route path='/redirect' component={UnauthRedirect} />
         <Route path='/renderlist' component={RenderList} />
 
-        <Route path='/user/:uid' component={ShowUser} />
+        <Route path='/user/:uid' component={User} />
 
         <Route path='/posts' component={Posts} />
-        <Route path='/post/:pid' component={ShowPost} />
+        <Route path='/post/:pid' component={FullPost} />
         <Route path='/editpost/:pid' component={EditPost} />
-        <Route path='/addpost' component={AddPost} />
+        <Route path='/addpost' component={NewPost} />
 
         <Route path='/callback' render={(props) => { return <Callback auth={auth} {...props} />}} />
         <Route path="/component1" render={(props) => <Component1 {...props} /> } />
@@ -89,12 +93,12 @@ class Routes extends Component {
           <Route path='/redirect' component={UnauthRedirect} />
           <Route path='/renderlist' component={RenderList} />
 
-          <Route path='/user/:uid' component={ShowUser} />
+          <Route path='/user/:uid' component={User} />
 
           <Route path='/posts' component={Posts} />
-          <Route path='/post/:pid' component={ShowPost} />
+          <Route path='/post/:pid' component={FullPost} />
           <Route path='/editpost/:pid' component={EditPost} />
-          <Route path='/addpost' component={AddPost} />
+          <Route path='/addpost' component={NewPost} />
 
           <Route path='/callback' render={(props) => { return <Callback auth={auth} {...props} />}} />
           <Route path="/component1" render={(props) => <Component1 {...props} /> } />
@@ -105,9 +109,9 @@ class Routes extends Component {
           <Route path='/authcheck' render={() => <AuthCheck auth={auth} /> } />
           <Route path='/signup' render={() => <SignUp auth={auth}/>} />
 
-          <PrivateRoute path="/send-message" auth={auth} component={sendMessage}/>
-          <PrivateRoute path="/show-messages/:id" auth={auth} component={showMessages}/>
-          <PrivateRoute path="/reply" auth={auth} component={replyToMessage}/>
+          <PrivateRoute path="/send-message" auth={auth} component={NewMessage}/>
+          <PrivateRoute path="/show-messages/:id" auth={auth} component={Messages}/>
+          <PrivateRoute path="/reply" auth={auth} component={Reply}/>
 
           <PrivateRoute path="/privateroute" auth={auth} component={PrivateComponent} />
           <PrivateRoute path="/profile" auth={auth} component={Profile} />
@@ -137,6 +141,7 @@ const mapDispatchToProps = dispatch => {
     loginSuccess: () => dispatch(ACTIONS.loginSuccess()),
     loginFailure: () => dispatch(ACTIONS.loginFailure()),
     addProfile: (profile) => dispatch(ACTIONS.addProfile(profile)),
+    saveProfile: (profile) => dispatch(ACTIONS.saveProfile(profile)),
     removeProfile: () => dispatch(ACTIONS.removeProfile()),
   };
 };
