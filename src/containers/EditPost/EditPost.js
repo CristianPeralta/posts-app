@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { getPost } from '../../api';
 import {
     TextField
 } from '@material-ui/core';
@@ -11,11 +12,15 @@ class EditPost extends Component {
         super(props);
 
         this.state = {
+            post: null,
             title: '',
             body: ''
         };
     }
     componentDidMount() {
+        getPost(this.props.match.params.pid)
+            .then(post => this.setState({ post: post }))
+            .catch(error => console.log(error));
         this.setState({
             title: this.props.location.state.post.title,
             body: this.props.location.state.post.body
