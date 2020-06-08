@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Post from '../../components/Post';
 import Comment from '../../components/Comment';
 import ModalDialog from '../../components/UI/ModalDialog';
+import { getPost } from '../../api';
 import {
     Button,
     TextField,
@@ -32,6 +33,9 @@ class ShowPost extends Component {
     }
 
     componentDidMount() {
+        getPost(this.props.match.params.pid)
+            .then(post => this.setState({ post: post }))
+            .catch(error => console.log(error));
         this.props.onFetchPostComments({ pid: this.props.location.state.post.pid });
     }
 

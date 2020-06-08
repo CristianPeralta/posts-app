@@ -48,8 +48,6 @@ class EditPost extends Component {
             username: this.props.profile.username,
         };
 
-        console.log('data', data);
-
         this.props.onEditPost(data);
     }
     render() {
