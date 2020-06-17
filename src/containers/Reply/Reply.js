@@ -3,25 +3,29 @@ import NewMessage from '../../containers/NewMessage/NewMessage';
 
 class ReplyToMessage extends Component {
     render() {
+        let message = <p>Loading...</p>
+        if (this.props.location.state.props.message) {
+            message = this.props.location.state.props.message;
+        }
         return (
             <div>
                 <h2>Message:</h2>
                 <div className='FlexColumn'>
                     <div>
-                        <p>{ this.props.location.state.props.message.message_title }</p>
+                        <p>{ message.message_title }</p>
                     </div>
                     <div>
-                        <p>{ this.props.location.state.props.message.message_body }</p>
+                        <p>{ message.message_body }</p>
                     </div>
                     <div>
-                        <p>By: {this.props.location.state.props.message.message_sender}</p>
+                        <p>By: { message.message_sender }</p>
                     </div>
                 </div>
                 <NewMessage location={{
                     state: {
                         props: {
                             profile: {
-                                username: this.props.location.state.props.message.message_sender
+                                username: message.message_sender
                             }
                         }
                     }
