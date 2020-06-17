@@ -26,7 +26,7 @@ const RenderProfile = props => {
     );
 };
 
-class ShowUser extends Component {
+class User extends Component {
     componentDidMount() {
         const username = this.props.match.params.username;
         this.props.onGetOtherUser(username);
@@ -76,4 +76,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default  connect(mapStateToProps, mapDispatchToProps)(ShowUser);
+export default  connect(mapStateToProps, mapDispatchToProps)(User);
