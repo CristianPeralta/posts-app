@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { getPost } from '../../api';
 import {
     TextField
 } from '@material-ui/core';
@@ -11,23 +12,29 @@ class EditPost extends Component {
         super(props);
 
         this.state = {
+            post: null,
             title: '',
             body: ''
         };
     }
     componentDidMount() {
-        this.setState({
-            title: this.props.location.state.post.title,
-            body: this.props.location.state.post.body
-        });
+        getPost(this.props.match.params.pid)
+            .then(post => this.setState({ post: post }))
+            .catch(error => console.log(error));
     }
 
     handleTitleChange = event => {
-        this.setState({ title: event.target.value });
+        this.setState({post: {
+            ...this.state.post,
+            title: event.target.value,
+        }});
     }
 
     handleBodyChange = event => {
-        this.setState({ body: event.target.value });
+        this.setState({post: {
+            ...this.state.post,
+            body: event.target.value,
+        }});
     }
 
     handleSubmit = event => {
@@ -36,7 +43,7 @@ class EditPost extends Component {
         const data = {
             title: event.target.title.value,
             body: event.target.body.value,
-            pid: this.props.location.state.post.pid,
+            pid: this.state.post.pid,
             uid: this.props.profile.uid,
             username: this.props.profile.username,
         };
@@ -44,15 +51,15 @@ class EditPost extends Component {
         this.props.onEditPost(data);
     }
     render() {
-        return (
-            <div>
-                {this.props.edited ? <Redirect to='/profile' /> : null}
+        let form  = <p>Loading...</p>;
+        if (this.state.post) {
+            form = (
                 <form onSubmit={this.handleSubmit}>
                     <TextField
                         id='title'
                         label='Title'
                         margin='normal'
-                        value={this.state.title}
+                        value={this.state.post.title}
                         onChange={this.handleTitleChange}
                     />
                     <TextField
@@ -61,12 +68,18 @@ class EditPost extends Component {
                         multiline
                         rows='4'
                         margin='normal'
-                        value={this.state.body}
+                        value={this.state.post.body}
                         onChange={this.handleBodyChange}
                     />
                     <br />
                     <button type="submit"> Submit </button>
                 </form>
+            );
+        }
+        return (
+            <div>
+                {this.props.edited ? <Redirect to='/profile' /> : null}
+                {form}
                 <br />
                 <button onClick={() => this.props.history.goBack()}> Cancel </button>
             </div>

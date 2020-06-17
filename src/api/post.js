@@ -10,6 +10,11 @@ export const fetchPosts = query => {
         .then(response => response.data);
 };
 
+export const getPost = pid => {
+    return axios.get(`/posts/${pid}`)
+        .then(response => response.data);
+};
+
 export const addPost = data => {
     return axios.post('/posts', data)
         .then(response => response.data);

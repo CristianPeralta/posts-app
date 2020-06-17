@@ -89,7 +89,7 @@ class Profile extends Component {
               this.props.userPosts.map(post => (
                 <Post post={post} key={post.pid} showAuthor={false} >
                   <div className='FlexRow'>
-                    <Link to={{ pathname: '/editpost/' + post.pid, state: {post}}}>
+                    <Link to={{ pathname: '/editpost/' + post.pid }}>
                       <button>
                         Edit
                       </button>

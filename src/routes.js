@@ -67,7 +67,7 @@ class Routes extends Component {
         <Route path='/redirect' component={UnauthRedirect} />
         <Route path='/renderlist' component={RenderList} />
 
-        <Route path='/user/:uid' component={User} />
+        <Route path='/user/:username' component={User} />
 
         <Route path='/posts' component={Posts} />
         <Route path='/post/:pid' component={FullPost} />
@@ -93,7 +93,7 @@ class Routes extends Component {
           <Route path='/redirect' component={UnauthRedirect} />
           <Route path='/renderlist' component={RenderList} />
 
-          <Route path='/user/:uid' component={User} />
+          <Route path='/user/:username' component={User} />
 
           <Route path='/posts' component={Posts} />
           <Route path='/post/:pid' component={FullPost} />

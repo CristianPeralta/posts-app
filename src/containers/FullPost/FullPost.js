@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Post from '../../components/Post';
 import Comment from '../../components/Comment';
 import ModalDialog from '../../components/UI/ModalDialog';
+import { getPost } from '../../api';
 import {
     Button,
     TextField,
@@ -15,13 +16,11 @@ class ShowPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            post: null,
             open: false,
             comment: '',
             cid: '',
             opacity: 1,
-            likes: this.props.location.state.post.likes,
-            like_user_id: this.props.location.state.post.like_user_id,
-            like_post: true
         }
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleCommentChange = this.handleCommentChange.bind(this);
@@ -32,7 +31,10 @@ class ShowPost extends Component {
     }
 
     componentDidMount() {
-        this.props.onFetchPostComments({ pid: this.props.location.state.post.pid });
+        getPost(this.props.match.params.pid)
+            .then(post => this.setState({ post: post }))
+            .then(() => this.props.onFetchPostComments({ pid: this.props.match.params.pid }))
+            .catch(error => console.log(error));
     }
 
     handleClickOpen(cid, comment) {
@@ -49,7 +51,7 @@ class ShowPost extends Component {
         event.preventDefault();
         const data = {
             comment: event.target.comment.value,
-            postId: this.props.location.state.post.pid,
+            postId: this.state.post.pid,
             userId: this.props.profile.uid,
             username: this.props.profile.username,
         };
@@ -63,7 +65,7 @@ class ShowPost extends Component {
         const data = {
             cid: this.state.cid,
             comment: this.state.comment,
-            postId: this.props.location.state.post.pid,
+            postId: this.state.post.pid,
             userId: this.props.profile.uid,
             username: this.props.profile.username,
         };
@@ -77,22 +79,26 @@ class ShowPost extends Component {
     handleLikes() {
         const data = {
             uid: this.props.profile.uid,
-            postId: this.props.location.state.post.pid,
+            postId: this.state.post.pid,
         };
         this.props.onAddPostLike(data);
     }
     render() {
+        let post = <p>Loading</p>;
+        if (this.state.post) {
+            post = <Post
+                key={this.state.post.pid}
+                post={this.state.post}
+                showAuthor
+                isAuthenticated={this.props.isAuthenticated}
+                history={this.props.history}
+                profile={this.props.profile}
+                onAddPostLike={this.props.onAddPostLike}
+            />;
+        }
         return (
             <div>
-                <Post
-                    key={this.props.location.state.post.pid}
-                    post={this.props.location.state.post}
-                    showAuthor
-                    isAuthenticated={this.props.isAuthenticated}
-                    history={this.props.history}
-                    profile={this.props.profile}
-                    onAddPostLike={this.props.onAddPostLike}
-                />
+                {post}
                 <div style={{opacity: this.state.opacity, transition: 'ease-out 2s' }} >
                     <h2>Comments</h2>
                     {this.props.comments

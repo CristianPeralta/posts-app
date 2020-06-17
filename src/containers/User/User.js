@@ -16,7 +16,7 @@ const RenderProfile = props => {
                 </h1>
             </div>
             <div>
-                <Link to={{pathname: '/send-message', state:{props}}}>
+                <Link to={{pathname: `/send-message`, search: `?to=${props.profile.username}`}}>
                     <Button variant='contained' color='primary' type='submit'>
                         Send Message
                     </Button>
@@ -26,9 +26,9 @@ const RenderProfile = props => {
     );
 };
 
-class ShowUser extends Component {
+class User extends Component {
     componentDidMount() {
-        const username = this.props.location.state.post.author;
+        const username = this.props.match.params.username;
         this.props.onGetOtherUser(username);
         this.props.onFetchOtherUserPosts(username);
         window.scrollTo({ top: 0, left: 0});
@@ -76,4 +76,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default  connect(mapStateToProps, mapDispatchToProps)(ShowUser);
+export default  connect(mapStateToProps, mapDispatchToProps)(User);
