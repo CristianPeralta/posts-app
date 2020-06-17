@@ -11,6 +11,7 @@ class SendMessage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            to: (new URLSearchParams(this.props.location.search)).get("to"),
             submited: false,
         };
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,7 +19,7 @@ class SendMessage extends Component {
     handleSubmit(event) {
         event.preventDefault();
         const data = {
-            messageTo: this.props.location.state.props.profile.username,
+            messageTo: this.state.to,
             messageSender: this.props.dbProfile.username,
             messageTitle: event.target.title.value,
             messageBody: event.target.body.value

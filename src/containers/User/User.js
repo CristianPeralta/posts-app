@@ -16,7 +16,7 @@ const RenderProfile = props => {
                 </h1>
             </div>
             <div>
-                <Link to={{pathname: '/send-message', state:{props}}}>
+                <Link to={{pathname: `/send-message`, search: `?to=${props.profile.username}`}}>
                     <Button variant='contained' color='primary' type='submit'>
                         Send Message
                     </Button>
