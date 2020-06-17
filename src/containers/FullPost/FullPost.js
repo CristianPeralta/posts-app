@@ -21,9 +21,6 @@ class ShowPost extends Component {
             comment: '',
             cid: '',
             opacity: 1,
-            likes: this.props.location.state.post.likes,
-            like_user_id: this.props.location.state.post.like_user_id,
-            like_post: true
         }
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleCommentChange = this.handleCommentChange.bind(this);
