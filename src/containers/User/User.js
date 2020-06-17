@@ -28,7 +28,7 @@ const RenderProfile = props => {
 
 class ShowUser extends Component {
     componentDidMount() {
-        const username = this.props.location.state.post.author;
+        const username = this.props.match.params.username;
         this.props.onGetOtherUser(username);
         this.props.onFetchOtherUserPosts(username);
         window.scrollTo({ top: 0, left: 0});
