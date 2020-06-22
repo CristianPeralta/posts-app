@@ -1,23 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Container1 from './containers/container1'
 import Header from './containers/header';
 import Profile from './containers/profile';
-import Form1 from './containers/form1';
-import RenderList from './containers/renderlist';
 
 import NewPost from './containers/NewPost/NewPost';
 import Posts from './containers/Posts/Posts';
 import FullPost from './containers/FullPost/FullPost';
 import EditPost from './containers/EditPost/EditPost';
 
-import Component1 from './functional/component1';
 import Callback from './functional/callback';
-import PrivateComponent from './functional/privatecomponent';
 import UnauthRedirect from './functional/unauthredirect';
 import Home from './functional/home';
-import RenderListItem from './functional/renderlistitem';
 import SignUp from './functional/signup';
 import Logout from './functional/logout';
 
@@ -43,7 +37,7 @@ const PrivateRoute = ({component: Component, auth }) => (
     : <Redirect to={{pathname:'/signup'}} />
   }
   />
-)
+);
 
 class Routes extends Component {
   componentDidMount() {
@@ -60,12 +54,10 @@ class Routes extends Component {
     }
   }
   render() {
-    let routes = (
+    const routes = (
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route exact path='/form1' component={Form1} />
         <Route path='/redirect' component={UnauthRedirect} />
-        <Route path='/renderlist' component={RenderList} />
 
         <Route path='/user/:username' component={User} />
 
@@ -75,52 +67,20 @@ class Routes extends Component {
         <Route path='/addpost' component={NewPost} />
 
         <Route path='/callback' render={(props) => { return <Callback auth={auth} {...props} />}} />
-        <Route path="/component1" render={(props) => <Component1 {...props} /> } />
-
-        <Route path="/listitem/:id" component={RenderListItem} />
 
         <Route path='/authcheck' render={() => <AuthCheck auth={auth} /> } />
-        
-        <Route path='/logout' exact render={props => <Logout auth={auth}  {...props} /> } />
+        <Route path='/signup' render={() => <SignUp auth={auth}/>} />
+
+        <PrivateRoute path="/send-message" auth={auth} component={NewMessage}/>
+        <PrivateRoute path="/show-messages/:id" auth={auth} component={Messages}/>
+        <PrivateRoute path="/reply" auth={auth} component={Reply}/>
+
+        <PrivateRoute path="/profile" auth={auth} component={Profile} />
+
+        <Route path='/logout' exact render={props => <Logout auth={auth} {...props} /> } />
         <Redirect to="/" />
       </Switch>
     );
-    if (true) {
-      routes = (
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route exact path='/form1' component={Form1} />
-          <Route path='/redirect' component={UnauthRedirect} />
-          <Route path='/renderlist' component={RenderList} />
-
-          <Route path='/user/:username' component={User} />
-
-          <Route path='/posts' component={Posts} />
-          <Route path='/post/:pid' component={FullPost} />
-          <Route path='/editpost/:pid' component={EditPost} />
-          <Route path='/addpost' component={NewPost} />
-
-          <Route path='/callback' render={(props) => { return <Callback auth={auth} {...props} />}} />
-          <Route path="/component1" render={(props) => <Component1 {...props} /> } />
-
-          <Route path="/listitem/:id" component={RenderListItem} />
-
-          <Route exact path='/container1' render={() => <Container1 auth={auth} /> } />
-          <Route path='/authcheck' render={() => <AuthCheck auth={auth} /> } />
-          <Route path='/signup' render={() => <SignUp auth={auth}/>} />
-
-          <PrivateRoute path="/send-message" auth={auth} component={NewMessage}/>
-          <PrivateRoute path="/show-messages/:id" auth={auth} component={Messages}/>
-          <PrivateRoute path="/reply" auth={auth} component={Reply}/>
-
-          <PrivateRoute path="/privateroute" auth={auth} component={PrivateComponent} />
-          <PrivateRoute path="/profile" auth={auth} component={Profile} />
-
-          <Route path='/logout' exact render={props => <Logout auth={auth} {...props} /> } />
-          <Redirect to="/" />
-        </Switch>
-      );
-    }
 
     return(
       <div>
