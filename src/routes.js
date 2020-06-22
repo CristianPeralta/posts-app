@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Container1 from './containers/container1'
 import Header from './containers/header';
 import Profile from './containers/profile';
 import Form1 from './containers/form1';
@@ -77,7 +76,6 @@ class Routes extends Component {
 
         <Route path="/listitem/:id" component={RenderListItem} />
 
-        <Route exact path='/container1' render={() => <Container1 auth={auth} /> } />
         <Route path='/authcheck' render={() => <AuthCheck auth={auth} /> } />
         <Route path='/signup' render={() => <SignUp auth={auth}/>} />
 

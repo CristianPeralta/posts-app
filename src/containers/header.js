@@ -12,9 +12,6 @@ class Header extends Component {
           {this.props.isAuthenticated ? <Link to='/profile' style={{padding: '5px'}}>
             Profile
           </Link> : null}
-          <Link to='/container1' style={{padding: '5px'}}>
-            Container 1
-          </Link>
           <Link to='/form1' style={{padding: '5px'}}>
             Form 1
           </Link>
