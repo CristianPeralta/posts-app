@@ -12,7 +12,6 @@ import Posts from './containers/Posts/Posts';
 import FullPost from './containers/FullPost/FullPost';
 import EditPost from './containers/EditPost/EditPost';
 
-import Component1 from './functional/component1';
 import Callback from './functional/callback';
 import PrivateComponent from './functional/privatecomponent';
 import UnauthRedirect from './functional/unauthredirect';
@@ -43,7 +42,7 @@ const PrivateRoute = ({component: Component, auth }) => (
     : <Redirect to={{pathname:'/signup'}} />
   }
   />
-)
+);
 
 class Routes extends Component {
   componentDidMount() {
@@ -75,7 +74,6 @@ class Routes extends Component {
         <Route path='/addpost' component={NewPost} />
 
         <Route path='/callback' render={(props) => { return <Callback auth={auth} {...props} />}} />
-        <Route path="/component1" render={(props) => <Component1 {...props} /> } />
 
         <Route path="/listitem/:id" component={RenderListItem} />
 
