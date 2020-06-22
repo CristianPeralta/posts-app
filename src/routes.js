@@ -13,7 +13,6 @@ import Callback from './functional/callback';
 import PrivateComponent from './functional/privatecomponent';
 import UnauthRedirect from './functional/unauthredirect';
 import Home from './functional/home';
-import RenderListItem from './functional/renderlistitem';
 import SignUp from './functional/signup';
 import Logout from './functional/logout';
 
@@ -69,8 +68,6 @@ class Routes extends Component {
         <Route path='/addpost' component={NewPost} />
 
         <Route path='/callback' render={(props) => { return <Callback auth={auth} {...props} />}} />
-
-        <Route path="/listitem/:id" component={RenderListItem} />
 
         <Route path='/authcheck' render={() => <AuthCheck auth={auth} /> } />
         <Route path='/signup' render={() => <SignUp auth={auth}/>} />
