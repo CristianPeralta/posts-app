@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import Header from './containers/header';
 import Profile from './containers/profile';
-import Form1 from './containers/form1';
 import RenderList from './containers/renderlist';
 
 import NewPost from './containers/NewPost/NewPost';
@@ -61,7 +60,6 @@ class Routes extends Component {
     const routes = (
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route exact path='/form1' component={Form1} />
         <Route path='/redirect' component={UnauthRedirect} />
         <Route path='/renderlist' component={RenderList} />
 
