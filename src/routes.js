@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import Header from './containers/header';
 import Profile from './containers/profile';
-import RenderList from './containers/renderlist';
 
 import NewPost from './containers/NewPost/NewPost';
 import Posts from './containers/Posts/Posts';
@@ -61,7 +60,6 @@ class Routes extends Component {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/redirect' component={UnauthRedirect} />
-        <Route path='/renderlist' component={RenderList} />
 
         <Route path='/user/:username' component={User} />
 
