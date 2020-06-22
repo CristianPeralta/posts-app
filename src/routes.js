@@ -10,7 +10,6 @@ import FullPost from './containers/FullPost/FullPost';
 import EditPost from './containers/EditPost/EditPost';
 
 import Callback from './functional/callback';
-import PrivateComponent from './functional/privatecomponent';
 import UnauthRedirect from './functional/unauthredirect';
 import Home from './functional/home';
 import SignUp from './functional/signup';
@@ -76,7 +75,6 @@ class Routes extends Component {
         <PrivateRoute path="/show-messages/:id" auth={auth} component={Messages}/>
         <PrivateRoute path="/reply" auth={auth} component={Reply}/>
 
-        <PrivateRoute path="/privateroute" auth={auth} component={PrivateComponent} />
         <PrivateRoute path="/profile" auth={auth} component={Profile} />
 
         <Route path='/logout' exact render={props => <Logout auth={auth} {...props} /> } />
