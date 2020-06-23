@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NewMessage from '../../containers/NewMessage/NewMessage';
+import PropTypes from 'prop-types';
 
 class ReplyToMessage extends Component {
     render() {
@@ -34,5 +35,9 @@ class ReplyToMessage extends Component {
         );
     }
 }
+
+ReplyToMessage.propTypes = {
+    location: PropTypes.object,
+};
 
 export default ReplyToMessage;
