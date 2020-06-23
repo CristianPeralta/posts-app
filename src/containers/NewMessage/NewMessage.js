@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as ACTIONS from '../../store/actions/actions';
 import { Redirect } from 'react-router-dom';
 import { TextField, Button } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 class SendMessage extends Component {
     constructor(props) {
@@ -66,6 +67,13 @@ const mapDispatchToProps = dispatch => {
     return {
         onSendUserMessage: data => dispatch(ACTIONS.sendUserMessage(data)),
     };
+};
+
+SendMessage.propTypes = {
+    history: PropTypes.object,
+    dbProfile: PropTypes.object,
+    location: PropTypes.object,
+    onSendUserMessage: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendMessage);
