@@ -107,7 +107,7 @@ class ShowPost extends Component {
                             key={comment.cid}
                             comment={comment}
                             edit={this.handleClickOpen}
-                            userId={this.props.profile.uid}
+                            userId={this.props.profile ? this.props.profile.uid : null}
                             commentStyle={this.state.deleteCommentId === comment.cid
                                 ? "FadeOutComment"
                                 : "CommentStyles"

@@ -61,10 +61,10 @@ class Routes extends Component {
 
         <Route path='/user/:username' component={User} />
 
-        <Route path='/posts' component={Posts} />
-        <Route path='/posts/:pid' component={FullPost} />
-        <Route path='/posts/:pid/edit' component={EditPost} />
         <Route path='/posts/new' component={NewPost} />
+        <Route path='/posts/:pid/edit' component={EditPost} />
+        <Route path='/posts/:pid' component={FullPost} />
+        <Route path='/posts' component={Posts} />
 
         <Route path='/callback' render={(props) => { return <Callback auth={auth} {...props} />}} />
 
