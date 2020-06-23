@@ -9,7 +9,45 @@ const initialState = {
   added: false,
   edited: false,
   commentAdded: false,
-}
+};
+
+const editPostCommentSuccess = (action, state) => {
+  let comments = [...state.comments];
+  let commentIndex = comments.findIndex(c => c.cid === action.comment.cid);
+  comments[commentIndex] = action.comment;
+  return {
+    ...state,
+    comments: comments,
+  };
+};
+
+const deletePostSuccess = (action, state) => {
+  let posts = [...state.posts];
+  posts = posts.filter(p => p.pid !== action.pid);
+  return {
+    ...state,
+    posts: posts,
+  };
+};
+
+const deletePostCommentSuccess = (action, state) => {
+  let allComments = [...state.comments];
+  allComments = allComments.filter(c => c.cid !== action.cid);
+  return {
+    ...state,
+    comments: allComments,
+  };
+};
+
+const addPostLikeSuccess = (action, state) => {
+  let allPosts = [...state.posts];
+  let postcommentIndex = allPosts.findIndex(p => p.pid === action.pid);
+  allPosts[postcommentIndex].likes = action.likes;
+  return {
+    ...state,
+    posts: allPosts,
+  };
+};
 
 const PostReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -61,47 +99,25 @@ const PostReducer = (state = initialState, action) => {
           commentAdded: false,
         }
       case ACTION_TYPES.EDIT_POST_COMMENT_SUCCESS:
-        let comments = [...state.comments];
-        let commentIndex = comments.findIndex(c => c.cid === action.comment.cid);
-        comments[commentIndex] = action.comment;
-        return {
-          ...state,
-          comments: comments,
-        }
+        return editPostCommentSuccess(action, state);
       case ACTION_TYPES.EDIT_POST_COMMENT_FAIL:
         return {
           ...state,
         }
       case ACTION_TYPES.DELETE_POST_SUCCESS:
-        let posts = [...state.posts];
-        posts = posts.filter(p => p.pid !== action.pid);
-        return {
-          ...state,
-          posts: posts,
-        }
+        return deletePostSuccess(action, state);
       case ACTION_TYPES.DELETE_POST_FAIL:
         return {
           ...state,
         }
       case ACTION_TYPES.DELETE_POST_COMMENT_SUCCESS:
-        let allComments = [...state.comments];
-        allComments = allComments.filter(c => c.cid !== action.cid);
-        return {
-          ...state,
-          comments: allComments,
-        }
+        return deletePostCommentSuccess(action, state);
       case ACTION_TYPES.DELETE_POST_COMMENT_FAIL:
         return {
           ...state,
         }
       case ACTION_TYPES.ADD_POST_LIKE_SUCCESS:
-        let allPosts = [...state.posts];
-        let postcommentIndex = allPosts.findIndex(p => p.pid === action.pid);
-        allPosts[postcommentIndex].likes = action.likes;
-        return {
-          ...state,
-          posts: allPosts,
-        }
+        return addPostLikeSuccess(action, state);
       case ACTION_TYPES.ADD_POST_LIKE_FAIL:
         return {
           ...state,
