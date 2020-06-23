@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as ACTIONS from '../../store/actions/actions';
 import Message from '../../components/Message';
+import PropTypes from 'prop-types';
 import {
     Table,
     TableBody,
@@ -59,4 +60,11 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
+ShowMessages.propTypes = {
+    history: PropTypes.object,
+    dbProfile: PropTypes.object,
+    userMessages: PropTypes.array,
+    onFetchUserMessages: PropTypes.func,
+    onDeleteUserMessage: PropTypes.func,
+};
 export default  connect(mapStateToProps, mapDispatchToProps)(ShowMessages);
