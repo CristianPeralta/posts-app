@@ -28,6 +28,8 @@ import AuthCheck from './utils/authcheck';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { getProfile } from './api';
 
+import PropTypes from 'prop-types';
+
 export const auth = new Auth();
 
 
@@ -39,11 +41,16 @@ const PrivateRoute = ({component: Component, auth }) => (
   />
 );
 
+PrivateRoute.propTypes = {
+  component: PropTypes.element,
+  auth: PropTypes.object,
+};
+
 class Routes extends Component {
   componentDidMount() {
     if (auth.isAuthenticated()) {
       this.props.loginSuccess();
-      auth.getProfile((data) => {
+      auth.getProfile(() => {
         this.props.addProfile(auth.userProfile.profile);
         getProfile(auth.userProfile.profile.nickname)
           .then(data => this.props.saveProfile(data));
@@ -104,6 +111,14 @@ const mapDispatchToProps = dispatch => {
     saveProfile: (profile) => dispatch(ACTIONS.saveProfile(profile)),
     removeProfile: () => dispatch(ACTIONS.removeProfile()),
   };
+};
+
+Routes.propTypes = {
+  addProfile: PropTypes.func,
+  loginFailure: PropTypes.func,
+  removeProfile: PropTypes.func,
+  loginSuccess: PropTypes.func,
+  saveProfile: PropTypes.func,
 };
 
 export default withRouter(
