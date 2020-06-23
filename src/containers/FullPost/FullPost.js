@@ -9,7 +9,7 @@ import { getPost } from '../../api';
 import { Button, TextField } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
-class ShowPost extends Component {
+class FullPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -172,7 +172,7 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-ShowPost.propTypes = {
+FullPost.propTypes = {
     isAuthenticated: PropTypes.bool,
     profile: PropTypes.object,
     history: PropTypes.object,
@@ -185,4 +185,4 @@ ShowPost.propTypes = {
     onDeletePostComment: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShowPost);
+export default connect(mapStateToProps, mapDispatchToProps)(FullPost);
