@@ -1,6 +1,6 @@
 import React from 'react';
-
 import Backdrop from './Backdrop';
+import PropTypes from 'prop-types';
 
 const Modal = props => {
     return (
@@ -16,6 +16,12 @@ const Modal = props => {
             </div>
         </div>
     );
-}
+};
+
+Modal.propTypes = {
+    show: PropTypes.bool,
+    modalClosed: PropTypes.func,
+    children: PropTypes.element,
+};
 
 export default Modal;
