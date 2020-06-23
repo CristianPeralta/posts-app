@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as ACTIONS from '../../store/actions/actions';
 import { Redirect } from 'react-router-dom';
-import {
-    TextField,
-    Button
-} from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
 
 class SendMessage extends Component {
     constructor(props) {

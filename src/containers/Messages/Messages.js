@@ -11,7 +11,7 @@ import {
     TableRow
 } from '@material-ui/core';
 
-class ShowMessages extends Component {
+class Messages extends Component {
     componentDidMount() {
         const username = this.props.dbProfile.username;
         this.props.onFetchUserMessages(username);
@@ -60,11 +60,12 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-ShowMessages.propTypes = {
+Messages.propTypes = {
     history: PropTypes.object,
     dbProfile: PropTypes.object,
     userMessages: PropTypes.array,
     onFetchUserMessages: PropTypes.func,
     onDeleteUserMessage: PropTypes.func,
 };
-export default  connect(mapStateToProps, mapDispatchToProps)(ShowMessages);
+
+export default  connect(mapStateToProps, mapDispatchToProps)(Messages);
