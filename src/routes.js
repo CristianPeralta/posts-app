@@ -71,7 +71,7 @@ class Routes extends Component {
         <Route path='/authcheck' render={() => <AuthCheck auth={auth} /> } />
         <Route path='/signup' render={() => <SignUp auth={auth}/>} />
 
-        <PrivateRoute path="/send-message" auth={auth} component={NewMessage}/>
+        <PrivateRoute path="/message/new" auth={auth} component={NewMessage}/>
         <PrivateRoute path="/show-messages/:id" auth={auth} component={Messages}/>
         <PrivateRoute path="/reply" auth={auth} component={Reply}/>
 
