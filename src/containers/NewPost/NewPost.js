@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { TextField } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import * as ACTIONS from '../../store/actions/actions';
+import PropTypes from 'prop-types';
 
 class AddPost extends Component {
     state = {
@@ -59,6 +60,12 @@ const mapDispatchToProps = dispatch => {
     return {
         onAddPost: data => dispatch(ACTIONS.addPost(data)),
     };
+};
+
+AddPost.propTypes = {
+    profile: PropTypes.object,
+    onAddPost: PropTypes.func,
+    added: PropTypes.bool,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddPost);
