@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Header extends Component {
   render() {
@@ -26,10 +27,15 @@ class Header extends Component {
     )}
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.isAuthenticated
-  }
-}
+  };
+};
+
+Header.propTypes = {
+  isAuthenticated: PropTypes.bool,
+  auth: PropTypes.object,
+};
 
 export default connect(mapStateToProps)(Header);
