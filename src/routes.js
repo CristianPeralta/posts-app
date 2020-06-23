@@ -62,7 +62,7 @@ class Routes extends Component {
         <Route path='/user/:username' component={User} />
 
         <Route path='/posts' component={Posts} />
-        <Route path='/post/:pid' component={FullPost} />
+        <Route path='/posts/:pid' component={FullPost} />
         <Route path='/posts/:pid/edit' component={EditPost} />
         <Route path='/posts/new' component={NewPost} />
 

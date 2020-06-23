@@ -20,7 +20,7 @@ const Post = ({post, profile, showAuthor, isAuthenticated, history, onAddPostLik
         <div className="CardStyles">
             <Card style={{width:'500px', height: '200px', marginBottom: '10px', paddingBottom: '80px'}}>
                 <CardHeader
-                title={<Link to={{ pathname: '/post/' + post.pid, state: {post} }} >
+                title={<Link to={{ pathname: '/posts/' + post.pid, state: {post} }} >
                         {post.title}
                         </Link>}
                 subheader={
