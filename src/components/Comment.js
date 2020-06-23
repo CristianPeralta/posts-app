@@ -26,7 +26,7 @@ const Comment = ({comment, userId, edit, commentStyle}) => (
 
 Comment.propTypes = {
     comment: PropTypes.object,
-    userId: PropTypes.string,
+    userId: PropTypes.number,
     edit: PropTypes.func,
     commentStyle: PropTypes.string,
 };

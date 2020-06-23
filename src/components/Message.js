@@ -29,7 +29,7 @@ const Message = props => {
 
 Message.propTypes = {
     message: PropTypes.object,
-    history: PropTypes.history,
+    history: PropTypes.object,
     deleteUserMessage: PropTypes.func,
 };
 
