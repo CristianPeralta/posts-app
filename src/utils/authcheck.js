@@ -3,6 +3,7 @@ import * as ACTIONS from '../store/actions/actions';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { registerUser } from '../api';
+import PropTypes from 'prop-types';
 
 class AuthCheck extends Component {
   constructor(props) {
@@ -49,6 +50,16 @@ const mapDispatchToProps = dispatch => {
     saveProfile: (profile) => dispatch(ACTIONS.saveProfile(profile)),
     removeDbProfile: () => dispatch(ACTIONS.removeDbProfile()),
   };
+};
+
+AuthCheck.propTypes = {
+  auth: PropTypes.func,
+  addProfile: PropTypes.func,
+  saveProfile: PropTypes.func,
+  loginFailure: PropTypes.func,
+  loginSuccess: PropTypes.func,
+  removeProfile: PropTypes.func,
+  removeDbProfile: PropTypes.func,
 };
 
 export default connect(null, mapDispatchToProps)(AuthCheck);
