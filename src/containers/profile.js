@@ -74,7 +74,7 @@ class Profile extends Component {
         </div>
         <div>
           {
-            this.props.dbProfile ? <Link to={{pathname: '/show-messages/' + this.props.dbProfile.uid}}>
+            this.props.dbProfile ? <Link to={{pathname: '/messages/' + this.props.dbProfile.uid}}>
             <Button variant='contained' color='primary' type='submit'>
                 Show Messages
             </Button>
