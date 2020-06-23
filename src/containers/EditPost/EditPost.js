@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getPost } from '../../api';
-import {
-    TextField
-} from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import * as ACTIONS from '../../store/actions/actions';
+import PropTypes from 'prop-types';
 
 class EditPost extends Component {
     constructor(props) {
@@ -98,6 +97,14 @@ const mapDispatchToProps = dispatch => {
     return {
         onEditPost: data => dispatch(ACTIONS.editPost(data)),
     };
+};
+
+EditPost.propTypes = {
+    match: PropTypes.object,
+    history: PropTypes.object,
+    edited: PropTypes.bool,
+    profile: PropTypes.object,
+    onEditPost: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditPost);

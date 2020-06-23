@@ -1,6 +1,6 @@
 import React from 'react'
 
-const UnauthRedirect = props => (
+const UnauthRedirect = () => (
     <div>
       UnauthRedirect
     </div>

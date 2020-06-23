@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import NewMessage from '../../containers/NewMessage/NewMessage';
+import PropTypes from 'prop-types';
 
-class ReplyToMessage extends Component {
+class Reply extends Component {
     render() {
         let message = <p>Loading...</p>
         if (this.props.location.state.props.message) {
@@ -35,4 +36,8 @@ class ReplyToMessage extends Component {
     }
 }
 
-export default ReplyToMessage;
+Reply.propTypes = {
+    location: PropTypes.object,
+};
+
+export default Reply;

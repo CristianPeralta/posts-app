@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-    TableCell,
-    TableRow
-} from '@material-ui/core';
+import { TableCell, TableRow } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 const Message = props => {
     return (
@@ -28,4 +26,11 @@ const Message = props => {
         </TableRow>
     );
 };
+
+Message.propTypes = {
+    message: PropTypes.object,
+    history: PropTypes.object,
+    deleteUserMessage: PropTypes.func,
+};
+
 export default Message;

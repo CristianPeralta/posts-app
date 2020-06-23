@@ -7,6 +7,7 @@ import '../App.css';
 import Post from '../components/Post';
 import ModalDialog from '../components/UI/ModalDialog';
 import { Button } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 class Profile extends Component {
   constructor(props) {
@@ -57,9 +58,7 @@ class Profile extends Component {
   }
 
   handleClickOpen = pid => {
-    console.log('handleClickOpen');
     this.setState({ open: true, postId: pid });
-    console.log('open', this.state.open, this.state.postId);
   }
 
   handleClickClose = () => {
@@ -74,7 +73,7 @@ class Profile extends Component {
         </div>
         <div>
           {
-            this.props.dbProfile ? <Link to={{pathname: '/show-messages/' + this.props.dbProfile.uid}}>
+            this.props.dbProfile ? <Link to={{pathname: '/messages/' + this.props.dbProfile.uid}}>
             <Button variant='contained' color='primary' type='submit'>
                 Show Messages
             </Button>
@@ -89,7 +88,7 @@ class Profile extends Component {
               this.props.userPosts.map(post => (
                 <Post post={post} key={post.pid} showAuthor={false} >
                   <div className='FlexRow'>
-                    <Link to={{ pathname: '/editpost/' + post.pid }}>
+                    <Link to={{ pathname: '/posts/' + post.pid + '/edit'}}>
                       <button>
                         Edit
                       </button>
@@ -128,6 +127,14 @@ const mapDispatchToProps = dispatch => {
     onFetchUserPosts: query => dispatch(ACTIONS.fetchPosts(query)),
     onDeletePost: pid => dispatch(ACTIONS.deletePost(pid)),
   };
+};
+
+Profile.propTypes = {
+  dbProfile: PropTypes.object,
+  onFetchUserPosts: PropTypes.func,
+  userPosts: PropTypes.array,
+  onDeletePost: PropTypes.func,
+  profile: PropTypes.object,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

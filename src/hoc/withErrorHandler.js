@@ -1,3 +1,5 @@
+/* eslint-disable react/no-deprecated */
+/* eslint-disable react/display-name */
 import React, { Component } from 'react';
 import Modal from '../components/UI/Modal';
 
@@ -37,7 +39,7 @@ const withErrorHandler = (WrapperComponent, axios) => {
                     <WrapperComponent {...this.props} />
                 </div>
             );
-        };
+        }
     };
 };
 

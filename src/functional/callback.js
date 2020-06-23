@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class Callback extends Component {
   state = {
@@ -25,5 +26,10 @@ class Callback extends Component {
     );
   }
 }
+
+Callback.propTypes = {
+  location: PropTypes.object,
+  auth: PropTypes.object,
+};
 
 export default Callback;

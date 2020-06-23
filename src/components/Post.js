@@ -1,12 +1,8 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import {
-    Card,
-    CardContent,
-    CardHeader,
-} from '@material-ui/core';
+import { Card, CardContent, CardHeader } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 const Post = ({post, profile, showAuthor, isAuthenticated, history, onAddPostLike, children}) => {
     const handleLikes = () => {
@@ -20,7 +16,7 @@ const Post = ({post, profile, showAuthor, isAuthenticated, history, onAddPostLik
         <div className="CardStyles">
             <Card style={{width:'500px', height: '200px', marginBottom: '10px', paddingBottom: '80px'}}>
                 <CardHeader
-                title={<Link to={{ pathname: '/post/' + post.pid, state: {post} }} >
+                title={<Link to={{ pathname: '/posts/' + post.pid, state: {post} }} >
                         {post.title}
                         </Link>}
                 subheader={
@@ -55,6 +51,16 @@ const Post = ({post, profile, showAuthor, isAuthenticated, history, onAddPostLik
             </Card>
         </div>
     );
+};
+
+Post.propTypes = {
+    post: PropTypes.object,
+    profile: PropTypes.object,
+    showAuthor: PropTypes.bool,
+    isAuthenticated: PropTypes.bool,
+    history: PropTypes.object,
+    onAddPostLike: PropTypes.func,
+    children: PropTypes.element,
 };
 
 export default Post;

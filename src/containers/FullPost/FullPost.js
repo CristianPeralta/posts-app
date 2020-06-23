@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
 import * as ACTIONS from '../../store/actions/actions';
 import { connect } from 'react-redux';
@@ -7,12 +6,10 @@ import Post from '../../components/Post';
 import Comment from '../../components/Comment';
 import ModalDialog from '../../components/UI/ModalDialog';
 import { getPost } from '../../api';
-import {
-    Button,
-    TextField,
-} from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
-class ShowPost extends Component {
+class FullPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -107,7 +104,7 @@ class ShowPost extends Component {
                             key={comment.cid}
                             comment={comment}
                             edit={this.handleClickOpen}
-                            userId={this.props.profile.uid}
+                            userId={this.props.profile ? this.props.profile.uid : null}
                             commentStyle={this.state.deleteCommentId === comment.cid
                                 ? "FadeOutComment"
                                 : "CommentStyles"
@@ -175,4 +172,17 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShowPost);
+FullPost.propTypes = {
+    isAuthenticated: PropTypes.bool,
+    profile: PropTypes.object,
+    history: PropTypes.object,
+    match: PropTypes.object,
+    comments: PropTypes.array,
+    onFetchPostComments: PropTypes.func,
+    onAddPostLike: PropTypes.func,
+    onAddPostComment: PropTypes.func,
+    onEditPostComment: PropTypes.func,
+    onDeletePostComment: PropTypes.func,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FullPost);

@@ -5,7 +5,16 @@ const initialState = {
   otherUserProfile: '',
   otherUserPosts: [],
   userMessages: [],
-}
+};
+
+const deleteUserMessageSuccess = (action, state) => {
+  let allMessages = [...state.userMessages];
+  allMessages = allMessages.filter(m => m.mid !== action.mid);
+  return {
+    ...state,
+    userMessages: allMessages,
+  };
+};
 
 const UserReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -84,12 +93,7 @@ const UserReducer = (state = initialState, action) => {
           ...state,
         }
       case ACTION_TYPES.DELETE_USER_MESSAGE_SUCCESS:
-        let allMessages = [...state.userMessages];
-        allMessages = allMessages.filter(m => m.mid !== action.mid);
-        return {
-          ...state,
-          userMessages: allMessages,
-        }
+        return deleteUserMessageSuccess(action, state);
       case ACTION_TYPES.DELETE_USER_MESSAGE_FAIL:
         return {
           ...state,

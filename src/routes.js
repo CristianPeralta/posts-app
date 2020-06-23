@@ -28,6 +28,8 @@ import AuthCheck from './utils/authcheck';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { getProfile } from './api';
 
+import PropTypes from 'prop-types';
+
 export const auth = new Auth();
 
 
@@ -39,11 +41,16 @@ const PrivateRoute = ({component: Component, auth }) => (
   />
 );
 
+PrivateRoute.propTypes = {
+  component: PropTypes.element,
+  auth: PropTypes.object,
+};
+
 class Routes extends Component {
   componentDidMount() {
     if (auth.isAuthenticated()) {
       this.props.loginSuccess();
-      auth.getProfile((data) => {
+      auth.getProfile(() => {
         this.props.addProfile(auth.userProfile.profile);
         getProfile(auth.userProfile.profile.nickname)
           .then(data => this.props.saveProfile(data));
@@ -61,18 +68,18 @@ class Routes extends Component {
 
         <Route path='/user/:username' component={User} />
 
+        <Route path='/posts/new' component={NewPost} />
+        <Route path='/posts/:pid/edit' component={EditPost} />
+        <Route path='/posts/:pid' component={FullPost} />
         <Route path='/posts' component={Posts} />
-        <Route path='/post/:pid' component={FullPost} />
-        <Route path='/editpost/:pid' component={EditPost} />
-        <Route path='/addpost' component={NewPost} />
 
         <Route path='/callback' render={(props) => { return <Callback auth={auth} {...props} />}} />
 
         <Route path='/authcheck' render={() => <AuthCheck auth={auth} /> } />
         <Route path='/signup' render={() => <SignUp auth={auth}/>} />
 
-        <PrivateRoute path="/send-message" auth={auth} component={NewMessage}/>
-        <PrivateRoute path="/show-messages/:id" auth={auth} component={Messages}/>
+        <PrivateRoute path="/message/new" auth={auth} component={NewMessage}/>
+        <PrivateRoute path="/messages/:id" auth={auth} component={Messages}/>
         <PrivateRoute path="/reply" auth={auth} component={Reply}/>
 
         <PrivateRoute path="/profile" auth={auth} component={Profile} />
@@ -104,6 +111,14 @@ const mapDispatchToProps = dispatch => {
     saveProfile: (profile) => dispatch(ACTIONS.saveProfile(profile)),
     removeProfile: () => dispatch(ACTIONS.removeProfile()),
   };
+};
+
+Routes.propTypes = {
+  addProfile: PropTypes.func,
+  loginFailure: PropTypes.func,
+  removeProfile: PropTypes.func,
+  loginSuccess: PropTypes.func,
+  saveProfile: PropTypes.func,
 };
 
 export default withRouter(

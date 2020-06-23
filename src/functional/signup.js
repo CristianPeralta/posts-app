@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 const SignUp = props => (
     <div>
@@ -11,5 +12,9 @@ const SignUp = props => (
         </Button>
     </div>
 );
+
+SignUp.propTypes = {
+    auth: PropTypes.func,
+};
 
 export default SignUp;

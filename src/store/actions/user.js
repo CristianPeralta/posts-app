@@ -94,7 +94,7 @@ export const deleteUserMessage = mid => {
           .then(data => {
               dispatch(deleteUserMessageSuccess(data.mid));
           })
-          .catch(error => {
+          .catch(() => {
               dispatch(deleteUserMessageFailed());
           });
   };
@@ -119,7 +119,7 @@ export const sendUserMessage = data => {
           .then(data => {
               dispatch(sendUserMessageSuccess(data));
           })
-          .catch(error => {
+          .catch(() => {
               dispatch(sendUserMessageFailed());
           });
   };

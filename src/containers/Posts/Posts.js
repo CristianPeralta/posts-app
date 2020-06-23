@@ -10,6 +10,7 @@ import {
     TextField,
 } from '@material-ui/core';
 import Post from '../../components/Post';
+import PropTypes from 'prop-types';
 
 class Posts extends Component {
     constructor(props) {
@@ -40,7 +41,7 @@ class Posts extends Component {
                     <br />
 
                     {this.props.isAuthenticated ?
-                        <Link to='/addpost' >
+                        <Link to='/posts/new' >
                             <Button variant='contained' color='primary'>
                                 Add Post
                             </Button>
@@ -105,6 +106,15 @@ const mapDispatchToProps = dispatch => {
         onFetchPosts: query => dispatch(ACTIONS.fetchPosts(query)),
         onAddPostLike: data => dispatch(ACTIONS.addPostLike(data)),
     };
+};
+
+Posts.propTypes = {
+    posts: PropTypes.array,
+    history: PropTypes.object,
+    profile: PropTypes.object,
+    isAuthenticated: PropTypes.bool,
+    onFetchPosts: PropTypes.func,
+    onAddPostLike: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Posts, axios));

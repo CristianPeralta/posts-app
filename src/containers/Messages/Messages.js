@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as ACTIONS from '../../store/actions/actions';
 import Message from '../../components/Message';
+import PropTypes from 'prop-types';
 import {
     Table,
     TableBody,
@@ -10,7 +11,7 @@ import {
     TableRow
 } from '@material-ui/core';
 
-class ShowMessages extends Component {
+class Messages extends Component {
     componentDidMount() {
         const username = this.props.dbProfile.username;
         this.props.onFetchUserMessages(username);
@@ -59,4 +60,12 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default  connect(mapStateToProps, mapDispatchToProps)(ShowMessages);
+Messages.propTypes = {
+    history: PropTypes.object,
+    dbProfile: PropTypes.object,
+    userMessages: PropTypes.array,
+    onFetchUserMessages: PropTypes.func,
+    onDeleteUserMessage: PropTypes.func,
+};
+
+export default  connect(mapStateToProps, mapDispatchToProps)(Messages);
