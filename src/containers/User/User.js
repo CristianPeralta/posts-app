@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as ACTIONS from '../../store/actions/actions';
 import Post from '../../components/Post';
-import {
-    Button,
-} from '@material-ui/core';
+import { Button } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 const RenderProfile = props => {
     return (
@@ -24,6 +23,10 @@ const RenderProfile = props => {
             </div>
         </div>
     );
+};
+
+RenderProfile.propTypes = {
+    profile: PropTypes.object,
 };
 
 class User extends Component {
@@ -45,8 +48,8 @@ class User extends Component {
                         <div>
                             {this.props.userPosts
                                 ? this.props.userPosts.map(post =>
-                                    <div>
-                                        <Post post={post} key={post.pid} />
+                                    <div key={post.pid}>
+                                        <Post post={post} />
                                         <br />
                                     </div>
                                     )
@@ -74,6 +77,14 @@ const mapDispatchToProps = dispatch => {
         setProfile: (profile) => dispatch(ACTIONS.setOtherUserProfile(profile)),
         setPosts: posts => dispatch(ACTIONS.setOtherUserPosts(posts)),
     };
+};
+
+User.propTypes = {
+    profile: PropTypes.object,
+    match: PropTypes.object,
+    onGetOtherUser: PropTypes.func,
+    onFetchOtherUserPosts: PropTypes.func,
+    userPosts: PropTypes.array,
 };
 
 export default  connect(mapStateToProps, mapDispatchToProps)(User);
