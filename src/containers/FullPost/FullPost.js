@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
 import * as ACTIONS from '../../store/actions/actions';
 import { connect } from 'react-redux';
@@ -7,10 +6,8 @@ import Post from '../../components/Post';
 import Comment from '../../components/Comment';
 import ModalDialog from '../../components/UI/ModalDialog';
 import { getPost } from '../../api';
-import {
-    Button,
-    TextField,
-} from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 class ShowPost extends Component {
     constructor(props) {
@@ -173,6 +170,19 @@ const mapDispatchToProps = dispatch => {
         onDeletePostComment: cid => dispatch(ACTIONS.deletePostComment(cid)),
         onAddPostLike: data => dispatch(ACTIONS.addPostLike(data)),
     };
+};
+
+ShowPost.propTypes = {
+    isAuthenticated: PropTypes.bool,
+    profile: PropTypes.object,
+    history: PropTypes.object,
+    match: PropTypes.object,
+    comments: PropTypes.array,
+    onFetchPostComments: PropTypes.func,
+    onAddPostLike: PropTypes.func,
+    onAddPostComment: PropTypes.func,
+    onEditPostComment: PropTypes.func,
+    onDeletePostComment: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowPost);
