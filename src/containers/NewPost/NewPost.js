@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import * as ACTIONS from '../../store/actions/actions';
 import PropTypes from 'prop-types';
 
-class AddPost extends Component {
+class NewPost extends Component {
     state = {
         redirectToPosts: false
     }
@@ -62,10 +62,10 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-AddPost.propTypes = {
+NewPost.propTypes = {
     profile: PropTypes.object,
     onAddPost: PropTypes.func,
     added: PropTypes.bool,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddPost);
+export default connect(mapStateToProps, mapDispatchToProps)(NewPost);
