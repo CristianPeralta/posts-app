@@ -10,6 +10,7 @@
     "auth0-js": "^9.13.2",
     "axios": "^0.19.2",
     "moment": "^2.24.0",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-js-pagination": "^3.0.3",
