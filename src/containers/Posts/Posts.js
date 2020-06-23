@@ -40,7 +40,7 @@ class Posts extends Component {
                     <br />
 
                     {this.props.isAuthenticated ?
-                        <Link to='/addpost' >
+                        <Link to='/posts/new' >
                             <Button variant='contained' color='primary'>
                                 Add Post
                             </Button>
