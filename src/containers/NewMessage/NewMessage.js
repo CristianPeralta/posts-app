@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { TextField, Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
-class SendMessage extends Component {
+class NewMessage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -69,11 +69,11 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-SendMessage.propTypes = {
+NewMessage.propTypes = {
     history: PropTypes.object,
     dbProfile: PropTypes.object,
     location: PropTypes.object,
     onSendUserMessage: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SendMessage);
+export default connect(mapStateToProps, mapDispatchToProps)(NewMessage);
