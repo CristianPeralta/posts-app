@@ -27,7 +27,7 @@ export default class Auth {
         console.log(err);
       }
     })
-  }
+  };
 
   getProfile = (cb) => {
     const accessToken = localStorage.getItem('access_token');
@@ -44,5 +44,5 @@ export default class Auth {
   isAuthenticated = () => {
     const expiresAt = JSON.parse(localStorage.getItem('expiresAt'));
     return (new Date().getTime() < expiresAt);
-  }
+  };
 }

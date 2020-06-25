@@ -6,21 +6,21 @@ export const fetchPostsStart = () => {
       type: ACTION_TYPES.FETCH_POSTS_START,
   };
 };
-  
+
 export const fetchPostsSuccess = posts => {
   return {
     type: ACTION_TYPES.FETCH_POSTS_SUCCESS,
     posts: posts,
   }
 };
-  
+
 export const fetchPostsFailed = (error) => {
   return {
       type: ACTION_TYPES.FETCH_POSTS_FAIL,
       error: error,
   };
 };
-  
+
 export const fetchPosts = (query) => {
   return dispatch => {
       dispatch(fetchPostsStart());
@@ -39,7 +39,7 @@ export const addPostSuccess = () => {
     type: ACTION_TYPES.ADD_POST_SUCCESS,
   };
 };
-  
+
 export const addPostFailed = () => {
   return {
       type: ACTION_TYPES.ADD_POST_FAIL,
@@ -59,7 +59,7 @@ export const editPostSuccess = () => {
     type: ACTION_TYPES.EDIT_POST_SUCCESS,
   };
 };
-  
+
 export const editPostFailed = () => {
   return {
       type: ACTION_TYPES.EDIT_POST_FAIL,
@@ -79,14 +79,14 @@ export const fetchPostCommentsStart = () => {
       type: ACTION_TYPES.FETCH_POST_COMMENTS_START,
   };
 };
-  
+
 export const fetchPostCommentsSuccess = comments => {
   return {
     type: ACTION_TYPES.FETCH_POST_COMMENTS_SUCCESS,
     comments: comments,
   };
 };
-  
+
 export const fetchPostCommentsFailed = (error) => {
   return {
       type: ACTION_TYPES.FETCH_POST_COMMENTS_FAIL,
@@ -113,7 +113,7 @@ export const addPostCommentSuccess = comment => {
     comment: comment,
   };
 };
-  
+
 export const addPostCommentFailed = () => {
   return {
       type: ACTION_TYPES.ADD_POST_COMMENT_FAIL,
@@ -134,7 +134,7 @@ export const editPostCommentSuccess = comment => {
     comment: comment,
   };
 };
-  
+
 export const editPostCommentFailed = () => {
   return {
       type: ACTION_TYPES.EDIT_POST_COMMENT_FAIL,
@@ -163,7 +163,6 @@ export const deletePostFailed = () => {
 };
 
 export const deletePost = pid => {
-  console.log('deletePost', deletePost);
   return dispatch => {
       api.deletePostComments(pid)
           .then(() => api.deletePost(pid))
@@ -178,7 +177,7 @@ export const deletePostCommentSuccess = cid => {
     cid: cid,
   };
 };
-  
+
 export const deletePostCommentFailed = () => {
   return {
       type: ACTION_TYPES.DELETE_POST_COMMENT_FAIL,
@@ -200,7 +199,7 @@ export const addPostLikeSuccess = post => {
     likes: post.likes,
   };
 };
-  
+
 export const addPostLikeFailed = () => {
   return {
       type: ACTION_TYPES.ADD_POST_LIKE_FAIL,
