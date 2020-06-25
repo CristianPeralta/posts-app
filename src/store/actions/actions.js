@@ -98,19 +98,6 @@ export const removeDbProfile = () => {
   }
 }
 
-export const fetchUserPosts = posts => {
-  return {
-    type: ACTION_TYPES.FETCH_USER_POSTS,
-    payload: posts
-  }
-}
-
-export const removeUserPosts = () => {
-  return {
-    type: ACTION_TYPES.REMOVE_USER_POSTS
-  }
-}
-
 export const setOtherUserProfile = profile => {
   return {
     type: ACTION_TYPES.SET_OTHER_USER_PROFILE,
