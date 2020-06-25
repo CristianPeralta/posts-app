@@ -11,7 +11,7 @@ import EditPost from './containers/EditPost/EditPost';
 
 import Callback from './components/Util/Callback';
 import UnauthRedirect from './components/Util/Unauthredirect';
-import Home from './functional/home';
+import Home from './containers/Home';
 import SignUp from './components/Auth/Signup';
 import Logout from './components/Auth/Logout';
 
