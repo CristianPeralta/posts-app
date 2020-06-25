@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Header from './containers/header';
-import Profile from './containers/profile';
+import Header from './containers/Header';
+import Profile from './containers/Profile';
 
 import NewPost from './containers/NewPost/NewPost';
 import Posts from './containers/Posts/Posts';
