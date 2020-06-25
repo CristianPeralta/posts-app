@@ -22,8 +22,8 @@ import Messages from './containers/Messages/Messages';
 
 import * as ACTIONS from './store/actions/actions';
 
-import Auth from './utils/auth';
-import AuthCheck from './utils/authcheck';
+import Auth from './utils/Auth';
+import AuthCheck from './utils/Authcheck';
 
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { getProfile } from './api';
