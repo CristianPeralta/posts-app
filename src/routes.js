@@ -10,10 +10,10 @@ import FullPost from './containers/FullPost/FullPost';
 import EditPost from './containers/EditPost/EditPost';
 
 import Callback from './components/Util/Callback';
-import UnauthRedirect from './functional/unauthredirect';
+import UnauthRedirect from './components/Util/Unauthredirect';
 import Home from './functional/home';
-import SignUp from './functional/signup';
-import Logout from './functional/logout';
+import SignUp from './components/Auth/Signup';
+import Logout from './components/Auth/Logout';
 
 import User from './containers/User/User';
 import NewMessage from './containers/NewMessage/NewMessage';
