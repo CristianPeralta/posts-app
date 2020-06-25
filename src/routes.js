@@ -9,7 +9,7 @@ import Posts from './containers/Posts/Posts';
 import FullPost from './containers/FullPost/FullPost';
 import EditPost from './containers/EditPost/EditPost';
 
-import Callback from './functional/callback';
+import Callback from './components/Util/Callback';
 import UnauthRedirect from './functional/unauthredirect';
 import Home from './functional/home';
 import SignUp from './functional/signup';
