@@ -56,7 +56,6 @@ const mapDispatchToProps = dispatch => {
     return {
         onFetchUserMessages: (username) => dispatch(ACTIONS.fetchUserMessages(username)),
         onDeleteUserMessage: mid => dispatch(ACTIONS.deleteUserMessage(mid)),
-        setUserMessages: messages => dispatch(ACTIONS.setUserMessages(messages)),
     };
 };
 

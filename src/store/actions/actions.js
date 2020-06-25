@@ -97,29 +97,3 @@ export const removeDbProfile = () => {
     type: ACTION_TYPES.REMOVE_DB_PROFILE
   }
 }
-
-export const setOtherUserPosts = posts => {
-  return {
-    type: ACTION_TYPES.SET_OTHER_USER_POSTS,
-    payload: posts
-  }
-}
-
-export const removeOtherUserPosts = () => {
-  return {
-    type: ACTION_TYPES.REMOVE_OTHER_USER_POSTS
-  }
-}
-
-export const setUserMessages = messages => {
-  return {
-    type: ACTION_TYPES.SET_USER_MESSAGES,
-    payload: messages
-  }
-}
-
-export const removeUserMessages = () => {
-  return {
-    type: ACTION_TYPES.REMOVE_USER_MESSAGES
-  }
-}
