@@ -32,7 +32,6 @@ import PropTypes from 'prop-types';
 
 export const auth = new Auth();
 
-
 const PrivateRoute = ({component: Component, auth }) => (
   <Route render={props => auth.isAuthenticated() === true
     ? <Component auth={auth} {...props} />
