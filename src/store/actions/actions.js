@@ -50,14 +50,6 @@ export {
   sendUserMessage,
 } from './user';
 
-export const SUCCESS = {
-  type: ACTION_TYPES.SUCCESS
-}
-
-export const FAILURE = {
-  type: ACTION_TYPES.FAILURE
-}
-
 export const logout = () => {
   localStorage.removeItem('access_token');
   localStorage.removeItem('id_token');
@@ -67,24 +59,6 @@ export const logout = () => {
   };
 };
 
-export const success = () => {
-  return {
-    type: ACTION_TYPES.SUCCESS
-  }
-}
-
-export const failure = () => {
-  return {
-    type: ACTION_TYPES.FAILURE
-  }
-}
-
-export const userInput = (text) => {
-  return {
-    type: ACTION_TYPES.USER_INPUT,
-    payload: text
-  }
-}
 
 export const loginSuccess = () => {
   return {
