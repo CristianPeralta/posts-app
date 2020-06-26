@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 
 class Callback extends Component {
   state = {
-    readyToredirect: false
-  }
+    readyToredirect: false,
+  };
   componentDidMount() {
     if (this.props.location.hash) {
       this.props.auth.handleAuth(() => {
