@@ -74,8 +74,6 @@ const mapDispatchToProps = dispatch => {
     return {
         onGetOtherUser: username => dispatch(ACTIONS.getOtherUser(username)),
         onFetchOtherUserPosts: username => dispatch(ACTIONS.fetchOtherUserPosts(username)),
-        setProfile: (profile) => dispatch(ACTIONS.setOtherUserProfile(profile)),
-        setPosts: posts => dispatch(ACTIONS.setOtherUserPosts(posts)),
     };
 };
 

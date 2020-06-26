@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Header from './containers/header';
-import Profile from './containers/profile';
+import Header from './containers/Header';
+import Profile from './containers/Profile';
 
 import NewPost from './containers/NewPost/NewPost';
 import Posts from './containers/Posts/Posts';
 import FullPost from './containers/FullPost/FullPost';
 import EditPost from './containers/EditPost/EditPost';
 
-import Callback from './functional/callback';
-import UnauthRedirect from './functional/unauthredirect';
-import Home from './functional/home';
-import SignUp from './functional/signup';
-import Logout from './functional/logout';
+import Callback from './components/Util/Callback';
+import UnauthRedirect from './components/Util/Unauthredirect';
+import Home from './containers/Home';
+import SignUp from './components/Auth/Signup';
+import Logout from './components/Auth/Logout';
 
 import User from './containers/User/User';
 import NewMessage from './containers/NewMessage/NewMessage';
@@ -22,8 +22,8 @@ import Messages from './containers/Messages/Messages';
 
 import * as ACTIONS from './store/actions/actions';
 
-import Auth from './utils/auth';
-import AuthCheck from './utils/authcheck';
+import Auth from './utils/Auth';
+import AuthCheck from './utils/Authcheck';
 
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { getProfile } from './api';
@@ -31,7 +31,6 @@ import { getProfile } from './api';
 import PropTypes from 'prop-types';
 
 export const auth = new Auth();
-
 
 const PrivateRoute = ({component: Component, auth }) => (
   <Route render={props => auth.isAuthenticated() === true

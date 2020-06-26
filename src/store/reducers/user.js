@@ -38,11 +38,6 @@ const UserReducer = (state = initialState, action) => {
           ...state,
           otherUserPosts: [],
         }
-      case ACTION_TYPES.USER_INPUT:
-        return {
-          ...state,
-          userText: action.payload
-        }
       case ACTION_TYPES.SET_OTHER_USER_PROFILE:
         return {
           ...state,

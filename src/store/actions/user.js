@@ -7,7 +7,7 @@ export const getOtherUserSuccess = user => {
     user: user,
   };
 };
-  
+
 export const getOtherUserFailed = (error) => {
   return {
       type: ACTION_TYPES.GET_OTHER_USER_FAIL,
@@ -29,7 +29,7 @@ export const fetchOtherUserPostsSuccess = posts => {
     posts: posts,
   };
 };
-  
+
 export const fetchOtherUserPostsFailed = (error) => {
   return {
       type: ACTION_TYPES.FETCH_OTHER_USER_POSTS_FAIL,
@@ -55,7 +55,7 @@ export const fetchUserMessagesSuccess = messages => {
     messages: messages,
   };
 };
-  
+
 export const fetchUserMessagesFailed = (error) => {
   return {
       type: ACTION_TYPES.FETCH_USER_MESSAGES_SUCCESS,
@@ -81,7 +81,7 @@ export const deleteUserMessageSuccess = mid => {
     mid: mid,
   };
 };
-  
+
 export const deleteUserMessageFailed = () => {
   return {
       type: ACTION_TYPES.DELETE_USER_MESSAGE_FAIL,
@@ -106,7 +106,7 @@ export const sendUserMessageSuccess = message => {
     message: message,
   };
 };
-  
+
 export const sendUserMessageFailed = () => {
   return {
       type: ACTION_TYPES.SEND_MESSAGE_FAIL,
