@@ -25,22 +25,6 @@ const Profile = props => {
     }
   }, [props.dbProfile]);
 
-  const RenderProfile = (props) => (
-    <div>
-      <h1>{props.profile.nickname}</h1>
-      <br />
-      <img src={props.profile.picture} alt="" />
-      <br />
-      <h4> {props.profile.email}</h4>
-      <br />
-      <h5> {props.profile.name} </h5>
-      <br />
-      <h6> Email Verified: </h6>
-      {props.profile.emailVerified ? <p>Yes</p> : <p>No</p> }
-      <br />
-    </div>
-  );
-
   const deletePost = () => {
     props.onDeletePost(postId);
     handleClickClose();
@@ -56,11 +40,31 @@ const Profile = props => {
     setPostId(null);
   };
 
+  let renderProfile = <p>Loading</p>;
+
+  if (props.dbProfile) {
+    renderProfile = (
+      <div>
+        <h1>{props.profile.nickname}</h1>
+        <br />
+        <img src={props.profile.picture} alt="" />
+        <br />
+        <h4> {props.profile.email}</h4>
+        <br />
+        <h5> {props.profile.name} </h5>
+        <br />
+        <h6> Email Verified: </h6>
+        {props.profile.emailVerified ? <p>Yes</p> : <p>No</p> }
+        <br />
+      </div>
+    );
+  }
+
   return(
     <div>
       {redirectToHome ? <Redirect to='/' /> : null}
       <div>
-        {props.dbProfile ? <RenderProfile profile={props.profile} /> : <p>Loading</p>}
+        {renderProfile}
       </div>
       <div>
         {
