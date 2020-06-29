@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 const NewMessage = props => {
   const [submited, setSubmited] = useState(false);
-  const to = (new URLSearchParams(props.location.search)).get("to");
+  const to = (new URLSearchParams(props.location.search || props.location.state.props)).get("to") || props.location.state.props.profile.username;
 
   const handleSubmit = (event) => {
     event.preventDefault();
