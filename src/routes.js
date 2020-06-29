@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import Header from './containers/Header';
@@ -45,56 +45,56 @@ PrivateRoute.propTypes = {
   auth: PropTypes.object,
 };
 
-class Routes extends Component {
-  componentDidMount() {
+const Routes = props => {
+  useEffect(() => {
     if (auth.isAuthenticated()) {
-      this.props.loginSuccess();
+      props.loginSuccess();
       auth.getProfile(() => {
-        this.props.addProfile(auth.userProfile.profile);
+        props.addProfile(auth.userProfile.profile);
         getProfile(auth.userProfile.profile.nickname)
-          .then(data => this.props.saveProfile(data));
+          .then(data => props.saveProfile(data));
       });
     } else {
-      this.props.loginFailure();
-      this.props.removeProfile();
+      props.loginFailure();
+      props.removeProfile();
     }
-  }
-  render() {
-    const routes = (
-      <Switch>
-        <Route exact path='/' component={Home} />
-        <Route path='/redirect' component={UnauthRedirect} />
+  }, []);
 
-        <Route path='/user/:username' component={User} />
+  const routes = (
+    <Switch>
+      <Route exact path='/' component={Home} />
+      <Route path='/redirect' component={UnauthRedirect} />
 
-        <Route path='/posts/new' component={NewPost} />
-        <Route path='/posts/:pid/edit' component={EditPost} />
-        <Route path='/posts/:pid' component={FullPost} />
-        <Route path='/posts' component={Posts} />
+      <Route path='/user/:username' component={User} />
 
-        <Route path='/callback' render={(props) => { return <Callback auth={auth} {...props} />}} />
+      <Route path='/posts/new' component={NewPost} />
+      <Route path='/posts/:pid/edit' component={EditPost} />
+      <Route path='/posts/:pid' component={FullPost} />
+      <Route path='/posts' component={Posts} />
 
-        <Route path='/authcheck' render={() => <AuthCheck auth={auth} /> } />
-        <Route path='/signup' render={() => <SignUp auth={auth}/>} />
+      <Route path='/callback' render={(props) => { return <Callback auth={auth} {...props} />}} />
 
-        <PrivateRoute path="/message/new" auth={auth} component={NewMessage}/>
-        <PrivateRoute path="/messages/:id" auth={auth} component={Messages}/>
-        <PrivateRoute path="/reply" auth={auth} component={Reply}/>
+      <Route path='/authcheck' render={() => <AuthCheck auth={auth} /> } />
+      <Route path='/signup' render={() => <SignUp auth={auth}/>} />
 
-        <PrivateRoute path="/profile" auth={auth} component={Profile} />
+      <PrivateRoute path="/message/new" auth={auth} component={NewMessage}/>
+      <PrivateRoute path="/messages/:id" auth={auth} component={Messages}/>
+      <PrivateRoute path="/reply" auth={auth} component={Reply}/>
 
-        <Route path='/logout' exact render={props => <Logout auth={auth} {...props} /> } />
-        <Redirect to="/" />
-      </Switch>
-    );
+      <PrivateRoute path="/profile" auth={auth} component={Profile} />
 
-    return(
-      <div>
-        <Header auth={auth} />
-        {routes}
-      </div>
-    )}
-}
+      <Route path='/logout' exact render={props => <Logout auth={auth} {...props} /> } />
+      <Redirect to="/" />
+    </Switch>
+  );
+
+  return (
+    <div>
+      <Header auth={auth} />
+      {routes}
+    </div>
+  );
+};
 
 const mapStateToProps = state => {
   return {
