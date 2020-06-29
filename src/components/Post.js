@@ -4,14 +4,7 @@ import moment from 'moment';
 import { Card, CardContent, CardHeader } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
-const Post = ({post, profile, showAuthor, isAuthenticated, history, onAddPostLike, children}) => {
-    const handleLikes = () => {
-        const data = {
-            uid: profile.uid,
-            postId: post.pid,
-        };
-        onAddPostLike(data);
-    };
+const Post = ({post, showAuthor, isAuthenticated, history, onHandleLikes, children}) => {
     return (
         <div className="CardStyles">
             <Card style={{width:'500px', height: '200px', marginBottom: '10px', paddingBottom: '80px'}}>
@@ -32,7 +25,7 @@ const Post = ({post, profile, showAuthor, isAuthenticated, history, onAddPostLik
                         </div> : null}
                         <div className="FlexRow">
                             <a style={{cursor: "pointer"}} onClick={isAuthenticated
-                                ? () => handleLikes()
+                                ? () => onHandleLikes(post.pid)
                                 : () => history.replace("/signup")
                             }>
                                 <i className="material-icons">thumb_up</i>
@@ -59,7 +52,7 @@ Post.propTypes = {
     showAuthor: PropTypes.bool,
     isAuthenticated: PropTypes.bool,
     history: PropTypes.object,
-    onAddPostLike: PropTypes.func,
+    onHandleLikes: PropTypes.func,
     children: PropTypes.element,
 };
 

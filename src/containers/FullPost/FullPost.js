@@ -25,6 +25,7 @@ class FullPost extends Component {
         this.handleClose = this.handleClose.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleLikes = this.handleLikes.bind(this);
     }
 
     componentDidMount() {
@@ -73,10 +74,10 @@ class FullPost extends Component {
         const cid = this.state.cid;
         this.props.onDeletePostComment(cid);
     }
-    handleLikes() {
+    handleLikes(pid) {
         const data = {
             uid: this.props.profile.uid,
-            postId: this.state.post.pid,
+            postId: pid,
         };
         this.props.onAddPostLike(data);
     }
@@ -91,6 +92,7 @@ class FullPost extends Component {
                 history={this.props.history}
                 profile={this.props.profile}
                 onAddPostLike={this.props.onAddPostLike}
+                onHandleLikes={this.handleLikes}
             />;
         }
         return (
