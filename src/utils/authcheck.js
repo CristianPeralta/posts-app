@@ -1,45 +1,36 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as ACTIONS from '../store/actions/actions';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { registerUser } from '../api';
 import PropTypes from 'prop-types';
 
-class AuthCheck extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      readyToRedirect: false,
-    };
-  }
-
-  sendProfileToDb = (profile) => {
+const AuthCheck = props => {
+  const [readyToRedirect, setReadyToRedirect] = useState(false);
+  const sendProfileToDb = profile => {
     const data = {
       username: profile.nickname,
       email: profile.email,
       emailVerified: profile.email_verified,
     };
     registerUser(data)
-      .then(user => this.props.saveProfile(user));
-  }
-
-  componentDidMount() {
-    if (this.props.auth.isAuthenticated()) {
-      this.props.loginSuccess();
-      this.props.addProfile(this.props.auth.userProfile.profile);
-      this.sendProfileToDb(this.props.auth.userProfile.profile);
+      .then(user => props.saveProfile(user));
+  };
+  useEffect(() => {
+    if (props.auth.isAuthenticated()) {
+      props.loginSuccess();
+      props.addProfile(props.auth.userProfile.profile);
+      sendProfileToDb(props.auth.userProfile.profile);
     } else {
-      this.props.loginFailure();
-      this.props.removeProfile();
-      this.props.removeDbProfile();
+      props.loginFailure();
+      props.removeProfile();
+      props.removeDbProfile();
     }
-    this.setState({readyToRedirect: true});
-  }
+    setReadyToRedirect(true);
+  }, []);
 
-  render() {
-    return this.state.readyToRedirect ? <Redirect to="/" /> : null;
-  }
-}
+  return readyToRedirect ? <Redirect to="/" /> : null;
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -53,7 +44,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 AuthCheck.propTypes = {
-  auth: PropTypes.func,
+  auth: PropTypes.object,
   addProfile: PropTypes.func,
   saveProfile: PropTypes.func,
   loginFailure: PropTypes.func,
