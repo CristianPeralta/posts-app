@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getPost } from '../../api';
@@ -6,85 +6,79 @@ import { TextField } from '@material-ui/core';
 import * as ACTIONS from '../../store/actions/actions';
 import PropTypes from 'prop-types';
 
-class EditPost extends Component {
-    constructor(props) {
-        super(props);
+const EditPost = props => {
+  const [post, setPost] = useState(null);
 
-        this.state = {
-            post: null,
-            title: '',
-            body: ''
-        };
-    }
-    componentDidMount() {
-        getPost(this.props.match.params.pid)
-            .then(post => this.setState({ post: post }))
-            .catch(error => console.log(error));
-    }
+  useEffect(() => {
+    getPost(props.match.params.pid)
+      .then(post => setPost(post))
+      .catch(error => console.log(error));
+  }, []);
 
-    handleTitleChange = event => {
-        this.setState({post: {
-            ...this.state.post,
-            title: event.target.value,
-        }});
-    }
+  const handleTitleChange = event => {
+    const newTitle = event.target.value;
+    setPost((preventState) => ({
+      ...preventState,
+      title: newTitle,
+    }));
+  };
 
-    handleBodyChange = event => {
-        this.setState({post: {
-            ...this.state.post,
-            body: event.target.value,
-        }});
-    }
+  const handleBodyChange = event => {
+    const newBody = event.target.value;
+    setPost((preventState) => ({
+      ...preventState,
+      body: newBody,
+    }));
+  };
 
-    handleSubmit = event => {
-        event.preventDefault();
+  const handleSubmit = event => {
+      event.preventDefault();
 
-        const data = {
-            title: event.target.title.value,
-            body: event.target.body.value,
-            pid: this.state.post.pid,
-            uid: this.props.profile.uid,
-            username: this.props.profile.username,
-        };
+      const data = {
+          title: event.target.title.value,
+          body: event.target.body.value,
+          pid: post.pid,
+          uid: props.profile.uid,
+          username: props.profile.username,
+      };
 
-        this.props.onEditPost(data);
-    }
-    render() {
-        let form  = <p>Loading...</p>;
-        if (this.state.post) {
-            form = (
-                <form onSubmit={this.handleSubmit}>
-                    <TextField
-                        id='title'
-                        label='Title'
-                        margin='normal'
-                        value={this.state.post.title}
-                        onChange={this.handleTitleChange}
-                    />
-                    <TextField
-                        id='body'
-                        label='Body'
-                        multiline
-                        rows='4'
-                        margin='normal'
-                        value={this.state.post.body}
-                        onChange={this.handleBodyChange}
-                    />
-                    <br />
-                    <button type="submit"> Submit </button>
-                </form>
-            );
-        }
-        return (
-            <div>
-                {this.props.edited ? <Redirect to='/profile' /> : null}
-                {form}
-                <br />
-                <button onClick={() => this.props.history.goBack()}> Cancel </button>
-            </div>
-        );
-    }
-}
+      props.onEditPost(data);
+  };
+
+  let form  = <p>Loading...</p>;
+  if (post) {
+      form = (
+          <form onSubmit={handleSubmit}>
+              <TextField
+                  id='title'
+                  label='Title'
+                  margin='normal'
+                  value={post.title}
+                  onChange={handleTitleChange}
+              />
+              <TextField
+                  id='body'
+                  label='Body'
+                  multiline
+                  rows='4'
+                  margin='normal'
+                  value={post.body}
+                  onChange={handleBodyChange}
+              />
+              <br />
+              <button type="submit"> Submit </button>
+          </form>
+      );
+  }
+  return (
+      <div>
+          {props.edited ? <Redirect to='/profile' /> : null}
+          {form}
+          <br />
+          <button onClick={() => props.history.goBack()}> Cancel </button>
+      </div>
+  );
+};
 
 const mapStateToProps = state => {
     return {

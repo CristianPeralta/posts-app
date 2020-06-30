@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as ACTIONS from '../../store/actions/actions';
@@ -29,38 +29,36 @@ RenderProfile.propTypes = {
     profile: PropTypes.object,
 };
 
-class User extends Component {
-    componentDidMount() {
-        const username = this.props.match.params.username;
-        this.props.onGetOtherUser(username);
-        this.props.onFetchOtherUserPosts(username);
-        window.scrollTo({ top: 0, left: 0});
-    }
-    render() {
-        return (
-            <div>
-                {   this.props.profile
-                    ? <RenderProfile profile={this.props.profile} />
-                    : null
-                }
+const User = props => {
+  useEffect(() => {
+    const username = props.match.params.username;
+    props.onGetOtherUser(username);
+    props.onFetchOtherUserPosts(username);
+    window.scrollTo({ top: 0, left: 0});
+  }, []);
+  return (
+    <div>
+        {   props.profile
+            ? <RenderProfile profile={props.profile} />
+            : null
+        }
+        <div>
+            <h2>Latest Activity: </h2>
                 <div>
-                    <h2>Latest Activity: </h2>
-                        <div>
-                            {this.props.userPosts
-                                ? this.props.userPosts.map(post =>
-                                    <div key={post.pid}>
-                                        <Post post={post} />
-                                        <br />
-                                    </div>
-                                    )
-                                : null
-                            }
-                        </div>
+                    {props.userPosts
+                        ? props.userPosts.map(post =>
+                            <div key={post.pid}>
+                                <Post post={post} />
+                                <br />
+                            </div>
+                            )
+                        : null
+                    }
                 </div>
-            </div>
-        );
-    }
-}
+        </div>
+    </div>
+  );
+};
 
 const mapStateToProps = state => {
     return {
@@ -68,7 +66,6 @@ const mapStateToProps = state => {
         userPosts: state.user.otherUserPosts
     };
 };
-
 
 const mapDispatchToProps = dispatch => {
     return {

@@ -12,7 +12,7 @@ const Message = props => {
                 <p> Message: {props.message.message_body}</p>
                 <small>{props.message.date_created}</small>
                 <br />
-                <Link to={{pathname: '/reply', state: { props: { message: props.message } }}}>
+                <Link to={{pathname: '/reply', search: `?to=${props.message.message_sender}&ko="asdsad"`, state: { props: { message: props.message } }}}>
                     <button >
                         Reply
                     </button>
